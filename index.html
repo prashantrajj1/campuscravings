@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CampusCravings</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- Splash Screen (Mobile Only) -->
+    <div id="splash-screen" class="splash-screen">
+        <div class="splash-top">
+            <div class="splash-logo">
+                <i class="fa-solid fa-utensils"></i> Campus<span>Cravings</span>
+            </div>
+        </div>
+        <div class="splash-bottom">
+            <h1 class="splash-title">Hungry?<br>Get It Fast</h1>
+            <p class="splash-subtitle">Fresh, fast, and tailored to your taste!</p>
+            <button class="splash-btn" onclick="hideSplash()">
+                <div class="icon-circle"><i class="fa-solid fa-cart-arrow-down"></i></div>
+                <span>Order Now</span>
+                <div class="arrows">
+                    <i class="fa-solid fa-chevron-right"></i>
+                    <i class="fa-solid fa-chevron-right" style="opacity: 0.6"></i>
+                    <i class="fa-solid fa-chevron-right" style="opacity: 0.3"></i>
+                </div>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main App Container -->
+    <div class="app-container">
+
+        <!-- Header -->
+        <header class="app-header">
+
+            <div class="logo-desktop">
+                <i class="fa-solid fa-utensils"></i> Campus<span>Cravings</span>
+            </div>
+
+            <button class="mobile-only-btn menu-btn" title="Menu"><i class="fa-solid fa-bars-staggered"></i></button>
+
+            <div class="location-selector">
+                <p class="label">Location</p>
+                <div class="current-location">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <span>Campus Hostels</span>
+                    <i class="fa-solid fa-chevron-down down-icon"></i>
+                </div>
+            </div>
+
+            <!-- Desktop Navigation Links -->
+            <nav class="desktop-nav">
+                <a href="index.html" class="active">Home</a>
+                <a href="menu.html">Explore</a>
+                <a href="cart.html">Cart</a>
+                <a href="login.html">Account</a>
+            </nav>
+
+            <button class="notification-btn" title="Notifications"><i class="fa-regular fa-bell"></i><span
+                    class="dot"></span></button>
+        </header>
+
+        <main class="app-main">
+
+            <!-- Hero Section (Prominent on Desktop, rich imagery) -->
+            <section class="hero-section">
+                <div class="hero-image-container">
+                    <!-- Ken Burns animated food image -->
+                    <div class="hero-bg"
+                        style="background-image: url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=1920&auto=format&fit=crop');">
+                    </div>
+                    <div class="hero-overlay"></div>
+                </div>
+                <div class="hero-content">
+                    <h1>Hungry? <span class="highlight">Get It Fast.</span></h1>
+                    <p>Fresh, fast, and tailored to your taste! Order from the best campus spots right now.</p>
+                    <div class="hero-buttons">
+                        <a href="menu.html" class="btn-primary"><i class="fa-solid fa-utensils"></i> Order Now</a>
+                        <a href="#popular" class="btn-secondary">View Popular</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Mobile Promo Banner -->
+            <div class="promo-banner">
+                <div class="promo-content">
+                    <p class="promo-code">Use code <strong>FIRST50</strong> at checkout</p>
+                    <p class="promo-urgent">Hurry, offer ends soon!</p>
+                    <h2 class="promo-title">Get 50% Off Your First Order!</h2>
+                </div>
+                <div class="promo-image">
+                    <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=200&auto=format&fit=crop"
+                        alt="Healthy Salads">
+                </div>
+            </div>
+
+            <!-- Categories -->
+            <div class="categories-section">
+                <div class="category-pills">
+                    <button class="pill active">All Type</button>
+                    <button class="pill">Burgers</button>
+                    <button class="pill">Pizza</button>
+                    <button class="pill">Healthy</button>
+                    <button class="pill">Drinks</button>
+                    <button class="pill">Desserts</button>
+                    <button class="pill">Snacks</button>
+                    <button class="pill">Combos</button>
+                </div>
+            </div>
+
+            <!-- Product Cards Area -->
+            <div class="section-header" id="popular">
+                <h3>Best Choice</h3>
+                <a href="menu.html" class="see-all">See all</a>
+            </div>
+
+            <div class="products-grid">
+
+                <!-- Product 1 -->
+                <div class="product-card">
+                    <div class="card-image-wrap">
+                        <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=400&auto=format&fit=crop"
+                            alt="Burger">
+                        <div class="card-badge">Best Seller</div>
+                    </div>
+                    <div class="card-info">
+                        <h4>Classic Cheese Burger</h4>
+                        <p class="card-desc">Juicy beef patty, melted cheddar, lettuce & tomato.</p>
+                        <div class="price-row">
+                            <span class="price">₹120</span>
+                            <div class="rating"><i class="fa-solid fa-star"></i> 4.9 (120+)</div>
+                        </div>
+                    </div>
+                    <button class="add-btn" onclick="addToCart('Cheese Burger', 120)"><i
+                            class="fa-solid fa-plus"></i></button>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="product-card">
+                    <div class="card-image-wrap">
+                        <img src="https://images.unsplash.com/photo-1604382355076-af4b0eb60143?q=80&w=400&auto=format&fit=crop"
+                            alt="Pizza">
+                    </div>
+                    <div class="card-info">
+                        <h4>Farmhouse Pizza</h4>
+                        <p class="card-desc">Fresh veggies, mozzarella, signature tomato base.</p>
+                        <div class="price-row">
+                            <span class="price">₹250</span>
+                            <div class="rating"><i class="fa-solid fa-star"></i> 4.8 (85)</div>
+                        </div>
+                    </div>
+                    <button class="add-btn" onclick="addToCart('Farmhouse Pizza', 250)"><i
+                            class="fa-solid fa-plus"></i></button>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="product-card">
+                    <div class="card-image-wrap">
+                        <img src="https://images.unsplash.com/photo-1589302168068-964664d93cb0?q=80&w=400&auto=format&fit=crop"
+                            alt="Biryani">
+                        <div class="card-badge" style="background:var(--neon-green);color:#000;">Spicy</div>
+                    </div>
+                    <div class="card-info">
+                        <h4>Hyderabadi Chicken Biryani</h4>
+                        <p class="card-desc">Aromatic basmati rice with marinated chicken.</p>
+                        <div class="price-row">
+                            <span class="price">₹180</span>
+                            <div class="rating"><i class="fa-solid fa-star"></i> 4.9 (200+)</div>
+                        </div>
+                    </div>
+                    <button class="add-btn" onclick="addToCart('Chicken Biryani', 180)"><i
+                            class="fa-solid fa-plus"></i></button>
+                </div>
+
+                <!-- Product 4 -->
+                <div class="product-card">
+                    <div class="card-image-wrap">
+                        <img src="https://images.unsplash.com/photo-1544025162-8315ea011c08?q=80&w=400&auto=format&fit=crop"
+                            alt="Sandwich">
+                    </div>
+                    <div class="card-info">
+                        <h4>Grilled Club Sandwich</h4>
+                        <p class="card-desc">Triple decker with chicken, egg, and fresh veggies.</p>
+                        <div class="price-row">
+                            <span class="price">₹100</span>
+                            <div class="rating"><i class="fa-solid fa-star"></i> 4.6 (45)</div>
+                        </div>
+                    </div>
+                    <button class="add-btn" onclick="addToCart('Club Sandwich', 100)"><i
+                            class="fa-solid fa-plus"></i></button>
+                </div>
+
+            </div>
+
+            <!-- Feature Card (Promotional / Nutrition) -->
+            <div class="feature-card">
+                <div class="feature-info">
+                    <h4>Pan Grilled Bratwurst</h4>
+                    <p>Protein-50g • Carbs-10g • Fats-15g</p>
+                    <a href="#" class="feature-link">View nutritional info <i class="fa-solid fa-chevron-right"></i></a>
+                </div>
+                <div class="feature-img">
+                    <img src="https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?q=80&w=200&auto=format&fit=crop"
+                        alt="Grilled Bratwurst">
+                </div>
+            </div>
+
+        </main>
+
+        <!-- Bottom Navigation (Mobile Only) -->
+        <nav class="bottom-nav">
+            <a href="index.html" class="nav-item active">
+                <div class="nav-icon-bg"><i class="fa-solid fa-house"></i></div>
+                <span>Home</span>
+            </a>
+            <a href="menu.html" class="nav-item">
+                <i class="fa-regular fa-compass"></i>
+                <span>Explore</span>
+            </a>
+            <a href="cart.html" class="nav-item">
+                <i class="fa-solid fa-basket-shopping"></i>
+                <span>Baskets</span>
+            </a>
+            <a href="login.html" class="nav-item">
+                <i class="fa-regular fa-user"></i>
+                <span>Account</span>
+            </a>
+        </nav>
+
+    </div>
+
+    <script>
+        function hideSplash() {
+            const splash = document.getElementById('splash-screen');
+            splash.style.opacity = '0';
+            setTimeout(() => {
+                splash.style.display = 'none';
+            }, 500);
+        }
+
+        // Hide splash immediately on desktop
+        if (window.innerWidth > 768) {
+            document.getElementById('splash-screen').style.display = 'none';
+        }
+    </script>
+    <script src="js/script.js"></script>
+</body>
+
+</html>

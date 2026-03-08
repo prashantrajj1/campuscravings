@@ -1,0 +1,107 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Background */
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #F8F9FA;
+    /* White Smoke */
+}
+
+/* Container */
+.login-container {
+    text-align: center;
+}
+
+/* Logo */
+.logo {
+    margin-bottom: 25px;
+    font-size: 32px;
+}
+
+.campus {
+    color: #006073;
+    /* Campus Teal */
+}
+
+.cravings {
+    color: #FF7300;
+    /* Cravings Orange */
+}
+
+/* Login Box */
+.login-box {
+    background: white;
+    padding: 35px;
+    width: 350px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Heading */
+.login-box h2 {
+    margin-bottom: 20px;
+    color: #2B2B2B;
+    /* Deep Charcoal */
+}
+
+/* Input Group */
+.input-group {
+    text-align: left;
+    margin-bottom: 15px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #2B2B2B;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Button */
+.login-btn {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    background: #FF7300;
+    /* Cravings Orange */
+    color: white;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.login-btn:hover {
+    background: #e86500;
+}
+
+/* Register text */
+.register {
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+.register a {
+    color: #006073;
+    /* Campus Teal */
+    text-decoration: none;
+}
+
+.register a:hover {
+    text-decoration: underline;
+}
