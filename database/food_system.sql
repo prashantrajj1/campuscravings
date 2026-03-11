@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS orders (
     order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Insert some sample food items
+
 INSERT INTO food_items (name, description, price, image_url) VALUES 
 ('Classic Burger', 'Juicy beef patty with fresh lettuce and tomatoes.', 150.00, 'images/burger.jpg'),
 ('Margherita Pizza', 'Wood-fired crust with fresh basil and mozzarella.', 350.00, 'images/pizza.jpg'),

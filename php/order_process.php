@@ -1,21 +1,21 @@
 <?php
-// PHP as server side programming language
+
 include 'connect.php';
 
-// Action and Methods, Get Vs. Post (Module IV)
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
-    // Retrieving data from $_POST variable
+    
     $customer_name = $_POST['customer_name'];
     $customer_email = $_POST['customer_email'];
     $food_details = $_POST['food_details'];
     $total_amount = $_POST['total_amount'];
     
-    // Insert statement into database
+    
     $sql = "INSERT INTO orders (customer_name, customer_email, food_details, total_amount)
             VALUES ('$customer_name', '$customer_email', '$food_details', '$total_amount')";
 
-    // Executing Query
+    
     if (mysqli_query($conn, $sql)) {
         ?>
         <!DOCTYPE html>
@@ -43,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Error placing order: " . mysqli_error($conn);
     }
     
-    // Closing the connection
+    
     mysqli_close($conn);
 }
 ?>

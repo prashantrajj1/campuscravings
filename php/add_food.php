@@ -3,13 +3,13 @@ include 'connect.php';
 
 $message = "";
 
-// Dynamic Pages and $_POST variable processing
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = $_POST["food_name"];
     $desc = $_POST["food_desc"];
     $price = $_POST["food_price"];
     
-    // Insert statement into database (Module IV)
+    
     $sql = "INSERT INTO food_items (name, description, price) VALUES ('$name', '$desc', '$price')";
     
     if (mysqli_query($conn, $sql)) {
@@ -33,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </a>
     </div>
     
-    <!-- Div styling and logical section -->
+    
     <div class="container" style="max-width: 600px;">
         <h2 style="color: #006073;">Add New Food Item</h2>
         
@@ -52,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             
             <div class="form-group">
                 <label>Price (₹)</label>
-                <!-- Input types -->
+                
                 <input type="number" step="0.01" name="food_price" required placeholder="e.g. 150.00">
             </div>
             

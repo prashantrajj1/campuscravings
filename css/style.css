@@ -24,7 +24,7 @@ body {
     overflow-x: hidden;
 }
 
-/* Splash Screen (Overlay) - Mobile Only */
+
 .splash-screen {
     position: fixed;
     top: 0;
@@ -137,7 +137,7 @@ body {
     font-size: 1.2rem;
 }
 
-/* Main App Container */
+
 .app-container {
     width: 100%;
     max-width: 1400px;
@@ -146,10 +146,10 @@ body {
     background: var(--bg-dark);
     position: relative;
     padding-bottom: 100px;
-    /* space for bottom nav on mobile */
+    
 }
 
-/* Header */
+
 .app-header {
     display: flex;
     justify-content: space-between;
@@ -249,7 +249,7 @@ body {
     color: var(--text-muted);
 }
 
-/* Desktop Navigation */
+
 .desktop-nav {
     display: none;
     align-items: center;
@@ -285,12 +285,12 @@ body {
     background: var(--neon-green);
 }
 
-/* App Main Content */
+
 .app-main {
     padding: 0 20px;
 }
 
-/* Hero Section (Video / Large Image Background) */
+
 .hero-section {
     position: relative;
     border-radius: 30px;
@@ -321,7 +321,7 @@ body {
     height: 100%;
     background-size: cover;
     background-position: center;
-    /* Ken Burns Animation */
+    
     animation: panZoom 25s infinite alternate ease-in-out;
 }
 
@@ -416,7 +416,7 @@ body {
     transform: translateY(-3px);
 }
 
-/* Mobile Promo Banner (Hidden on large screens by default, showing only hero) */
+
 .promo-banner {
     background: var(--neon-green);
     border-radius: 20px;
@@ -471,7 +471,7 @@ body {
     object-fit: cover;
 }
 
-/* Category Pills */
+
 .categories-section {
     margin-bottom: 25px;
     overflow-x: auto;
@@ -514,7 +514,7 @@ body {
     background: var(--card-lighter);
 }
 
-/* Section Header */
+
 .section-header {
     display: flex;
     justify-content: space-between;
@@ -539,8 +539,8 @@ body {
     color: var(--neon-green);
 }
 
-/* Products Layout */
-/* Default Mobile behavior is lateral scroll. Will override in media query */
+
+
 .products-grid {
     display: flex;
     gap: 15px;
@@ -686,7 +686,7 @@ body {
     box-shadow: 0 4px 15px rgba(124, 255, 28, 0.4);
 }
 
-/* Feature Card */
+
 .feature-card {
     background: var(--card-dark);
     border-radius: 20px;
@@ -750,7 +750,7 @@ body {
     object-fit: cover;
 }
 
-/* Bottom Navigation (Mobile Only) */
+
 .bottom-nav {
     position: fixed;
     bottom: 0;
@@ -805,7 +805,7 @@ body {
     margin-top: -24px;
     box-shadow: 0 4px 15px rgba(124, 255, 28, 0.4);
     border: 4px solid var(--bg-dark);
-    /* cut-out effect */
+    
 }
 
 .nav-item.active .nav-icon-bg i {
@@ -822,7 +822,7 @@ body {
     transform: translateY(-3px);
 }
 
-/* Responsive Overrides for Desktop / Tablets */
+
 @media (min-width: 768px) {
     .app-main {
         padding: 0 40px;
@@ -832,7 +832,7 @@ body {
         padding: 30px 40px;
     }
 
-    /* Change Layout Elements for Desktop */
+    
     .mobile-only-btn {
         display: none !important;
     }
@@ -851,7 +851,7 @@ body {
 
     .app-container {
         padding-bottom: 40px;
-        /* remove bottom nav padding */
+        
     }
 
     .hero-section {
@@ -867,7 +867,7 @@ body {
         font-size: 1.3rem;
     }
 
-    /* Transform Scroller into Grid */
+    
     .products-grid {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -879,10 +879,10 @@ body {
 
     .product-card {
         min-width: unset;
-        /* Remove linear flex constraint */
+        
     }
 
-    /* Improve Categories */
+    
     .categories-section {
         overflow-x: visible;
     }
@@ -891,7 +891,7 @@ body {
         flex-wrap: wrap;
     }
 
-    /* Feature Card Adjust */
+    
     .feature-card {
         padding: 30px;
     }
@@ -910,10 +910,10 @@ body {
     }
 }
 
-/* Large Screens */
+
 @media (min-width: 1024px) {
     .promo-banner {
-        /* On desktop, the hero banner is big enough, but lets keep promo as a secondary banner */
+        
         width: 100%;
         max-width: 600px;
         margin-left: auto;

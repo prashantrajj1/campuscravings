@@ -6,7 +6,7 @@ include 'connect.php';
 <head>
     <meta charset="UTF-8">
     <title>Admin - View Orders</title>
-    <!-- External CSS -->
+    
     <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
@@ -19,7 +19,7 @@ include 'connect.php';
     <div class="container">
         <h2 style="color: #006073; margin-bottom: 20px;">Customer Orders Dashboard</h2>
         
-        <!-- Table Styling: Border Collapse, Coloring Cells (Module III) -->
+        
         <table class="styled-table">
             <thead>
                 <tr>
@@ -33,11 +33,11 @@ include 'connect.php';
             </thead>
             <tbody>
                 <?php
-                // PHP querying database
+                
                 $sql = "SELECT * FROM orders ORDER BY order_date DESC";
                 $result = mysqli_query($conn, $sql);
                 
-                // Iterating through the results (Module IV)
+                
                 if (mysqli_num_rows($result) > 0) {
                     while($row = mysqli_fetch_assoc($result)) {
                         echo "<tr>";
@@ -68,6 +68,6 @@ include 'connect.php';
 </body>
 </html>
 <?php 
-// Closing connection
+
 mysqli_close($conn); 
 ?>
