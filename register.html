@@ -18,7 +18,7 @@
     <div class="login-box">
         <div class="form">
             <h2 id="errlogs"></h2>
-            <form action="php/login.php" method="POST">
+            <form id="registerForm">
 
                 <label for="email">Email: </label>
                 <input type="email" id="email" name="email" placeholder="your college mail">
@@ -74,13 +74,46 @@
         passwordInput.addEventListener('input', validate);
         confirmInput.addEventListener('input', validate);
 
-        form.addEventListener('submit', (e) => {
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
             if (!validate() || !emailRegex.test(emailInput.value)) {
-                e.preventDefault();
                 if (!emailRegex.test(emailInput.value)) {
                     errLogs.textContent = "Please use your @stu.xim.edu.in email";
                     errLogs.style.color = "red";
                 }
+                return;
+            }
+
+            const email = emailInput.value;
+            const course = document.getElementById('course').value;
+            const rollno = document.getElementById('rollno').value;
+            const password = passwordInput.value;
+
+            try {
+                const response = await fetch('php/register.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: `email=${encodeURIComponent(email)}&course=${encodeURIComponent(course)}&rollno=${encodeURIComponent(rollno)}&password=${encodeURIComponent(password)}`
+                });
+
+                const data = await response.json();
+
+                if (data.status === 'success') {
+                    errLogs.textContent = "Registration successful! Redirecting to login...";
+                    errLogs.style.color = "green";
+                    setTimeout(() => {
+                        window.location.href = 'login.html';
+                    }, 2000);
+                } else {
+                    errLogs.textContent = data.message;
+                    errLogs.style.color = "red";
+                }
+            } catch (err) {
+                errLogs.textContent = "An error occurred. Please try again later.";
+                errLogs.style.color = "red";
             }
         });
     </script>

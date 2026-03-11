@@ -18,7 +18,7 @@
     <div class="login-box">
         <div class="form">
             <h2 id="errlogs"></h2>
-            <form action="php/login.php" method="POST">
+            <form id="loginForm">
 
                 <label for="email">Email: </label>
                 <input type="email" id="email" name="email" placeholder="your college mail">
@@ -53,11 +53,37 @@
             }
         });
 
-        form.addEventListener('submit', (e) => {
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
             const email = emailInput.value;
+            const password = document.getElementById('password').value;
+
             if (!emailRegex.test(email)) {
-                e.preventDefault();
                 errLogs.textContent = "Please use your @stu.xim.edu.in email";
+                errLogs.style.color = "red";
+                return;
+            }
+
+            try {
+                const response = await fetch('php/login.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: `email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`
+                });
+
+                const data = await response.json();
+
+                if (data.status === 'success') {
+                    // Redirect on success
+                    window.location.href = data.redirect;
+                } else {
+                    errLogs.textContent = data.message;
+                    errLogs.style.color = "red";
+                }
+            } catch (err) {
+                errLogs.textContent = "An error occurred during login. Please try again.";
                 errLogs.style.color = "red";
             }
         });

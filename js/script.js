@@ -24,3 +24,21 @@ function loadCart() {
 if (document.getElementById("cart-items")) {
     loadCart();
 }
+
+// Authentication check for protected routes
+function getCookie(name) {
+    let match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+    if (match) {
+        return match[2];
+    }
+    return null;
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    const isProtectedPage = window.location.pathname.includes('home.html') || window.location.pathname.includes('cart.html');
+    const authCookie = getCookie('user_auth');
+
+    if (isProtectedPage && !authCookie) {
+        window.location.href = 'index.html';
+    }
+});
