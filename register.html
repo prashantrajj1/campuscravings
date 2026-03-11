@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - CampusCravings</title>
+    <!-- Local CSS only -->
+    <link rel="stylesheet" href="css/login.css">
+</head>
+
+<body>
+
+    <div class="logo">
+        <i class="fa-solid fa-utensils"></i> Campus<span>Cravings</span>
+    </div>
+
+    <div class="login-box">
+        <div class="form">
+            <h2 id="errlogs"></h2>
+            <form action="php/login.php" method="POST">
+
+                <label for="email">Email: </label>
+                <input type="email" id="email" name="email" placeholder="your college mail">
+                <label for="course"> Course </label>
+                <input type="text" id="course" name="course" placeholder="course">
+                <label for="rollno">University Roll No.</label>
+                <input type="text" id="rollno" name="rollno" placeholder="rollno">
+                <label for="password">Password: </label>
+                <input type="password" id="password" name="password" placeholder="password">
+                <label for="confirm-password">Confirm Password: </label>
+                <input type="password" id="confirm-password" name="confirm-password" placeholder="password">
+
+                <button type="submit" class="btn">Register</button><br><br>
+                <p>Already have an account? <a href="login.html">Login</a></p>
+
+            </form>
+
+        </div>
+    </div>
+
+    <script>
+        //the email should be of student from XIM 
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@stu\.xim\.edu\.in$/;
+        const form = document.querySelector('form');
+        const errLogs = document.getElementById('errlogs');
+
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const confirmInput = document.getElementById('confirm-password');
+
+        const validate = () => {
+            const email = emailInput.value;
+            const password = passwordInput.value;
+            const confirmPassword = confirmInput.value;
+
+            if (email !== "" && !emailRegex.test(email)) {
+                errLogs.textContent = "Please use your @stu.xim.edu.in email";
+                errLogs.style.color = "red";
+                errLogs.style.fontSize = "14px";
+                return false;
+            } else if (confirmPassword !== "" && password !== confirmPassword) {
+                errLogs.textContent = "Passwords do not match";
+                errLogs.style.color = "red";
+                errLogs.style.fontSize = "14px";
+                return false;
+            } else {
+                errLogs.textContent = "";
+                return true;
+            }
+        };
+
+        emailInput.addEventListener('input', validate);
+        passwordInput.addEventListener('input', validate);
+        confirmInput.addEventListener('input', validate);
+
+        form.addEventListener('submit', (e) => {
+            if (!validate() || !emailRegex.test(emailInput.value)) {
+                e.preventDefault();
+                if (!emailRegex.test(emailInput.value)) {
+                    errLogs.textContent = "Please use your @stu.xim.edu.in email";
+                    errLogs.style.color = "red";
+                }
+            }
+        });
+    </script>
+
+</body>
+
+</html>

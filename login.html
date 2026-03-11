@@ -2,27 +2,66 @@
 <html>
 
 <head>
-    <title>Login</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - CampusCravings</title>
+    <!-- Local CSS only -->
     <link rel="stylesheet" href="css/login.css">
 </head>
 
 <body>
 
-    <div class="login-box">
-
-        <h2>Login</h2>
-
-        <form action="php/login.php" method="POST">
-
-            <input type="email" name="email" placeholder="Email">
-
-            <input type="password" name="password" placeholder="Password">
-
-            <button type="submit">Login</button>
-
-        </form>
-
+    <div class="logo">
+        <i class="fa-solid fa-utensils"></i> Campus<span>Cravings</span>
     </div>
+
+    <div class="login-box">
+        <div class="form">
+            <h2 id="errlogs"></h2>
+            <form action="php/login.php" method="POST">
+
+                <label for="email">Email: </label>
+                <input type="email" id="email" name="email" placeholder="your college mail">
+                <label for="password">Password: </label>
+                <input type="password" id="password" name="password" placeholder="password">
+                <button type="submit" class="btn">Login</button><br><br>
+                <p>Don't have an account? <a href="register.html">Register</a></p>
+
+            </form>
+
+        </div>
+    </div>
+
+    <script>
+        //the email should be of student from XIM 
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@stu\.xim\.edu\.in$/;
+        const form = document.querySelector('form');
+        const errLogs = document.getElementById('errlogs');
+
+        const emailInput = document.getElementById('email');
+
+        emailInput.addEventListener('input', () => {
+            const email = emailInput.value;
+            if (email === "") {
+                errLogs.textContent = "";
+            } else if (!emailRegex.test(email)) {
+                errLogs.textContent = "Please use your @stu.xim.edu.in email";
+                errLogs.style.color = "red";
+                errLogs.style.fontSize = "14px";
+            } else {
+                errLogs.textContent = ""; // Clear error when valid
+            }
+        });
+
+        form.addEventListener('submit', (e) => {
+            const email = emailInput.value;
+            if (!emailRegex.test(email)) {
+                e.preventDefault();
+                errLogs.textContent = "Please use your @stu.xim.edu.in email";
+                errLogs.style.color = "red";
+            }
+        });
+    </script>
 
 </body>
 
