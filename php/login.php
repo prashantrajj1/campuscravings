@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $cookie_value = base64_encode(json_encode(['id' => $user['id'], 'email' => $user['email']]));
             setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/"); // 86400 = 1 day
             
-            echo json_encode(['status' => 'success', 'message' => 'Login successful', 'redirect' => 'home.html']);
+            echo json_encode(['status' => 'success', 'message' => 'Login successful', 'redirect' => 'index.php']);
         } else {
             echo json_encode(['status' => 'error', 'message' => 'Invalid email or password']);
         }
