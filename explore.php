@@ -16,7 +16,7 @@ $restaurants = $res_stmt = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <!-- Local CSS only -->
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body style="background: #0d0d0d;">
+<body style="background: var(--bg-main);">
 
     <div class="app-container">
         <header class="app-header">
@@ -26,7 +26,7 @@ $restaurants = $res_stmt = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <nav class="desktop-nav">
                 <a href="index.php">Home</a>
                 <a href="explore.php" class="active">Explore</a>
-                <a href="cart.html">Cart</a>
+                <a href="checkout.php">Cart</a>
                 <a href="profile.php">Account</a>
             </nav>
             <button class="notification-btn"><i class="fa-regular fa-bell"></i></button>
@@ -34,32 +34,46 @@ $restaurants = $res_stmt = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         <main class="app-main">
             <div class="section-header" style="padding-top: 20px;">
-                <h3>All Restaurants</h3>
+                <h3 style="font-size: 1.6rem; font-weight: 800;">Explore Restaurants</h3>
             </div>
 
-            <div class="products-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));">
+            <div class="products-grid">
                 <?php foreach ($restaurants as $res): ?>
-                <div class="product-card" style="min-width: unset;">
-                    <div class="card-image-wrap">
+                <div class="product-card">
+                    <div class="card-image-wrap" style="height: 180px;">
                         <img src="<?php echo $res['image_url']; ?>" alt="<?php echo $res['name']; ?>">
-                        <div class="card-badge" style="background: var(--neon-green); color: black;"><?php echo $res['rating']; ?> <i class="fa-solid fa-star"></i></div>
+                        <div class="card-badge" style="background: var(--swiggy-green); color: #fff; font-weight: 700;"><?php echo $res['rating']; ?> ★</div>
                     </div>
                     <div class="card-info">
-                        <h4><?php echo htmlspecialchars($res['name']); ?></h4>
-                        <p class="card-desc"><?php echo htmlspecialchars($res['description']); ?></p>
-                        <p style="color: var(--neon-green); font-weight: 500;"><?php echo $res['cuisine_type']; ?></p>
+                        <h4 style="font-size: 1.3rem; margin-bottom: 5px;"><?php echo htmlspecialchars($res['name']); ?></h4>
+                        <p style="color: #686b78; font-size: 0.9rem; margin-bottom: 15px;"><?php echo $res['cuisine_type']; ?></p>
+                        <div class="price-row">
+                            <span style="font-size: 0.85rem; color: #93959f;">Flat 50% OFF | Use WELCOME50</span>
+                        </div>
                     </div>
-                    <a href="restaurant_details.php?id=<?php echo $res['id']; ?>" class="add-btn" style="text-decoration: none;"><i class="fa-solid fa-chevron-right"></i></a>
+                    <a href="restaurant_details.php?id=<?php echo $res['id']; ?>" class="add-btn" style="text-decoration: none; color: var(--swiggy-green);"><i class="fa-solid fa-chevron-right"></i></a>
                 </div>
                 <?php endforeach; ?>
             </div>
         </main>
 
         <nav class="bottom-nav">
-            <a href="index.php" class="nav-item"><i class="fa-solid fa-house"></i><span>Home</span></a>
-            <a href="explore.php" class="nav-item active"><div class="nav-icon-bg"><i class="fa-regular fa-compass"></i></div><span>Explore</span></a>
-            <a href="cart.html" class="nav-item"><i class="fa-solid fa-basket-shopping"></i><span>Baskets</span></a>
-            <a href="profile.php" class="nav-item"><i class="fa-regular fa-user"></i><span>Account</span></a>
+            <a href="index.php" class="nav-item">
+                <i class="fa-solid fa-house"></i>
+                <span>Home</span>
+            </a>
+            <a href="explore.php" class="nav-item active">
+                <div class="nav-icon-bg"><i class="fa-regular fa-compass"></i></div>
+                <span>Explore</span>
+            </a>
+            <a href="cart.html" class="nav-item">
+                <i class="fa-solid fa-basket-shopping"></i>
+                <span>Cart</span>
+            </a>
+            <a href="profile.php" class="nav-item">
+                <i class="fa-regular fa-user"></i>
+                <span>Account</span>
+            </a>
         </nav>
     </div>
 

@@ -41,35 +41,39 @@ $menu_items = $menu_stmt->fetchAll(PDO::FETCH_ASSOC);
     <!-- Local CSS only -->
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body style="background: #0d0d0d;">
+<body style="background: var(--bg-main);">
 
     <div class="app-container">
         <header class="app-header">
-            <a href="index.php" style="color: white; text-decoration: none; font-size: 1.2rem;"><i class="fa-solid fa-arrow-left"></i> Back</a>
-            <div class="logo-desktop"><?php echo $restaurant['name']; ?></div>
+            <a href="index.php" style="color: var(--text-main); text-decoration: none; font-weight: 700;"><i class="fa-solid fa-arrow-left"></i> Home</a>
+            <div class="logo-desktop">Campus<span>Cravings</span></div>
             <button class="notification-btn"><i class="fa-solid fa-share-nodes"></i></button>
         </header>
 
         <main class="app-main">
-            <div class="hero-section" style="min-height: 200px; padding: 0;">
+            <div class="hero-section" style="min-height: 250px; padding: 0; box-shadow: var(--card-shadow); border: 1px solid var(--border-light); background: #fff;">
                 <div class="hero-image-container">
                     <div class="hero-bg" style="background-image: url('<?php echo $restaurant['image_url']; ?>');"></div>
-                    <div class="hero-overlay" style="background: linear-gradient(to top, rgba(13,13,13,1), transparent);"></div>
+                    <div class="hero-overlay" style="background: linear-gradient(to top, rgba(255,255,255,0.9), transparent);"></div>
                 </div>
-                <div class="hero-content" style="text-align: left; padding: 20px; width: 100%;">
-                    <h1 style="margin-bottom: 5px;"><?php echo htmlspecialchars($restaurant['name']); ?></h1>
-                    <p style="margin-bottom: 10px; color: var(--neon-green); font-weight: 600;"><?php echo $restaurant['cuisine_type']; ?> • <i class="fa-solid fa-star"></i> <?php echo $restaurant['rating']; ?></p>
-                    <p><?php echo htmlspecialchars($restaurant['description']); ?></p>
+                <div class="hero-content" style="text-align: left; padding: 30px; width: 100%; color: var(--text-main);">
+                    <h1 style="margin-bottom: 8px; font-size: 2.2rem; text-shadow: none;"><?php echo htmlspecialchars($restaurant['name']); ?></h1>
+                    <p style="margin-bottom: 5px; color: var(--swiggy-orange); font-weight: 800; font-size: 1.1rem; text-shadow: none;">
+                        <i class="fa-solid fa-star"></i> <?php echo $restaurant['rating']; ?> • <?php echo $restaurant['cuisine_type']; ?>
+                    </p>
+                    <p style="color: var(--text-muted); text-shadow: none;"><?php echo htmlspecialchars($restaurant['description']); ?></p>
                 </div>
             </div>
 
-            <div class="section-header">
-                <h3>Menu</h3>
+            <div class="section-header" style="margin-top: 40px; border-bottom: 1px solid var(--border-light); padding-bottom: 15px;">
+                <h3 style="font-size: 1.6rem; font-weight: 800;">Recommended Dishes</h3>
             </div>
 
-            <div class="products-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));">
+            <div class="products-grid">
                 <?php if (empty($menu_items)): ?>
-                    <p style="color: #888;">No menu items found for this restaurant.</p>
+                    <div style="text-align: center; color: var(--text-muted); grid-column: 1/-1; padding: 50px;">
+                        <p>No menu items found for this restaurant.</p>
+                    </div>
                 <?php else: ?>
                     <?php 
                     $current_cat = "";
@@ -77,26 +81,31 @@ $menu_items = $menu_stmt->fetchAll(PDO::FETCH_ASSOC);
                         if ($current_cat != $item['category_name']):
                             $current_cat = $item['category_name'];
                     ?>
-                        <div style="grid-column: 1 / -1; margin: 20px 0 10px; border-bottom: 2px solid var(--neon-green); padding-bottom: 5px;">
-                            <h2 style="color: var(--neon-green); font-size: 1.4rem;"><?php echo $current_cat; ?></h2>
+                        <div style="grid-column: 1 / -1; margin: 30px 0 15px;">
+                            <h2 style="color: var(--text-main); font-size: 1.4rem; font-weight: 800; position: relative; display: inline-block;">
+                                <?php echo $current_cat; ?>
+                                <span style="position: absolute; bottom: -5px; left: 0; width: 50%; height: 3px; background: var(--swiggy-orange);"></span>
+                            </h2>
                         </div>
                     <?php endif; ?>
                     <div class="product-card">
-                        <div class="card-image-wrap" style="height: 120px; background: #222; display: flex; align-items: center; justify-content: center;">
+                        <div class="card-image-wrap" style="height: 160px; background: var(--bg-light);">
                             <?php if ($item['image_url']): ?>
                                 <img src="<?php echo $item['image_url']; ?>" alt="<?php echo $item['item_name']; ?>">
                             <?php else: ?>
-                                <i class="fa-solid fa-utensils" style="font-size: 3rem; color: #444;"></i>
+                                <i class="fa-solid fa-pizza-slice" style="font-size: 3rem; color: var(--text-muted); opacity: 0.1;"></i>
                             <?php endif; ?>
+                            <div class="card-badge" style="background: #fff; color: var(--text-main);">NEW</div>
                         </div>
                         <div class="card-info">
                             <h4><?php echo htmlspecialchars($item['item_name']); ?></h4>
-                            <p class="card-desc"><?php echo htmlspecialchars($item['description'] ?? 'Delicious campus meal.'); ?></p>
-                            <div class="price-row">
+                            <div class="rating" style="background: var(--swiggy-green);"><i class="fa-solid fa-star"></i> 4.2</div>
+                            <p class="card-desc" style="margin-top: 8px;"><?php echo htmlspecialchars($item['description'] ?? 'A favorite among students for its authentic taste.'); ?></p>
+                            <div class="price-row" style="margin-top: 15px;">
                                 <span class="price">₹<?php echo number_format($item['price'], 0); ?></span>
                             </div>
                         </div>
-                        <button class="add-btn" onclick="addToCart('<?php echo addslashes($item['item_name']); ?>', <?php echo $item['price']; ?>)"><i class="fa-solid fa-plus"></i></button>
+                        <button class="add-btn" onclick="addToCart('<?php echo addslashes($item['item_name']); ?>', <?php echo $item['price']; ?>)" style="color: var(--swiggy-green);">+</button>
                     </div>
                     <?php endforeach; ?>
                 <?php endif; ?>
@@ -104,9 +113,22 @@ $menu_items = $menu_stmt->fetchAll(PDO::FETCH_ASSOC);
         </main>
 
         <nav class="bottom-nav">
-            <a href="index.php" class="nav-item"><i class="fa-solid fa-house"></i><span>Home</span></a>
-            <a href="cart.html" class="nav-item"><i class="fa-solid fa-basket-shopping"></i><span>Baskets</span></a>
-            <a href="profile.php" class="nav-item"><i class="fa-regular fa-user"></i><span>Account</span></a>
+            <a href="index.php" class="nav-item">
+                <i class="fa-solid fa-house"></i>
+                <span>Home</span>
+            </a>
+            <a href="explore.php" class="nav-item">
+                <i class="fa-regular fa-compass"></i>
+                <span>Explore</span>
+            </a>
+            <a href="cart.html" class="nav-item">
+                <i class="fa-solid fa-basket-shopping"></i>
+                <span>Cart</span>
+            </a>
+            <a href="profile.php" class="nav-item">
+                <i class="fa-regular fa-user"></i>
+                <span>Account</span>
+            </a>
         </nav>
     </div>
 

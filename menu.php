@@ -1,8 +1,8 @@
 <?php
 require_once 'php/db_connect.php';
 
-// Specifically fetching 'Green Salad' (ID 1) as requested
-$res_id = 1; 
+// Specifically fetching restaurant based on URL ID
+$res_id = isset($_GET['id']) ? (int)$_GET['id'] : 1; 
 
 // Fetch restaurant details
 $stmt = $conn->prepare("SELECT * FROM restaurants WHERE id = :id");
@@ -11,7 +11,7 @@ $stmt->execute();
 $restaurant = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if (!$restaurant) {
-    die("Restaurant 'Green Salad' not found in database. Please import the SQL file first.");
+    die("Restaurant not found in database.");
 }
 
 // Fetch menu items with category names
@@ -45,65 +45,72 @@ $menu_items = $menu_stmt->fetchAll(PDO::FETCH_ASSOC);
         .search-bar {
             width: 100%;
             padding: 15px 25px;
-            border-radius: 50px;
-            border: 2px solid var(--neon-green);
-            background: rgba(30, 30, 30, 0.9);
-            color: white;
+            border-radius: 12px;
+            border: 1px solid var(--border-light);
+            background: #fff;
+            color: var(--text-main);
             font-size: 1rem;
-            backdrop-filter: blur(10px);
             outline: none;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
         }
-        .search-bar::placeholder { color: #888; }
+        .search-bar::placeholder { color: #93959f; }
         
         .category-header {
-            margin: 30px 0 15px;
+            margin: 40px 0 20px;
             padding-bottom: 10px;
-            border-bottom: 2px solid var(--neon-green);
+            border-bottom: 2px solid var(--text-main);
             grid-column: 1 / -1;
         }
         
         .category-header h2 {
-            color: var(--neon-green);
-            font-size: 1.5rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            color: var(--text-main);
+            font-size: 1.4rem;
+            font-weight: 800;
         }
 
         .hidden { display: none !important; }
         
-        /* Premium Floating Cart indicator style */
         .cart-count {
             position: fixed;
-            bottom: 100px;
+            bottom: 90px;
+            left: 20px;
             right: 20px;
-            background: #ff7300;
+            background: var(--swiggy-orange);
             color: white;
-            padding: 10px 20px;
-            border-radius: 50px;
-            box-shadow: 0 5px 15px rgba(255,115,0,0.4);
-            font-weight: 700;
+            padding: 15px 25px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(252, 128, 25, 0.4);
+            font-weight: 800;
             z-index: 999;
             cursor: pointer;
-            display: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            animation: slideUp 0.3s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
     </style>
 </head>
-<body style="background: #0d0d0d;">
+<body style="background: var(--bg-main);">
 
     <div class="app-container">
         <header class="app-header">
-            <a href="index.php" style="color: white; text-decoration: none;"><i class="fa-solid fa-arrow-left"></i> Back</a>
-            <div class="logo-desktop">Menu: <span><?php echo $restaurant['name']; ?></span></div>
-            <a href="cart.html" style="color: white; font-size: 1.5rem;"><i class="fa-solid fa-basket-shopping"></i></a>
+            <a href="index.php" style="color: var(--text-main); text-decoration: none; font-weight: 700;"><i class="fa-solid fa-arrow-left"></i> <?php echo $restaurant['name']; ?></a>
+            <div class="logo-desktop">Campus<span>Cravings</span></div>
+            <a href="cart.html" style="color: var(--text-main); font-size: 1.5rem;"><i class="fa-solid fa-basket-shopping"></i></a>
         </header>
 
         <main class="app-main">
             <!-- Search Bar -->
             <div class="search-container">
-                <input type="text" id="searchInput" class="search-bar" placeholder="Search for dishes (e.g. Biryani, Noodles)..." onkeyup="searchMenu()">
+                <input type="text" id="searchInput" class="search-bar" placeholder="Search in <?php echo $restaurant['name']; ?>..." onkeyup="searchMenu()">
             </div>
 
-            <div id="menuContainer" class="products-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));">
+            <div id="menuContainer" class="products-grid">
                 <?php 
                 $current_cat = "";
                 foreach ($menu_items as $item): 
@@ -116,44 +123,57 @@ $menu_items = $menu_stmt->fetchAll(PDO::FETCH_ASSOC);
                 <?php endif; ?>
 
                 <div class="product-card" data-name="<?php echo strtolower($item['item_name']); ?>">
-                    <div class="card-image-wrap" style="height: 120px; background: #222; display: flex; align-items: center; justify-content: center;">
+                    <div class="card-image-wrap" style="height: 160px; background: var(--bg-light);">
                         <?php if ($item['image_url']): ?>
                             <img src="<?php echo $item['image_url']; ?>" alt="<?php echo $item['item_name']; ?>">
                         <?php else: ?>
-                            <i class="fa-solid fa-utensils" style="font-size: 3rem; color: #444;"></i>
+                            <i class="fa-solid fa-utensils" style="font-size: 3rem; color: var(--text-muted); opacity: 0.2;"></i>
                         <?php endif; ?>
-                        <div class="card-badge"><?php echo $item['category_name']; ?></div>
+                        <div class="card-badge" style="background: #fff; color: var(--text-main);">MENU</div>
                     </div>
                     <div class="card-info">
                         <h4><?php echo htmlspecialchars($item['item_name']); ?></h4>
-                        <p class="card-desc">Delicious <?php echo strtolower($item['item_name']); ?> from our chefs.</p>
-                        <div class="price-row">
+                        <div class="rating"><i class="fa-solid fa-star"></i> 4.5</div>
+                        <p style="font-size: 0.8rem; color: #888; margin-top: 5px;">Delicious <?php echo strtolower($item['item_name']); ?> prepared fresh.</p>
+                        <div class="price-row" style="margin-top: 15px;">
                             <span class="price">₹<?php echo number_format($item['price'], 0); ?></span>
                         </div>
                     </div>
-                    <button class="add-btn" onclick="addToCart('<?php echo addslashes($item['item_name']); ?>', <?php echo $item['price']; ?>)">
-                        <i class="fa-solid fa-plus"></i>
-                    </button>
+                    <button class="add-btn" onclick="addToCart('<?php echo addslashes($item['item_name']); ?>', <?php echo $item['price']; ?>)">+</button>
                 </div>
                 <?php endforeach; ?>
             </div>
             
-            <div id="noResults" class="hidden" style="text-align: center; color: #888; padding: 50px;">
-                <i class="fa-solid fa-magnifying-glass" style="font-size: 3rem; margin-bottom: 10px;"></i>
-                <p>No matches found. Try searching for something else!</p>
+            <div id="noResults" class="hidden" style="text-align: center; color: var(--text-muted); padding: 80px 20px;">
+                <i class="fa-solid fa-cloud-meatball" style="font-size: 4rem; margin-bottom: 20px; opacity: 0.2;"></i>
+                <h3 style="color: var(--text-main); margin-bottom: 10px;">Dish not found</h3>
+                <p>We couldn't find any items matching your search. Try something else!</p>
             </div>
         </main>
 
         <!-- Dynamic Cart Counter -->
-        <div id="floatingCart" class="cart-count" onclick="window.location.href='cart.html'">
-            <i class="fa-solid fa-cart-shopping"></i> <span id="cartNumber">0</span> Items in Cart
+        <div id="floatingCart" class="cart-count" onclick="window.location.href='cart.html'" style="display: none;">
+            <span><i class="fa-solid fa-cart-shopping"></i> <span id="cartNumber">0</span> ITEMS</span>
+            <span>VIEW CART <i class="fa-solid fa-chevron-right"></i></span>
         </div>
 
         <nav class="bottom-nav">
-            <a href="index.php" class="nav-item"><i class="fa-solid fa-house"></i><span>Home</span></a>
-            <a href="explore.php" class="nav-item active"><div class="nav-icon-bg"><i class="fa-regular fa-compass"></i></div><span>Explore</span></a>
-            <a href="cart.html" class="nav-item"><i class="fa-solid fa-basket-shopping"></i><span>Cart</span></a>
-            <a href="profile.php" class="nav-item"><i class="fa-regular fa-user"></i><span>Profile</span></a>
+            <a href="index.php" class="nav-item">
+                <i class="fa-solid fa-house"></i>
+                <span>Home</span>
+            </a>
+            <a href="explore.php" class="nav-item">
+                <i class="fa-regular fa-compass"></i>
+                <span>Explore</span>
+            </a>
+            <a href="cart.html" class="nav-item">
+                <i class="fa-solid fa-basket-shopping"></i>
+                <span>Cart</span>
+            </a>
+            <a href="profile.php" class="nav-item">
+                <i class="fa-regular fa-user"></i>
+                <span>Account</span>
+            </a>
         </nav>
     </div>
 
