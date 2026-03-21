@@ -41,34 +41,34 @@ a {
     margin: 0 auto;
 }
 
-.hero-box {
-    background-color: #282c3f;
-    color: #ffffff;
-    padding: 40px;
-    border-radius: 20px;
+.restaurant-hero {
+    background-color: #ffffff;
+    border: 1px solid #e9ecee;
+    border-radius: 12px;
     margin-top: 20px;
-    margin-bottom: 20px;
-    background-image: url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=1920&auto=format&fit=crop');
-    background-size: cover;
-    background-position: center;
+    margin-bottom: 30px;
+    padding: 20px;
 }
 
 .hero-overlay {
     background-color: #ffffff;
     padding: 20px;
     border-radius: 10px;
-    width: 400px;
+    width: 60%;
 }
 
 .hero-title {
     font-size: 32px;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
     margin-top: 0;
     color: #282c3f;
 }
 
-.hero-title span {
+.hero-subtitle {
     color: #fc8019;
+    font-weight: bold;
+    font-size: 18px;
+    margin-top: 0;
 }
 
 .hero-desc {
@@ -76,45 +76,27 @@ a {
     color: #686b78;
 }
 
-.btn-primary {
-    background-color: #fc8019;
-    color: #ffffff;
-    padding: 10px 20px;
-    border-radius: 25px;
-    font-weight: bold;
-    display: inline-block;
-    margin-top: 10px;
-}
-
 .section-title {
     font-size: 24px;
     font-weight: bold;
-    margin-top: 30px;
-    margin-bottom: 15px;
-}
-
-.see-all {
-    float: right;
-    color: #fc8019;
-    font-weight: bold;
-    margin-top: 5px;
-}
-
-.category-table {
     margin-bottom: 20px;
+    border-bottom: 1px solid #e9ecee;
+    padding-bottom: 10px;
 }
 
-.category-table table {
-    border-collapse: collapse;
-    border-color: #e9ecee;
-    background-color: #ffffff;
+.category-header h2 {
+    color: #282c3f;
+    font-size: 20px;
+    display: inline-block;
+    padding-bottom: 5px;
 }
 
-.category-table caption {
-    text-align: left;
-    font-weight: bold;
-    margin-bottom: 5px;
-    color: #686b78;
+.category-line {
+    background-color: #fc8019;
+    height: 3px;
+    width: 50%;
+    margin-top: -15px;
+    margin-bottom: 20px;
 }
 
 .product-cell {
@@ -165,4 +147,5 @@ a {
     padding: 5px 15px;
     border-radius: 4px;
     margin-top: 10px;
+    cursor: pointer;
 }

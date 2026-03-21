@@ -30,9 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - CampusCravings</title>
-    <!-- Local CSS only -->
     <link rel="stylesheet" href="css/login.css">
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -67,28 +65,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
     <div class="logo">
-        <i class="fa-solid fa-utensils"></i> Campus<span>Cravings</span>
+        Campus<span>Cravings</span>
     </div>
 
     <div class="login-box">
-        <div class="form">
-            <?php if (!empty($error)): ?>
-                <h2 id="errlogs" style="color:red; font-size:14px;"><?php echo $error; ?></h2>
-            <?php else: ?>
-                <h2 id="errlogs"></h2>
-            <?php endif; ?>
+        <?php if (!empty($error)): ?>
+            <h2 id="errlogs" style="color:red; font-size:14px;"><?php echo $error; ?></h2>
+        <?php else: ?>
+            <h2 id="errlogs"></h2>
+        <?php endif; ?>
+        
+        <form action="login.php" method="POST">
+            <label for="email" class="form-label">Email: </label>
+            <input type="email" id="email" name="email" class="form-input" placeholder="your college mail" required>
             
-            <form action="login.php" method="POST">
-                <label for="email">Email: </label>
-                <input type="email" id="email" name="email" placeholder="your college mail" required>
-                
-                <label for="password">Password: </label>
-                <input type="password" id="password" name="password" placeholder="password" required>
-                
-                <button type="submit" class="btn">Login</button><br><br>
+            <label for="password" class="form-label">Password: </label>
+            <input type="password" id="password" name="password" class="form-input" placeholder="password" required>
+            
+            <button type="submit" class="btn">Login</button>
+            <div class="register-link">
                 <p>Don't have an account? <a href="register.php">Register</a></p>
-            </form>
-        </div>
+            </div>
+        </form>
     </div>
 </body>
 </html>

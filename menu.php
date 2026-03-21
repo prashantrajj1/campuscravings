@@ -6,10 +6,8 @@ if (!isset($_SESSION['user_id'])) {
 }
 require_once 'php/db_connect.php';
 
-// Specifically fetching restaurant based on URL ID
 $res_id = isset($_GET['id']) ? (int)mysqli_real_escape_string($conn, $_GET['id']) : 1; 
 
-// Fetch restaurant details
 $stmt_query = "SELECT * FROM restaurants WHERE id = '$res_id'";
 $stmt_result = mysqli_query($conn, $stmt_query);
 $restaurant = mysqli_fetch_assoc($stmt_result);
@@ -18,7 +16,6 @@ if (!$restaurant) {
     die("Restaurant not found in database.");
 }
 
-// Fetch menu items with category names
 $menu_query = "
     SELECT m.*, c.category_name 
     FROM menu_items m 
@@ -39,225 +36,167 @@ if ($menu_result) {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu - <?php echo $restaurant['name']; ?></title>
-    <!-- Local Font Setup (Outfit) -->
-    <link rel="stylesheet" href="css/style.css">
-    <style>
-        .search-container {
-            margin: 20px 0;
-            position: sticky;
-            top: 10px;
-            z-index: 100;
-        }
-        .search-bar {
-            width: 100%;
-            padding: 15px 25px;
-            border-radius: 12px;
-            border: 1px solid var(--border-light);
-            background: #fff;
-            color: var(--text-main);
-            font-size: 1rem;
-            outline: none;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-        }
-        .search-bar::placeholder { color: #93959f; }
-        
-        .category-header {
-            margin: 40px 0 20px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid var(--text-main);
-            grid-column: 1 / -1;
-        }
-        
-        .category-header h2 {
-            color: var(--text-main);
-            font-size: 1.4rem;
-            font-weight: 800;
-        }
-
-        .hidden { display: none !important; }
-        
-        .cart-count {
-            position: fixed;
-            bottom: 90px;
-            left: 20px;
-            right: 20px;
-            background: var(--swiggy-orange);
-            color: white;
-            padding: 15px 25px;
-            border-radius: 12px;
-            box-shadow: 0 8px 16px rgba(252, 128, 25, 0.4);
-            font-weight: 800;
-            z-index: 999;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            animation: slideUp 0.3s ease-out;
-        }
-
-        @keyframes slideUp {
-            from { transform: translateY(100%); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-    </style>
+    <link rel="stylesheet" href="css/menu.css">
 </head>
-<body style="background: var(--bg-main);">
+<body>
 
-    <div class="app-container">
-        <header class="app-header">
-            <a href="home.php" style="color: var(--text-main); text-decoration: none; font-weight: 700;"><i class="fa-solid fa-arrow-left"></i> <?php echo $restaurant['name']; ?></a>
-            <div class="logo-desktop">Campus<span>Cravings</span></div>
-            <a href="checkout.php" style="color: var(--text-main); font-size: 1.5rem;"><i class="fa-solid fa-basket-shopping"></i></a>
-        </header>
+<table width="100%" cellpadding="20" class="header-table">
+    <tr>
+        <td width="30%">
+            <a href="home.php" class="logo-text">Campus<span>Cravings</span></a>
+        </td>
+        <td width="40%" align="center">
+            <a href="home.php" class="nav-link">Home</a>
+            <a href="explore.php" class="nav-link">Explore</a>
+            <a href="checkout.php" class="nav-link">Cart</a>
+        </td>
+        <td width="30%" align="right">
+            <a href="profile.php" class="nav-link">Account</a>
+        </td>
+    </tr>
+</table>
 
-        <main class="app-main">
-            <!-- Search Bar -->
-            <div class="search-container">
-                <input type="text" id="searchInput" class="search-bar" placeholder="Search in <?php echo $restaurant['name']; ?>..." onkeyup="searchMenu()">
-            </div>
+<div class="layout-container">
 
-            <div id="menuContainer" class="products-grid">
-                <?php 
-                $current_cat = "";
-                foreach ($menu_items as $item): 
-                    if ($current_cat != $item['category_name']):
-                        $current_cat = $item['category_name'];
-                ?>
-                    <div class="category-header" data-category="<?php echo $current_cat; ?>">
-                        <h2><?php echo $current_cat; ?></h2>
-                    </div>
-                <?php endif; ?>
-
-                <div class="product-card" data-name="<?php echo strtolower($item['item_name']); ?>">
-                    <div class="card-image-wrap" style="height: 160px; background: var(--bg-light);">
-                        <?php if ($item['image_url']): ?>
-                            <img src="<?php echo $item['image_url']; ?>" alt="<?php echo $item['item_name']; ?>">
-                        <?php else: ?>
-                            <i class="fa-solid fa-utensils" style="font-size: 3rem; color: var(--text-muted); opacity: 0.2;"></i>
-                        <?php endif; ?>
-                    </div>
-                    <div class="card-info">
-                        <h4><?php echo htmlspecialchars($item['item_name']); ?></h4>
-                        <div class="card-badge">MENU</div>
-                        <p style="font-size: 0.8rem; color: #888; margin-top: 5px;">Delicious <?php echo strtolower($item['item_name']); ?> prepared fresh.</p>
-                        <div class="price-row" style="margin-top: 15px;">
-                            <span class="price">₹<?php echo number_format($item['price'], 0); ?></span>
-                        </div>
-                    </div>
-                    <button class="add-btn" onclick="addToCart('<?php echo addslashes($item['item_name']); ?>', <?php echo $item['price']; ?>)">+</button>
-                </div>
-                <?php endforeach; ?>
-            </div>
-            
-            <div id="noResults" class="hidden" style="text-align: center; color: var(--text-muted); padding: 80px 20px;">
-                <i class="fa-solid fa-cloud-meatball" style="font-size: 4rem; margin-bottom: 20px; opacity: 0.2;"></i>
-                <h3 style="color: var(--text-main); margin-bottom: 10px;">Dish not found</h3>
-                <p>We couldn't find any items matching your search. Try something else!</p>
-            </div>
-        </main>
-
-        <!-- Dynamic Cart Counter -->
-        <div id="floatingCart" class="cart-count" onclick="window.location.href='checkout.php'" style="display: none;">
-            <span><i class="fa-solid fa-cart-shopping"></i> <span id="cartNumber">0</span> ITEMS</span>
-            <span>VIEW CART <i class="fa-solid fa-chevron-right"></i></span>
-        </div>
-
-        <nav class="bottom-nav">
-            <a href="home.php" class="nav-item">
-                <i class="fa-solid fa-house"></i>
-                <span>Home</span>
-            </a>
-            <a href="explore.php" class="nav-item">
-                <i class="fa-regular fa-compass"></i>
-                <span>Explore</span>
-            </a>
-            <a href="checkout.php" class="nav-item">
-                <i class="fa-solid fa-basket-shopping"></i>
-                <span>Cart</span>
-            </a>
-            <a href="profile.php" class="nav-item">
-                <i class="fa-regular fa-user"></i>
-                <span>Account</span>
-            </a>
-        </nav>
+    <div class="search-container">
+        <input type="text" id="searchInput" class="search-bar" placeholder="Search in <?php echo $restaurant['name']; ?>..." onkeyup="searchMenu()">
     </div>
 
-    <script src="js/script.js"></script>
-    <script>
-        // Real-time Search Logic (Module IV)
-        function searchMenu() {
-            const input = document.getElementById('searchInput');
-            const filter = input.value.toLowerCase();
-            const cards = document.getElementsByClassName('product-card');
-            const headers = document.getElementsByClassName('category-header');
-            let hasVisibleCards = false;
-
-            // Filter cards
-            for (let i = 0; i < cards.length; i++) {
-                const name = cards[i].getAttribute('data-name');
-                if (name.includes(filter)) {
-                    cards[i].classList.remove('hidden');
-                    hasVisibleCards = true;
-                } else {
-                    cards[i].classList.add('hidden');
+    <table width="100%" cellpadding="15">
+        <?php 
+        $current_cat = "";
+        $count = 0;
+        foreach ($menu_items as $item): 
+            if ($current_cat != $item['category_name']):
+                if ($count > 0 && $count % 4 != 0) {
+                    while ($count % 4 != 0) {
+                        echo "<td width='25%'></td>";
+                        $count++;
+                    }
+                    echo "</tr>";
                 }
-            }
+                $count = 0;
+                $current_cat = $item['category_name'];
+        ?>
+        <tr class="category-header" data-category="<?php echo $current_cat; ?>">
+            <td colspan="4"><h2><?php echo $current_cat; ?></h2></td>
+        </tr>
+        <tr>
+        <?php endif; 
+            if ($count > 0 && $count % 4 == 0) echo "</tr><tr>";
+        ?>
+            <td width="25%" align="center" valign="top" class="product-card" data-name="<?php echo strtolower($item['item_name']); ?>">
+                <div class="product-cell">
+                    <?php if ($item['image_url']): ?>
+                        <img src="<?php echo $item['image_url']; ?>" width="100%" height="150" class="product-img">
+                    <?php else: ?>
+                        <div style="height: 150px; background-color: #e9ecee;"></div>
+                    <?php endif; ?>
+                    <h4 class="product-title"><?php echo htmlspecialchars($item['item_name']); ?></h4>
+                    <span class="badge">MENU</span>
+                    <p class="product-desc">Delicious <?php echo strtolower($item['item_name']); ?> prepared fresh.</p>
+                    <div class="price">₹<?php echo number_format($item['price'], 0); ?></div>
+                    <button class="add-btn" onclick="addToCart('<?php echo addslashes($item['item_name']); ?>', <?php echo $item['price']; ?>)">+ Add to Cart</button>
+                </div>
+            </td>
+        <?php 
+            $count++;
+        endforeach; 
+        while ($count > 0 && $count % 4 != 0) {
+            echo "<td width='25%'></td>";
+            $count++;
+        }
+        if ($count > 0) echo "</tr>";
+        ?>
+    </table>
 
-            // Hide/Show headers based on visible cards in category
-            for (let j = 0; j < headers.length; j++) {
-                let categoryName = headers[j].getAttribute('data-category').toLowerCase();
-                // Check if any visible card exists after this header until the next header
-                let nextElement = headers[j].nextElementSibling;
-                let foundMatch = false;
-                
-                while (nextElement && !nextElement.classList.contains('category-header')) {
-                    if (!nextElement.classList.contains('hidden')) {
+    <div id="noResults" class="hidden" style="text-align: center; color: #686b78; padding: 80px 20px;">
+        <h3>Dish not found</h3>
+        <p>We couldn't find any items matching your search. Try something else!</p>
+    </div>
+
+    <!-- Dynamic Cart Counter -->
+    <a href="checkout.php" style="text-decoration: none;">
+        <div id="floatingCart" class="cart-count" style="display: none;">
+            <span id="cartNumber">0</span> ITEMS - VIEW CART
+        </div>
+    </a>
+
+    <br><br>
+</div>
+
+<script src="js/script.js"></script>
+<script>
+    function searchMenu() {
+        const input = document.getElementById('searchInput');
+        const filter = input.value.toLowerCase();
+        const cards = document.getElementsByClassName('product-card');
+        const headers = document.getElementsByClassName('category-header');
+        let hasVisibleCards = false;
+
+        for (let i = 0; i < cards.length; i++) {
+            const name = cards[i].getAttribute('data-name');
+            if (name.includes(filter)) {
+                cards[i].classList.remove('hidden');
+                hasVisibleCards = true;
+            } else {
+                cards[i].classList.add('hidden');
+            }
+        }
+
+        for (let j = 0; j < headers.length; j++) {
+            let categoryName = headers[j].getAttribute('data-category').toLowerCase();
+            let nextElement = headers[j].nextElementSibling;
+            let foundMatch = false;
+            
+            while (nextElement && !nextElement.classList.contains('category-header')) {
+                let cells = nextElement.getElementsByClassName('product-card');
+                for (let k = 0; k < cells.length; k++) {
+                    if (!cells[k].classList.contains('hidden')) {
                         foundMatch = true;
                         break;
                     }
-                    nextElement = nextElement.nextElementSibling;
                 }
-                
-                if (foundMatch) {
-                    headers[j].classList.remove('hidden');
-                } else {
-                    headers[j].classList.add('hidden');
-                }
+                if (foundMatch) break;
+                nextElement = nextElement.nextElementSibling;
             }
-
-            // Show "No Results" message
-            const noResults = document.getElementById('noResults');
-            if (!hasVisibleCards && filter !== "") {
-                noResults.classList.remove('hidden');
-            } else {
-                noResults.classList.add('hidden');
-            }
-        }
-
-        // Enhancement: Show floating cart if items exist
-        function updateFloatingCart() {
-            const cartItems = JSON.parse(localStorage.getItem("cart")) || [];
-            const floatingCart = document.getElementById('floatingCart');
-            const cartNumber = document.getElementById('cartNumber');
             
-            if (cartItems.length > 0) {
-                floatingCart.style.display = 'block';
-                cartNumber.innerText = cartItems.length;
+            if (foundMatch) {
+                headers[j].classList.remove('hidden');
             } else {
-                floatingCart.style.display = 'none';
+                headers[j].classList.add('hidden');
             }
         }
 
-        // Override original addToCart to update UI immediately
-        const originalAddToCart = window.addToCart;
-        window.addToCart = function(name, price) {
-            originalAddToCart(name, price);
-            updateFloatingCart();
-        };
+        const noResults = document.getElementById('noResults');
+        if (!hasVisibleCards && filter !== "") {
+            noResults.classList.remove('hidden');
+        } else {
+            noResults.classList.add('hidden');
+        }
+    }
 
-        document.addEventListener("DOMContentLoaded", updateFloatingCart);
-    </script>
+    function updateFloatingCart() {
+        const cartItems = JSON.parse(localStorage.getItem("cart")) || [];
+        const floatingCart = document.getElementById('floatingCart');
+        const cartNumber = document.getElementById('cartNumber');
+        
+        if (cartItems.length > 0) {
+            floatingCart.style.display = 'block';
+            cartNumber.innerText = cartItems.length;
+        } else {
+            floatingCart.style.display = 'none';
+        }
+    }
+
+    const originalAddToCart = window.addToCart;
+    window.addToCart = function(name, price) {
+        originalAddToCart(name, price);
+        updateFloatingCart();
+    };
+
+    document.addEventListener("DOMContentLoaded", updateFloatingCart);
+</script>
 </body>
 </html>

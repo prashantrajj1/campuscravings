@@ -1,7 +1,11 @@
 <?php
+session_start();
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit;
+}
 require_once 'php/db_connect.php';
 
-// Fetch all restaurants
 $query = "SELECT * FROM restaurants";
 $result = mysqli_query($conn, $query);
 $restaurants = [];
@@ -16,70 +20,60 @@ if ($result) {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Explore Restaurants - CampusCravings</title>
-    <!-- External CSS -->
-    
-    
-    <!-- Local CSS only -->
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/explore.css">
 </head>
-<body style="background: var(--bg-main);">
+<body>
 
-    <div class="app-container">
-        <header class="app-header">
-            <div class="logo-desktop">
-                <i class="fa-solid fa-utensils"></i> Campus<span>Cravings</span>
-            </div>
-            <nav class="desktop-nav">
-                <a href="home.php">Home</a>
-                <a href="explore.php" class="active">Explore</a>
-                <a href="checkout.php">Cart</a>
-            </nav>
-            <a href="profile.php" class="account-btn" title="Account">
-                <i class="fa-regular fa-user"></i>
-            </a>
-        </header>
+<table width="100%" cellpadding="20" class="header-table">
+    <tr>
+        <td width="30%">
+            <a href="home.php" class="logo-text">Campus<span>Cravings</span></a>
+        </td>
+        <td width="40%" align="center">
+            <a href="home.php" class="nav-link">Home</a>
+            <a href="explore.php" class="nav-link active">Explore</a>
+            <a href="checkout.php" class="nav-link">Cart</a>
+        </td>
+        <td width="30%" align="right">
+            <a href="profile.php" class="nav-link">Account</a>
+        </td>
+    </tr>
+</table>
 
-        <main class="app-main">
-            <div class="section-header" style="padding-top: 20px;">
-                <h3 style="font-size: 1.6rem; font-weight: 800;">Explore Restaurants</h3>
-            </div>
+<div class="layout-container">
 
-            <div class="products-grid">
-                <?php foreach ($restaurants as $res): ?>
-                <a href="restaurant_details.php?id=<?php echo $res['id']; ?>" class="product-card" style="text-decoration: none; color: inherit; display: flex;">
-                    <div class="card-image-wrap" style="height: 180px;">
-                        <img src="<?php echo $res['image_url']; ?>" alt="<?php echo $res['name']; ?>">
-                    </div>
-                    <div class="card-info">
-                        <h4 style="font-size: 1.3rem; margin-bottom: 5px;"><?php echo htmlspecialchars($res['name']); ?></h4>
-                        <p style="color: #686b78; font-size: 0.9rem; margin-bottom: 15px;"><?php echo $res['cuisine_type']; ?></p>
+    <div class="section-title">Explore Restaurants</div>
+
+    <table width="100%" cellpadding="15">
+        <tr>
+            <?php 
+            $count = 0;
+            foreach ($restaurants as $res): 
+                if ($count > 0 && $count % 3 == 0) echo "</tr><tr>";
+            ?>
+            <td width="33%" align="center" valign="top">
+                <a href="restaurant_details.php?id=<?php echo $res['id']; ?>">
+                    <div class="product-cell">
+                        <img src="<?php echo $res['image_url']; ?>" width="100%" height="180" class="product-img">
+                        <h4 class="product-title"><?php echo htmlspecialchars($res['name']); ?></h4>
+                        <p class="product-desc"><?php echo $res['cuisine_type']; ?></p>
                     </div>
                 </a>
-                <?php endforeach; ?>
-            </div>
-        </main>
+            </td>
+            <?php 
+                $count++;
+            endforeach; 
+            while ($count > 0 && $count % 3 != 0) {
+                echo "<td width='33%'></td>";
+                $count++;
+            }
+            ?>
+        </tr>
+    </table>
 
-        <nav class="bottom-nav">
-            <a href="home.php" class="nav-item">
-                <i class="fa-solid fa-house"></i>
-                <span>Home</span>
-            </a>
-            <a href="explore.php" class="nav-item active">
-                <div class="nav-icon-bg"><i class="fa-regular fa-compass"></i></div>
-                <span>Explore</span>
-            </a>
-            <a href="checkout.php" class="nav-item">
-                <i class="fa-solid fa-basket-shopping"></i>
-                <span>Cart</span>
-            </a>
-            <a href="profile.php" class="nav-item">
-                <i class="fa-regular fa-user"></i>
-                <span>Account</span>
-            </a>
-        </nav>
-    </div>
+    <br><br>
+</div>
 
 </body>
 </html>

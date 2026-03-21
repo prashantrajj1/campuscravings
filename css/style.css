@@ -4,6 +4,7 @@
     src: url('../fonts/Outfit-Regular.ttf') format('truetype');
     font-weight: 400;
 }
+
 @font-face {
     font-family: 'Outfit';
     src: url('../fonts/Outfit-Bold.ttf') format('truetype');
@@ -14,9 +15,12 @@
     --bg-main: #f8f9fa;
     --bg-light: #ffffff;
     --card-bg: #ffffff;
-    --swiggy-orange: #fc8019; /* Swiggy Orange */
-    --swiggy-green: #60b246; /* Swiggy Green */
-    --text-main: #282c3f; /* Dark gray/black text */
+    --swiggy-orange: #fc8019;
+    /* Swiggy Orange */
+    --swiggy-green: #60b246;
+    /* Swiggy Green */
+    --text-main: #282c3f;
+    /* Dark gray/black text */
     --text-muted: #686b78;
     --border-light: #e9ecee;
     --card-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
@@ -59,7 +63,7 @@ body {
 
 .logo-desktop {
     display: flex;
-    font-size: 1.6rem;
+    font-size: 1.9rem;
     font-weight: 700;
     align-items: center;
     gap: 8px;
@@ -67,11 +71,11 @@ body {
 }
 
 .logo-desktop span {
-    background: var(--swiggy-orange);
+    background: orange;
     color: #fff;
     padding: 2px 8px;
     border-radius: 6px;
-    font-size: 1.4rem;
+    font-size: 1.9rem;
 }
 
 .app-header .account-btn {
@@ -97,8 +101,9 @@ body {
 
 .app-header .account-btn:hover {
     background: var(--bg-main);
-    border-color: var(--swiggy-orange);
-    color: var(--swiggy-orange); /* Turns green on hover */
+    border-color: orange;
+    color: orange;
+    /* Turns green on hover */
     box-shadow: 0 0 12px rgba(124, 255, 28, 0.25);
 }
 
@@ -158,11 +163,11 @@ body {
 }
 
 .desktop-nav a:hover {
-    color: var(--swiggy-orange);
+    color: orange;
 }
 
 .desktop-nav a.active {
-    color: var(--swiggy-orange);
+    color: orange;
 }
 
 
@@ -248,7 +253,7 @@ body {
 }
 
 .btn-primary {
-    background: var(--swiggy-orange);
+    background: orange;
     color: #fff;
     text-decoration: none;
     padding: 12px 28px;
@@ -302,7 +307,7 @@ body {
 }
 
 .see-all {
-    color: var(--swiggy-orange);
+    color: orange;
     text-decoration: none;
     font-size: 0.95rem;
     font-weight: 700;
@@ -376,7 +381,8 @@ body {
     border-radius: 4px;
     text-transform: uppercase;
     letter-spacing: 1px;
-    margin-bottom: 8px; /* Give some space below it */
+    margin-bottom: 8px;
+    /* Give some space below it */
 }
 
 .card-info {
@@ -482,11 +488,11 @@ body {
 }
 
 .nav-item.active {
-    color: var(--swiggy-orange);
+    color: orange;
 }
 
 .nav-item.active .nav-icon-bg {
-    background: var(--swiggy-orange);
+    background: orange;
     width: 42px;
     height: 42px;
     border-radius: 12px;
@@ -567,4 +573,3 @@ body {
     }
 
 }
-
