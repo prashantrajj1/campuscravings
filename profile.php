@@ -46,24 +46,24 @@ if ($complaint_result) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Profile - CampusCravings</title>
     <!-- Local CSS only -->
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/home.css">
     <style>
         .profile-container {
             max-width: 900px;
             margin: 20px auto;
             padding: 30px;
-            background: var(--card-bg);
-            color: var(--text-main);
+            background: #ffffff;
+            color: #282c3f;
             border-radius: 20px;
-            box-shadow: var(--card-shadow);
-            border: 1px solid var(--border-light);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e9ecee;
         }
         
         .profile-header {
             display: flex;
             align-items: center;
             gap: 25px;
-            border-bottom: 1px solid var(--border-light);
+            border-bottom: 1px solid #e9ecee;
             padding-bottom: 30px;
             margin-bottom: 30px;
         }
@@ -71,7 +71,7 @@ if ($complaint_result) {
         .profile-avatar {
             width: 90px;
             height: 90px;
-            background: var(--swiggy-orange);
+            background: #fc8019;
             border-radius: 20px;
             display: flex;
             align-items: center;
@@ -83,7 +83,7 @@ if ($complaint_result) {
         }
         
         .user-meta h1 { font-size: 2rem; margin: 0; font-weight: 800; }
-        .user-meta p { color: var(--text-muted); margin: 5px 0 0; }
+        .user-meta p { color: #686b78; margin: 5px 0 0; }
         
         .section-title {
             font-size: 1.4rem;
@@ -92,7 +92,7 @@ if ($complaint_result) {
             display: flex;
             align-items: center;
             gap: 12px;
-            color: var(--text-main);
+            color: #282c3f;
         }
         
         table {
@@ -104,13 +104,13 @@ if ($complaint_result) {
         th, td {
             text-align: left;
             padding: 15px;
-            border-bottom: 1px solid var(--border-light);
+            border-bottom: 1px solid #e9ecee;
             font-size: 0.95rem;
         }
         
         th {
-            background-color: var(--bg-light);
-            color: var(--text-muted);
+            background-color: #ffffff;
+            color: #686b78;
             font-weight: 700;
             text-transform: uppercase;
             font-size: 0.75rem;
@@ -129,10 +129,10 @@ if ($complaint_result) {
         .status-pending { background: #fff8c5; color: #9a6700; }
         
         .complaint-form {
-            background: var(--bg-light);
+            background: #ffffff;
             padding: 25px;
             border-radius: 15px;
-            border: 1px solid var(--border-light);
+            border: 1px solid #e9ecee;
         }
         
         .form-group { margin-bottom: 20px; }
@@ -140,7 +140,7 @@ if ($complaint_result) {
         .form-group input, .form-group textarea, .form-group select {
             width: 100%;
             padding: 14px;
-            border: 1px solid var(--border-light);
+            border: 1px solid #e9ecee;
             border-radius: 10px;
             font-family: inherit;
             background: #fff;
@@ -149,11 +149,11 @@ if ($complaint_result) {
         }
 
         .form-group input:focus, .form-group textarea:focus {
-            border-color: var(--swiggy-orange);
+            border-color: #fc8019;
         }
         
         .btn-submit {
-            background: var(--swiggy-orange);
+            background: #fc8019;
             color: #fff;
             border: none;
             padding: 16px;
@@ -171,48 +171,48 @@ if ($complaint_result) {
         }
     </style>
 </head>
-<body style="background: var(--bg-light); font-family: 'Outfit', sans-serif;">
+<body style="background: #ffffff; font-family: 'Outfit', sans-serif;">
 
     <div class="app-container">
         <header class="app-header">
-            <a href="home.php" style="color: var(--text-main); text-decoration: none; font-weight: 700;"><i class="fa-solid fa-arrow-left"></i> Home</a>
+            <a href="home.php" class="back-link"><i class="fa-solid fa-arrow-left"></i> Home</a>
             <div class="logo-desktop">Campus<span>Cravings</span></div>
-            <a href="checkout.php" style="color: var(--text-main); font-size: 1.5rem;"><i class="fa-solid fa-basket-shopping"></i></a>
+            <a href="checkout.php" class="cart-link"><i class="fa-solid fa-basket-shopping"></i></a>
         </header>
 
         <div class="profile-container">
             <div class="profile-header">
-                <div style="display: flex; flex-direction: column; align-items: center; gap: 15px;">
-                    <div class="profile-avatar" style="overflow: hidden;">
+                <div class="profile-avatar-wrapper">
+                    <div class="profile-avatar">
                         <?php 
                         $pfp = !empty($user['profile_picture']) ? htmlspecialchars($user['profile_picture']) : 'default.jpeg';
                         ?>
-                        <img src="assets/pfp/<?php echo $pfp; ?>" alt="Profile Picture" style="width: 100%; height: 100%; object-fit: cover;">
+                        <img src="assets/pfp/<?php echo $pfp; ?>" alt="Profile Picture" class="profile-img">
                     </div>
-                    <form action="php/update_pfp.php" method="POST" enctype="multipart/form-data" style="display: flex; flex-direction: column; align-items: center; gap: 5px;">
-                        <input type="file" name="pfp" accept="image/*" required style="font-size: 0.75rem; max-width: 150px;">
-                        <button type="submit" name="action" value="upload" style="background: var(--swiggy-orange); color: white; border: none; padding: 4px 10px; border-radius: 4px; font-weight: 700; cursor: pointer; font-size: 0.75rem;">Upload Pic</button>
+                    <form action="php/update_pfp.php" method="POST" enctype="multipart/form-data" class="pfp-upload-form">
+                        <input type="file" name="pfp" accept="image/*" required class="pfp-input">
+                        <button type="submit" name="action" value="upload" class="btn-pfp-upload">Upload Pic</button>
                     </form>
                     <?php if ($pfp !== 'default.jpeg'): ?>
                     <form action="php/update_pfp.php" method="POST">
-                        <button type="submit" name="action" value="remove" style="background: transparent; color: #dc3545; border: 1px solid #dc3545; padding: 3px 8px; border-radius: 4px; font-weight: 700; cursor: pointer; font-size: 0.7rem;">Remove</button>
+                        <button type="submit" name="action" value="remove" class="btn-pfp-remove">Remove</button>
                     </form>
                     <?php endif; ?>
                 </div>
                 <div class="user-meta">
                     <h1>Active Student</h1>
                     <p><?php echo htmlspecialchars($user['email']); ?></p>
-                    <p style="font-size: 0.9rem;"> <?php echo htmlspecialchars($user['rollno']); ?> | <?php echo htmlspecialchars($user['course']); ?></p>
+                    <p class="profile-student-info"> <?php echo htmlspecialchars($user['rollno']); ?> | <?php echo htmlspecialchars($user['course']); ?></p>
                 </div>
             </div>
 
             <div class="section-title">
-                <i class="fa-solid fa-clock-rotate-left" style="color: var(--swiggy-orange);"></i> Order History
+                <i class="fa-solid fa-clock-rotate-left section-icon"></i> Order History
             </div>
             
             <?php if (empty($orders)): ?>
-                <div style="text-align: center; padding: 40px; color: var(--text-muted);">
-                    <i class="fa-solid fa-utensils" style="font-size: 3rem; opacity: 0.1; margin-bottom: 15px;"></i>
+                <div class="empty-orders">
+                    <i class="fa-solid fa-utensils empty-orders-icon"></i>
                     <p>No orders yet. Your food journey starts here!</p>
                 </div>
             <?php else: ?>
@@ -227,9 +227,9 @@ if ($complaint_result) {
                     <tbody>
                         <?php foreach ($orders as $order): ?>
                             <tr>
-                                <td style="font-weight: 700;">#<?php echo $order['id']; ?></td>
+                                <td class="fw-bold">#<?php echo $order['id']; ?></td>
                                 <td><?php echo date('d M, Y', strtotime($order['order_date'])); ?></td>
-                                <td style="font-weight: 700;">₹<?php echo number_format($order['total_amount'], 2); ?></td>
+                                <td class="fw-bold">₹<?php echo number_format($order['total_amount'], 2); ?></td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
@@ -237,7 +237,7 @@ if ($complaint_result) {
             <?php endif; ?>
 
             <div class="section-title">
-                <i class="fa-solid fa-headset" style="color: var(--swiggy-orange);"></i> Support & Complaints
+                <i class="fa-solid fa-headset section-icon"></i> Support & Complaints
             </div>
 
             <div class="complaint-form">
@@ -257,14 +257,14 @@ if ($complaint_result) {
                     </div>
                     <div class="form-group">
                         <label for="message">Detailed Message</label>
-                        <textarea id="message" name="message" rows="4" required placeholder="Tell us what happened..."></textarea>
+                        <textarea id="message" name="message" rows="4" required class="complaint-textarea" placeholder="Tell us what happened..."></textarea>
                     </div>
                     <button type="submit" class="btn-submit">Submit Complaint</button>
                 </form>
             </div>
 
             <?php if (!empty($complaints)): ?>
-                <div class="section-title" style="font-size: 1.1rem;">Your Recent Complaints</div>
+                <div class="section-title complaints-title">Your Recent Complaints</div>
                 <table>
                     <thead>
                         <tr>
@@ -276,8 +276,8 @@ if ($complaint_result) {
                     <tbody>
                         <?php foreach ($complaints as $comp): ?>
                             <tr>
-                                <td style="font-weight: 600;"><?php echo htmlspecialchars($comp['subject']); ?></td>
-                                <td><span class="status-badge" style="background: #eee; color: #555;"><?php echo $comp['status']; ?></span></td>
+                                <td class="complaint-subject"><?php echo htmlspecialchars($comp['subject']); ?></td>
+                                <td><span class="status-badge status-default"><?php echo $comp['status']; ?></span></td>
                                 <td><?php echo date('d M', strtotime($comp['created_at'])); ?></td>
                             </tr>
                         <?php endforeach; ?>
@@ -285,8 +285,8 @@ if ($complaint_result) {
                 </table>
             <?php endif; ?>
             
-            <div style="margin-top: 40px; border-top: 1px solid var(--border-light); padding-top: 30px; text-align: center;">
-                <a href="logout.php" style="color: #dc3545; text-decoration: none; font-weight: 800; font-size: 1.1rem;"><i class="fa-solid fa-sign-out-alt"></i> LOGOUT</a>
+            <div class="logout-wrapper">
+                <a href="logout.php" class="btn-logout"><i class="fa-solid fa-sign-out-alt"></i> LOGOUT</a>
             </div>
         </div>
 

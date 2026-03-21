@@ -42,7 +42,7 @@ if ($menu_result) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu - <?php echo $restaurant['name']; ?></title>
     <!-- Local Font Setup (Outfit) -->
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/home.css">
     <style>
         .search-container {
             margin: 20px 0;
@@ -54,9 +54,9 @@ if ($menu_result) {
             width: 100%;
             padding: 15px 25px;
             border-radius: 12px;
-            border: 1px solid var(--border-light);
+            border: 1px solid #e9ecee;
             background: #fff;
-            color: var(--text-main);
+            color: #282c3f;
             font-size: 1rem;
             outline: none;
             box-shadow: 0 4px 12px rgba(0,0,0,0.05);
@@ -66,12 +66,12 @@ if ($menu_result) {
         .category-header {
             margin: 40px 0 20px;
             padding-bottom: 10px;
-            border-bottom: 2px solid var(--text-main);
+            border-bottom: 2px solid #282c3f;
             grid-column: 1 / -1;
         }
         
         .category-header h2 {
-            color: var(--text-main);
+            color: #282c3f;
             font-size: 1.4rem;
             font-weight: 800;
         }
@@ -83,7 +83,7 @@ if ($menu_result) {
             bottom: 90px;
             left: 20px;
             right: 20px;
-            background: var(--swiggy-orange);
+            background: #fc8019;
             color: white;
             padding: 15px 25px;
             border-radius: 12px;
@@ -103,13 +103,13 @@ if ($menu_result) {
         }
     </style>
 </head>
-<body style="background: var(--bg-main);">
+<body>
 
     <div class="app-container">
         <header class="app-header">
-            <a href="home.php" style="color: var(--text-main); text-decoration: none; font-weight: 700;"><i class="fa-solid fa-arrow-left"></i> <?php echo $restaurant['name']; ?></a>
+            <a href="home.php" class="back-link"><i class="fa-solid fa-arrow-left"></i> <?php echo $restaurant['name']; ?></a>
             <div class="logo-desktop">Campus<span>Cravings</span></div>
-            <a href="checkout.php" style="color: var(--text-main); font-size: 1.5rem;"><i class="fa-solid fa-basket-shopping"></i></a>
+            <a href="checkout.php" class="cart-link"><i class="fa-solid fa-basket-shopping"></i></a>
         </header>
 
         <main class="app-main">
@@ -131,18 +131,18 @@ if ($menu_result) {
                 <?php endif; ?>
 
                 <div class="product-card" data-name="<?php echo strtolower($item['item_name']); ?>">
-                    <div class="card-image-wrap" style="height: 160px; background: var(--bg-light);">
+                    <div class="menu-image-wrap">
                         <?php if ($item['image_url']): ?>
                             <img src="<?php echo $item['image_url']; ?>" alt="<?php echo $item['item_name']; ?>">
                         <?php else: ?>
-                            <i class="fa-solid fa-utensils" style="font-size: 3rem; color: var(--text-muted); opacity: 0.2;"></i>
+                            <i class="fa-solid fa-utensils menu-image-placeholder"></i>
                         <?php endif; ?>
                     </div>
                     <div class="card-info">
                         <h4><?php echo htmlspecialchars($item['item_name']); ?></h4>
                         <div class="card-badge">MENU</div>
-                        <p style="font-size: 0.8rem; color: #888; margin-top: 5px;">Delicious <?php echo strtolower($item['item_name']); ?> prepared fresh.</p>
-                        <div class="price-row" style="margin-top: 15px;">
+                        <p class="menu-item-desc">Delicious <?php echo strtolower($item['item_name']); ?> prepared fresh.</p>
+                        <div class="price-row menu-price-row">
                             <span class="price">₹<?php echo number_format($item['price'], 0); ?></span>
                         </div>
                     </div>
@@ -151,9 +151,9 @@ if ($menu_result) {
                 <?php endforeach; ?>
             </div>
             
-            <div id="noResults" class="hidden" style="text-align: center; color: var(--text-muted); padding: 80px 20px;">
-                <i class="fa-solid fa-cloud-meatball" style="font-size: 4rem; margin-bottom: 20px; opacity: 0.2;"></i>
-                <h3 style="color: var(--text-main); margin-bottom: 10px;">Dish not found</h3>
+            <div id="noResults" class="hidden no-results">
+                <i class="fa-solid fa-cloud-meatball no-results-icon"></i>
+                <h3 class="no-results-text">Dish not found</h3>
                 <p>We couldn't find any items matching your search. Try something else!</p>
             </div>
         </main>

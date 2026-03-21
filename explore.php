@@ -22,9 +22,10 @@ if ($result) {
     
     
     <!-- Local CSS only -->
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/explore.css">
 </head>
-<body style="background: var(--bg-main);">
+<body>
 
     <div class="app-container">
         <header class="app-header">
@@ -42,19 +43,19 @@ if ($result) {
         </header>
 
         <main class="app-main">
-            <div class="section-header" style="padding-top: 20px;">
-                <h3 style="font-size: 1.6rem; font-weight: 800;">Explore Restaurants</h3>
+            <div class="section-header pt-20">
+                <h3 class="explore-title">Explore Restaurants</h3>
             </div>
 
             <div class="products-grid">
                 <?php foreach ($restaurants as $res): ?>
-                <a href="restaurant_details.php?id=<?php echo $res['id']; ?>" class="product-card" style="text-decoration: none; color: inherit; display: flex;">
-                    <div class="card-image-wrap" style="height: 180px;">
+                <a href="restaurant_details.php?id=<?php echo $res['id']; ?>" class="product-card explore-card-link">
+                    <div class="card-image-wrap explore-img-wrap">
                         <img src="<?php echo $res['image_url']; ?>" alt="<?php echo $res['name']; ?>">
                     </div>
                     <div class="card-info">
-                        <h4 style="font-size: 1.3rem; margin-bottom: 5px;"><?php echo htmlspecialchars($res['name']); ?></h4>
-                        <p style="color: #686b78; font-size: 0.9rem; margin-bottom: 15px;"><?php echo $res['cuisine_type']; ?></p>
+                        <h4 class="explore-card-h4"><?php echo htmlspecialchars($res['name']); ?></h4>
+                        <p class="explore-card-p"><?php echo $res['cuisine_type']; ?></p>
                     </div>
                 </a>
                 <?php endforeach; ?>

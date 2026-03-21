@@ -1,0 +1,50 @@
+.payment-box {
+    max-width: 500px;
+    margin: 50px auto;
+    background: #ffffff;
+    padding: 40px;
+    text-align: center;
+    border-radius: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+.qr-placeholder {
+    width: 250px;
+    height: 250px;
+    margin: 20px auto;
+    background: #f1f2f6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    border: 2px dashed #ccc;
+}
+.total-pay {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #282c3f;
+    margin: 15px 0;
+}
+.btn-confirm {
+    background: #60b246;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 20px;
+    width: 100%;
+    text-transform: uppercase;
+}
+.success-icon {
+    font-size: 5rem;
+    color: #60b246;
+    margin-bottom: 20px;
+}
+.success-title { color: #60b246; }
+.success-message { color: #666; margin: 20px 0; font-size: 1.1rem; }
+.mt-30-block { display: block; margin-top: 30px; }
+.qr-title { color: #282c3f; }
+.qr-icon { font-size: 8rem; color: #cbd5e1; }
+.error-message { color: red; }

@@ -72,7 +72,7 @@ if ($menu_result) {
 
 
     <!-- Local CSS only -->
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="css/home.css">
 </head>
 
@@ -105,17 +105,14 @@ if ($menu_result) {
 
         <main class="app-main">
 
-            <section class="hero-section"
-                style="background: var(--text-main); color: #fff; padding: 40px; border-radius: 20px; overflow: hidden; position: relative;">
-                <div
-                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=1920&auto=format&fit=crop'); background-size: cover; background-position: center;">
+            <section class="hero-section hero-section-home">
+                <div class="hero-img-bg">
                 </div>
-                <div class="hero-content" style="position: relative; z-index: 2; text-align: left; max-width: 500px;">
-                    <h1 style="font-size: 3rem; margin-bottom: 20px;">Hungry? <span
-                            style="color: var(--swiggy-orange);">Get It Fast.</span></h1>
-                    <p style="font-size: 1.1rem; margin-bottom: 30px; opacity: 0.9;">Order from the best campus spots
+                <div class="hero-content hero-content-home">
+                    <h1 class="hero-h1-home">Hungry? <span class="hero-highlight">Get It Fast.</span></h1>
+                    <p class="hero-p-home">Order from the best campus spots
                         right now. Fresh, hot, and delivered to your Campus Maingate.</p>
-                    <div class="hero-buttons" style="justify-content: flex-start;">
+                    <div class="hero-buttons hero-buttons-home">
                         <a href="explore.php" class="btn-primary">Order Now</a>
                     </div>
                 </div>
@@ -147,7 +144,7 @@ endforeach; ?>
 
             <!-- Best Choice Section -->
             <div class="section-header" id="popular">
-                <h3 style="font-size: 1.6rem; font-weight: 800;">Popular on Campus</h3>
+                <h3 class="section-h3">Popular on Campus</h3>
                 <a href="explore.php" class="see-all">See all</a>
             </div>
 
@@ -164,11 +161,11 @@ endforeach; ?>
                         <div class="card-badge">
                             <?php echo $item['category_name']; ?>
                         </div>
-                        <p style="font-size: 0.8rem; color: #888; margin-top: 5px;">From
+                        <p class="card-from-text">From
                             <?php echo htmlspecialchars($item['restaurant_name']); ?>
                         </p>
-                        <div class="price-row" style="margin-top: 15px;">
-                            <span class="price" style="font-size: 1.2rem;">₹
+                        <div class="price-row price-row-home">
+                            <span class="price price-home">₹
                                 <?php echo number_format($item['price'], 0); ?>
                             </span>
                         </div>
@@ -181,23 +178,22 @@ endforeach; ?>
             </div>
 
             <!-- Restaurants Section -->
-            <div class="section-header" style="margin-top: 50px;">
-                <h3 style="font-size: 1.6rem; font-weight: 800;">Featured Restaurants</h3>
+            <div class="section-header section-header-padded">
+                <h3 class="section-h3">Featured Restaurants</h3>
                 <a href="explore.php" class="see-all">View all restaurants</a>
             </div>
 
             <div class="products-grid">
                 <?php foreach ($restaurants as $res): ?>
-                <a href="restaurant_details.php?id=<?php echo $res['id']; ?>" class="product-card"
-                    style="text-decoration: none; color: inherit; display: flex;">
-                    <div class="card-image-wrap" style="height: 180px;">
+                <a href="restaurant_details.php?id=<?php echo $res['id']; ?>" class="product-card res-card-link">
+                    <div class="card-image-wrap res-card-img-wrap">
                         <img src="<?php echo $res['image_url']; ?>" alt="<?php echo $res['name']; ?>">
                     </div>
                     <div class="card-info">
-                        <h4 style="font-size: 1.3rem;">
+                        <h4 class="res-card-h4">
                             <?php echo htmlspecialchars($res['name']); ?>
                         </h4>
-                        <p style="color: #686b78; font-size: 0.9rem; margin-bottom: 10px;">
+                        <p class="res-card-p">
                             <?php echo $res['cuisine_type']; ?>
                         </p>
                     </div>

@@ -12,57 +12,20 @@ if (!isset($_SESSION['user_id'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checkout - CampusCravings</title>
     <!-- Local CSS only -->
-    <link rel="stylesheet" href="css/style.css">
-    
-    <style>
-        .checkout-container {
-            max-width: 600px;
-            margin: 40px auto;
-            background: var(--card-bg);
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-        }
-        .cart-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 15px 0;
-            border-bottom: 1px solid #eee;
-            font-size: 1.1rem;
-        }
-        .total-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 20px 0;
-            font-size: 1.3rem;
-            font-weight: 800;
-        }
-        .checkout-btn {
-            background: var(--swiggy-orange);
-            color: white;
-            border: none;
-            padding: 15px;
-            width: 100%;
-            border-radius: 10px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
-            text-transform: uppercase;
-        }
-        .checkout-btn:hover { background: #e67012; }
-    </style>
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/checkout.css">
 </head>
-<body style="background: var(--bg-light);">
+<body>
 
     <div class="app-container">
         <header class="app-header">
-            <a href="home.php" style="color: var(--text-main); text-decoration: none; font-weight: 700;"><i class="fa-solid fa-arrow-left"></i> Back</a>
+            <a href="home.php" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back</a>
             <div class="logo-desktop">Campus<span>Cravings</span></div>
-            <div style="width: 50px;"></div>
+            <div class="checkout-spacer"></div>
         </header>
 
         <main class="checkout-container">
-            <h2 style="margin-bottom: 20px;">Order Summary</h2>
+            <h2 class="checkout-h2">Order Summary</h2>
             
             <div id="cart-list">
                 <!-- Items will be loaded here via JS -->
@@ -73,13 +36,13 @@ if (!isset($_SESSION['user_id'])) {
                 <span id="display-total">₹0</span>
             </div>
 
-            <div id="empty-cart-msg" style="text-align: center; color: #888; padding: 30px;">
-                <i class="fa-solid fa-basket-shopping" style="font-size: 3rem; margin-bottom: 15px; opacity: 0.3;"></i>
+            <div id="empty-cart-msg" class="empty-cart-msg">
+                <i class="fa-solid fa-basket-shopping empty-cart-icon"></i>
                 <p>Your cart is empty.</p>
-                <a href="home.php" style="color: var(--swiggy-orange); text-decoration: none; font-weight: bold; margin-top: 10px; display: inline-block;">Go add some food!</a>
+                <a href="home.php" class="empty-cart-link">Go add some food!</a>
             </div>
 
-            <form action="payment.php" method="POST" id="checkout-form" style="display:none; margin-top: 20px;">
+            <form action="payment.php" method="POST" id="checkout-form" class="checkout-form" style="display:none;">
                 <input type="hidden" name="total_amount" id="form-total" value="0">
                 <button type="submit" class="checkout-btn">Proceed to Pay</button>
             </form>
