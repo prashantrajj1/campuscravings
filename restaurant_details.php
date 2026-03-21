@@ -111,10 +111,10 @@ if ($menu_result) {
                             <?php else: ?>
                                 <i class="fa-solid fa-pizza-slice" style="font-size: 3rem; color: var(--text-muted); opacity: 0.1;"></i>
                             <?php endif; ?>
-                            <div class="card-badge">NEW</div>
                         </div>
                         <div class="card-info">
                             <h4><?php echo htmlspecialchars($item['item_name']); ?></h4>
+                            <div class="card-badge">NEW</div>
                             <p class="card-desc" style="margin-top: 8px;"><?php echo htmlspecialchars($item['description'] ?? 'A favorite among students for its authentic taste.'); ?></p>
                             <div class="price-row" style="margin-top: 15px;">
                                 <span class="price">₹<?php echo number_format($item['price'], 0); ?></span>

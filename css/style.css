@@ -11,16 +11,16 @@
 }
 
 :root {
-    --bg-main: #0d0d0d;
-    --bg-light: #1a1a1a;
-    --card-bg: #1a1a1a;
-    --swiggy-orange: #7cff1c; /* Using Neon Green as the primary accent */
-    --swiggy-green: #7cff1c;
-    --text-main: #ffffff;
-    --text-muted: #888888;
-    --border-light: #333333;
-    --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-    --bottom-nav-bg: #1a1a1a;
+    --bg-main: #f8f9fa;
+    --bg-light: #ffffff;
+    --card-bg: #ffffff;
+    --swiggy-orange: #fc8019; /* Swiggy Orange */
+    --swiggy-green: #60b246; /* Swiggy Green */
+    --text-main: #282c3f; /* Dark gray/black text */
+    --text-muted: #686b78;
+    --border-light: #e9ecee;
+    --card-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    --bottom-nav-bg: #ffffff;
 }
 
 * {
@@ -77,7 +77,7 @@ body {
 .app-header .account-btn {
     background: var(--bg-light);
     border: 1px solid var(--border-light);
-    color: #ffffff; /* Explicitly white text/icon */
+    color: var(--text-main);
     width: 44px;
     height: 44px;
     border-radius: 50%;
@@ -335,15 +335,15 @@ body {
     border-radius: 12px;
     padding: 15px;
     position: relative;
-    border: 1px solid transparent;
+    border: 1px solid var(--border-light);
     transition: transform 0.3s, box-shadow 0.3s;
     display: flex;
     flex-direction: column;
 }
 
 .product-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
 }
 
 .card-image-wrap {
@@ -367,18 +367,16 @@ body {
 }
 
 .card-badge {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    background: rgba(0, 0, 0, 0.8);
-    color: var(--text-main);
+    display: inline-block;
+    background: #e9ecee;
+    color: var(--text-muted);
     font-size: 0.7rem;
     font-weight: 700;
     padding: 4px 10px;
     border-radius: 4px;
     text-transform: uppercase;
     letter-spacing: 1px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 8px; /* Give some space below it */
 }
 
 .card-info {

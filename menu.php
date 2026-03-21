@@ -137,10 +137,10 @@ if ($menu_result) {
                         <?php else: ?>
                             <i class="fa-solid fa-utensils" style="font-size: 3rem; color: var(--text-muted); opacity: 0.2;"></i>
                         <?php endif; ?>
-                        <div class="card-badge">MENU</div>
                     </div>
                     <div class="card-info">
                         <h4><?php echo htmlspecialchars($item['item_name']); ?></h4>
+                        <div class="card-badge">MENU</div>
                         <p style="font-size: 0.8rem; color: #888; margin-top: 5px;">Delicious <?php echo strtolower($item['item_name']); ?> prepared fresh.</p>
                         <div class="price-row" style="margin-top: 15px;">
                             <span class="price">₹<?php echo number_format($item['price'], 0); ?></span>

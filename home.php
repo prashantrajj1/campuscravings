@@ -69,7 +69,7 @@ if ($menu_result) {
     <title>CampusCravings - Order Food on Campus</title>
 
     <!-- External CSS -->
-    
+
 
     <!-- Local CSS only -->
     <link rel="stylesheet" href="css/style.css">
@@ -114,12 +114,9 @@ if ($menu_result) {
                     <h1 style="font-size: 3rem; margin-bottom: 20px;">Hungry? <span
                             style="color: var(--swiggy-orange);">Get It Fast.</span></h1>
                     <p style="font-size: 1.1rem; margin-bottom: 30px; opacity: 0.9;">Order from the best campus spots
-                        right now. Fresh, hot, and delivered to your hostel doorstep.</p>
+                        right now. Fresh, hot, and delivered to your Campus Maingate.</p>
                     <div class="hero-buttons" style="justify-content: flex-start;">
                         <a href="explore.php" class="btn-primary">Order Now</a>
-                        <a href="#popular" class="btn-secondary"
-                            style="background: transparent; color: #fff; border-color: rgba(255,255,255,0.3);">View
-                            Popular</a>
                     </div>
                 </div>
             </section>
@@ -159,14 +156,14 @@ endforeach; ?>
                 <div class="product-card">
                     <div class="card-image-wrap">
                         <img src="<?php echo $item['image_url']; ?>" alt="<?php echo $item['item_name']; ?>">
-                        <div class="card-badge">
-                            <?php echo $item['category_name']; ?>
-                        </div>
                     </div>
                     <div class="card-info">
                         <h4>
                             <?php echo htmlspecialchars($item['item_name']); ?>
                         </h4>
+                        <div class="card-badge">
+                            <?php echo $item['category_name']; ?>
+                        </div>
                         <p style="font-size: 0.8rem; color: #888; margin-top: 5px;">From
                             <?php echo htmlspecialchars($item['restaurant_name']); ?>
                         </p>
