@@ -39,7 +39,8 @@ if ($selected_category === 'all') {
         LIMIT 8
     ";
     $menu_result = mysqli_query($conn, $menu_query);
-} else {
+}
+else {
     $cat_id = mysqli_real_escape_string($conn, $selected_category);
     $menu_query = "
         SELECT m.*, r.name as restaurant_name, c.category_name 
@@ -68,8 +69,8 @@ if ($menu_result) {
     <title>CampusCravings - Order Food on Campus</title>
 
     <!-- External CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
+
     <!-- Local CSS only -->
     <link rel="stylesheet" href="css/style.css">
 </head>
@@ -80,15 +81,13 @@ if ($menu_result) {
 
         <header class="app-header">
             <div class="logo-desktop">
-                <i class="fa-solid fa-utensils"></i> Campus<span>Cravings</span>
+                🍴 Campus<span>Cravings</span>
             </div>
 
             <div class="location-selector">
                 <p class="label">Location</p>
                 <div class="current-location">
-                    <i class="fa-solid fa-location-dot"></i>
-                    <span>XIM University</span>
-                    <i class="fa-solid fa-chevron-down down-icon"></i>
+                    <span>📍XIM University</span>
                 </div>
             </div>
 
@@ -105,14 +104,21 @@ if ($menu_result) {
 
         <main class="app-main">
 
-            <section class="hero-section" style="background: var(--text-main); color: #fff; padding: 40px; border-radius: 20px; overflow: hidden; position: relative;">
-                <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=1920&auto=format&fit=crop'); background-size: cover; background-position: center;"></div>
+            <section class="hero-section"
+                style="background: var(--text-main); color: #fff; padding: 40px; border-radius: 20px; overflow: hidden; position: relative;">
+                <div
+                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=1920&auto=format&fit=crop'); background-size: cover; background-position: center;">
+                </div>
                 <div class="hero-content" style="position: relative; z-index: 2; text-align: left; max-width: 500px;">
-                    <h1 style="font-size: 3rem; margin-bottom: 20px;">Hungry? <span style="color: var(--swiggy-orange);">Get It Fast.</span></h1>
-                    <p style="font-size: 1.1rem; margin-bottom: 30px; opacity: 0.9;">Order from the best campus spots right now. Fresh, hot, and delivered to your hostel doorstep.</p>
+                    <h1 style="font-size: 3rem; margin-bottom: 20px;">Hungry? <span
+                            style="color: var(--swiggy-orange);">Get It Fast.</span></h1>
+                    <p style="font-size: 1.1rem; margin-bottom: 30px; opacity: 0.9;">Order from the best campus spots
+                        right now. Fresh, hot, and delivered to your hostel doorstep.</p>
                     <div class="hero-buttons" style="justify-content: flex-start;">
                         <a href="explore.php" class="btn-primary">Order Now</a>
-                        <a href="#popular" class="btn-secondary" style="background: transparent; color: #fff; border-color: rgba(255,255,255,0.3);">View Popular</a>
+                        <a href="#popular" class="btn-secondary"
+                            style="background: transparent; color: #fff; border-color: rgba(255,255,255,0.3);">View
+                            Popular</a>
                     </div>
                 </div>
             </section>
@@ -122,15 +128,21 @@ if ($menu_result) {
                 <form action="home.php" method="GET" class="category-radio-group">
                     <div class="category-pills">
                         <label class="pill-label">
-                            <input type="radio" name="category" value="all" <?php echo $selected_category === 'all' ? 'checked' : ''; ?> onchange="this.form.submit()">
+                            <input type="radio" name="category" value="all" <?php echo $selected_category === 'all'
+    ? 'checked' : ''; ?> onchange="this.form.submit()">
                             <span class="pill">All Dishes</span>
                         </label>
                         <?php foreach ($categories as $cat): ?>
                         <label class="pill-label">
-                            <input type="radio" name="category" value="<?php echo $cat['id']; ?>" <?php echo (string)$selected_category === (string)$cat['id'] ? 'checked' : ''; ?> onchange="this.form.submit()">
-                            <span class="pill"><?php echo htmlspecialchars($cat['category_name']); ?></span>
+                            <input type="radio" name="category" value="<?php echo $cat['id']; ?>" <?php echo
+        (string)$selected_category === (string)$cat['id'] ? 'checked' : ''; ?>
+                            onchange="this.form.submit()">
+                            <span class="pill">
+                                <?php echo htmlspecialchars($cat['category_name']); ?>
+                            </span>
                         </label>
-                        <?php endforeach; ?>
+                        <?php
+endforeach; ?>
                     </div>
                 </form>
             </div>
@@ -146,18 +158,28 @@ if ($menu_result) {
                 <div class="product-card">
                     <div class="card-image-wrap">
                         <img src="<?php echo $item['image_url']; ?>" alt="<?php echo $item['item_name']; ?>">
-                        <div class="card-badge"><?php echo $item['category_name']; ?></div>
-                    </div>
-                    <div class="card-info">
-                        <h4><?php echo htmlspecialchars($item['item_name']); ?></h4>
-                        <p style="font-size: 0.8rem; color: #888; margin-top: 5px;">From <?php echo htmlspecialchars($item['restaurant_name']); ?></p>
-                        <div class="price-row" style="margin-top: 15px;">
-                            <span class="price" style="font-size: 1.2rem;">₹<?php echo number_format($item['price'], 0); ?></span>
+                        <div class="card-badge">
+                            <?php echo $item['category_name']; ?>
                         </div>
                     </div>
-                    <button class="add-btn" onclick="addToCart('<?php echo addslashes($item['item_name']); ?>', <?php echo $item['price']; ?>)">+</button>
+                    <div class="card-info">
+                        <h4>
+                            <?php echo htmlspecialchars($item['item_name']); ?>
+                        </h4>
+                        <p style="font-size: 0.8rem; color: #888; margin-top: 5px;">From
+                            <?php echo htmlspecialchars($item['restaurant_name']); ?>
+                        </p>
+                        <div class="price-row" style="margin-top: 15px;">
+                            <span class="price" style="font-size: 1.2rem;">₹
+                                <?php echo number_format($item['price'], 0); ?>
+                            </span>
+                        </div>
+                    </div>
+                    <button class="add-btn"
+                        onclick="addToCart('<?php echo addslashes($item['item_name']); ?>', <?php echo $item['price']; ?>)">+</button>
                 </div>
-                <?php endforeach; ?>
+                <?php
+endforeach; ?>
             </div>
 
             <!-- Restaurants Section -->
@@ -168,20 +190,22 @@ if ($menu_result) {
 
             <div class="products-grid">
                 <?php foreach ($restaurants as $res): ?>
-                <a href="restaurant_details.php?id=<?php echo $res['id']; ?>" class="product-card" style="text-decoration: none; color: inherit; display: flex;">
+                <a href="restaurant_details.php?id=<?php echo $res['id']; ?>" class="product-card"
+                    style="text-decoration: none; color: inherit; display: flex;">
                     <div class="card-image-wrap" style="height: 180px;">
                         <img src="<?php echo $res['image_url']; ?>" alt="<?php echo $res['name']; ?>">
-                        <div class="card-badge" style="background: var(--swiggy-green); color: #fff;">4.2 ★</div>
                     </div>
                     <div class="card-info">
-                        <h4 style="font-size: 1.3rem;"><?php echo htmlspecialchars($res['name']); ?></h4>
-                        <p style="color: #686b78; font-size: 0.9rem; margin-bottom: 10px;"><?php echo $res['cuisine_type']; ?></p>
-                        <div class="price-row">
-                            <span style="font-size: 0.85rem; color: #93959f;">Flat 20% OFF | Use APP20</span>
-                        </div>
+                        <h4 style="font-size: 1.3rem;">
+                            <?php echo htmlspecialchars($res['name']); ?>
+                        </h4>
+                        <p style="color: #686b78; font-size: 0.9rem; margin-bottom: 10px;">
+                            <?php echo $res['cuisine_type']; ?>
+                        </p>
                     </div>
                 </a>
-                <?php endforeach; ?>
+                <?php
+endforeach; ?>
             </div>
 
         </main>

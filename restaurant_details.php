@@ -75,7 +75,7 @@ if ($menu_result) {
                 <div class="hero-content" style="text-align: left; padding: 30px; width: 100%; color: var(--text-main);">
                     <h1 style="margin-bottom: 8px; font-size: 2.2rem; text-shadow: none;"><?php echo htmlspecialchars($restaurant['name']); ?></h1>
                     <p style="margin-bottom: 5px; color: var(--swiggy-orange); font-weight: 800; font-size: 1.1rem; text-shadow: none;">
-                        <i class="fa-solid fa-star"></i> <?php echo $restaurant['rating']; ?> • <?php echo $restaurant['cuisine_type']; ?>
+                        <?php echo $restaurant['cuisine_type']; ?>
                     </p>
                     <p style="color: var(--text-muted); text-shadow: none;"><?php echo htmlspecialchars($restaurant['description']); ?></p>
                 </div>

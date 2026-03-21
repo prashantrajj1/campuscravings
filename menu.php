@@ -141,7 +141,6 @@ if ($menu_result) {
                     </div>
                     <div class="card-info">
                         <h4><?php echo htmlspecialchars($item['item_name']); ?></h4>
-                        <div class="rating"><i class="fa-solid fa-star"></i> 4.5</div>
                         <p style="font-size: 0.8rem; color: #888; margin-top: 5px;">Delicious <?php echo strtolower($item['item_name']); ?> prepared fresh.</p>
                         <div class="price-row" style="margin-top: 15px;">
                             <span class="price">₹<?php echo number_format($item['price'], 0); ?></span>

@@ -19,7 +19,7 @@ if ($result) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Explore Restaurants - CampusCravings</title>
     <!-- External CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     
     <!-- Local CSS only -->
     <link rel="stylesheet" href="css/style.css">
@@ -51,14 +51,10 @@ if ($result) {
                 <a href="restaurant_details.php?id=<?php echo $res['id']; ?>" class="product-card" style="text-decoration: none; color: inherit; display: flex;">
                     <div class="card-image-wrap" style="height: 180px;">
                         <img src="<?php echo $res['image_url']; ?>" alt="<?php echo $res['name']; ?>">
-                        <div class="card-badge" style="background: var(--swiggy-green); color: #fff; font-weight: 700;"><?php echo $res['rating']; ?> ★</div>
                     </div>
                     <div class="card-info">
                         <h4 style="font-size: 1.3rem; margin-bottom: 5px;"><?php echo htmlspecialchars($res['name']); ?></h4>
                         <p style="color: #686b78; font-size: 0.9rem; margin-bottom: 15px;"><?php echo $res['cuisine_type']; ?></p>
-                        <div class="price-row">
-                            <span style="font-size: 0.85rem; color: #93959f;">Flat 50% OFF | Use WELCOME50</span>
-                        </div>
                     </div>
                 </a>
                 <?php endforeach; ?>
