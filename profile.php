@@ -1,35 +1,42 @@
 <?php
+session_start();
 // Authentication check
 $user_id = null;
 $user_email = "";
-if (isset($_COOKIE['user_auth'])) {
-    $decoded = json_decode(base64_decode($_COOKIE['user_auth']), true);
-    $user_id = $decoded['id'];
-    $user_email = $decoded['email'];
+if (isset($_SESSION['user_id'])) {
+    $user_id = $_SESSION['user_id'];
+    $user_email = $_SESSION['email'];
 } else {
-    header("Location: login.html");
+    header("Location: login.php");
     exit;
 }
 
 require_once 'php/db_connect.php';
 
 // Fetch user details
-$stmt = $conn->prepare("SELECT * FROM users WHERE id = :id");
-$stmt->bindParam(':id', $user_id);
-$stmt->execute();
-$user = $stmt->fetch(PDO::FETCH_ASSOC);
+$user_query = "SELECT * FROM users WHERE id = '$user_id'";
+$user_result = mysqli_query($conn, $user_query);
+$user = mysqli_fetch_assoc($user_result);
 
 // Fetch orders
-$order_stmt = $conn->prepare("SELECT * FROM orders WHERE user_id = :user_id ORDER BY order_date DESC");
-$order_stmt->bindParam(':user_id', $user_id);
-$order_stmt->execute();
-$orders = $order_stmt->fetchAll(PDO::FETCH_ASSOC);
+$order_query = "SELECT * FROM orders WHERE user_id = '$user_id' ORDER BY order_date DESC";
+$order_result = mysqli_query($conn, $order_query);
+$orders = [];
+if ($order_result) {
+    while ($row = mysqli_fetch_assoc($order_result)) {
+        $orders[] = $row;
+    }
+}
 
 // Fetch complaints
-$complaint_stmt = $conn->prepare("SELECT * FROM complaints WHERE user_id = :user_id ORDER BY created_at DESC");
-$complaint_stmt->bindParam(':user_id', $user_id);
-$complaint_stmt->execute();
-$complaints = $complaint_stmt->fetchAll(PDO::FETCH_ASSOC);
+$complaint_query = "SELECT * FROM complaints WHERE user_id = '$user_id' ORDER BY created_at DESC";
+$complaint_result = mysqli_query($conn, $complaint_query);
+$complaints = [];
+if ($complaint_result) {
+    while ($row = mysqli_fetch_assoc($complaint_result)) {
+        $complaints[] = $row;
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -45,7 +52,7 @@ $complaints = $complaint_stmt->fetchAll(PDO::FETCH_ASSOC);
             max-width: 900px;
             margin: 20px auto;
             padding: 30px;
-            background: #fff;
+            background: var(--card-bg);
             color: var(--text-main);
             border-radius: 20px;
             box-shadow: var(--card-shadow);
@@ -168,9 +175,9 @@ $complaints = $complaint_stmt->fetchAll(PDO::FETCH_ASSOC);
 
     <div class="app-container">
         <header class="app-header">
-            <a href="index.php" style="color: var(--text-main); text-decoration: none; font-weight: 700;"><i class="fa-solid fa-arrow-left"></i> Home</a>
+            <a href="home.php" style="color: var(--text-main); text-decoration: none; font-weight: 700;"><i class="fa-solid fa-arrow-left"></i> Home</a>
             <div class="logo-desktop">Campus<span>Cravings</span></div>
-            <a href="cart.html" style="color: var(--text-main); font-size: 1.5rem;"><i class="fa-solid fa-basket-shopping"></i></a>
+            <a href="checkout.php" style="color: var(--text-main); font-size: 1.5rem;"><i class="fa-solid fa-basket-shopping"></i></a>
         </header>
 
         <div class="profile-container">
@@ -201,7 +208,6 @@ $complaints = $complaint_stmt->fetchAll(PDO::FETCH_ASSOC);
                             <th>Order ID</th>
                             <th>Date</th>
                             <th>Amount</th>
-                            <th>Status</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -210,11 +216,6 @@ $complaints = $complaint_stmt->fetchAll(PDO::FETCH_ASSOC);
                                 <td style="font-weight: 700;">#<?php echo $order['id']; ?></td>
                                 <td><?php echo date('d M, Y', strtotime($order['order_date'])); ?></td>
                                 <td style="font-weight: 700;">₹<?php echo number_format($order['total_amount'], 2); ?></td>
-                                <td>
-                                    <span class="status-badge <?php echo 'status-' . strtolower(str_replace(' ', '-', $order['status'])); ?>">
-                                        <?php echo $order['status']; ?>
-                                    </span>
-                                </td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
@@ -276,7 +277,7 @@ $complaints = $complaint_stmt->fetchAll(PDO::FETCH_ASSOC);
         </div>
 
         <nav class="bottom-nav">
-            <a href="index.php" class="nav-item">
+            <a href="home.php" class="nav-item">
                 <i class="fa-solid fa-house"></i>
                 <span>Home</span>
             </a>

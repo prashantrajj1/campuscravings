@@ -58,7 +58,7 @@ include 'connect.php';
         
         <div style="text-align: center; margin-top: 30px;">
             <a href="add_food.php" class="btn-primary" style="margin-right: 15px;">Add New Food Items</a>
-            <a href="../login.html" class="btn-secondary">Log Out</a>
+            <a href="../login.php" class="btn-secondary">Log Out</a>
         </div>
     </div>
     

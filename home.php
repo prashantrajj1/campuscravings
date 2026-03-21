@@ -1,41 +1,62 @@
 <?php
+session_start();
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit;
+}
 require_once 'php/db_connect.php';
 
 // Fetch all restaurants
-$res_stmt = $conn->prepare("SELECT * FROM restaurants LIMIT 6");
-$res_stmt->execute();
-$restaurants = $res_stmt->fetchAll(PDO::FETCH_ASSOC);
+$res_query = "SELECT * FROM restaurants LIMIT 6";
+$res_result = mysqli_query($conn, $res_query);
+$restaurants = [];
+if ($res_result) {
+    while ($row = mysqli_fetch_assoc($res_result)) {
+        $restaurants[] = $row;
+    }
+}
 
 // Fetch categories for the radio button filter
-$cat_stmt = $conn->prepare("SELECT * FROM menu_categories LIMIT 5");
-$cat_stmt->execute();
-$categories = $cat_stmt->fetchAll(PDO::FETCH_ASSOC);
+$cat_query = "SELECT * FROM menu_categories LIMIT 5";
+$cat_result = mysqli_query($conn, $cat_query);
+$categories = [];
+if ($cat_result) {
+    while ($row = mysqli_fetch_assoc($cat_result)) {
+        $categories[] = $row;
+    }
+}
 
 // Handle category filter
 $selected_category = isset($_GET['category']) ? $_GET['category'] : 'all';
 
 // Fetch menu items based on category filter
 if ($selected_category === 'all') {
-    $menu_stmt = $conn->prepare("
+    $menu_query = "
         SELECT m.*, r.name as restaurant_name, c.category_name 
         FROM menu_items m 
         JOIN restaurants r ON m.restaurant_id = r.id 
         JOIN menu_categories c ON m.category_id = c.id
         LIMIT 8
-    ");
-    $menu_stmt->execute();
+    ";
+    $menu_result = mysqli_query($conn, $menu_query);
 } else {
-    $menu_stmt = $conn->prepare("
+    $cat_id = mysqli_real_escape_string($conn, $selected_category);
+    $menu_query = "
         SELECT m.*, r.name as restaurant_name, c.category_name 
         FROM menu_items m 
         JOIN restaurants r ON m.restaurant_id = r.id 
         JOIN menu_categories c ON m.category_id = c.id
-        WHERE m.category_id = :cat_id
+        WHERE m.category_id = '$cat_id'
         LIMIT 8
-    ");
-    $menu_stmt->execute(['cat_id' => $selected_category]);
+    ";
+    $menu_result = mysqli_query($conn, $menu_query);
 }
-$menu_items = $menu_stmt->fetchAll(PDO::FETCH_ASSOC);
+$menu_items = [];
+if ($menu_result) {
+    while ($row = mysqli_fetch_assoc($menu_result)) {
+        $menu_items[] = $row;
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -72,9 +93,9 @@ $menu_items = $menu_stmt->fetchAll(PDO::FETCH_ASSOC);
             </div>
 
             <nav class="desktop-nav">
-                <a href="index.php" class="active">Home</a>
+                <a href="home.php" class="active">Home</a>
                 <a href="explore.php">Explore</a>
-                <a href="cart.html">Cart</a>
+                <a href="checkout.php">Cart</a>
             </nav>
 
             <a href="profile.php" class="account-btn" title="Account">
@@ -98,7 +119,7 @@ $menu_items = $menu_stmt->fetchAll(PDO::FETCH_ASSOC);
 
             <!-- Categories -->
             <div class="categories-section">
-                <form action="index.php" method="GET" class="category-radio-group">
+                <form action="home.php" method="GET" class="category-radio-group">
                     <div class="category-pills">
                         <label class="pill-label">
                             <input type="radio" name="category" value="all" <?php echo $selected_category === 'all' ? 'checked' : ''; ?> onchange="this.form.submit()">
@@ -166,7 +187,7 @@ $menu_items = $menu_stmt->fetchAll(PDO::FETCH_ASSOC);
         </main>
 
         <nav class="bottom-nav">
-            <a href="index.php" class="nav-item active">
+            <a href="home.php" class="nav-item active">
                 <div class="nav-icon-bg"><i class="fa-solid fa-house"></i></div>
                 <span>Home</span>
             </a>

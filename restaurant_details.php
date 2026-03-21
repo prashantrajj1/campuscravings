@@ -1,18 +1,22 @@
 <?php
+session_start();
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit;
+}
 require_once 'php/db_connect.php';
 
-$res_id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
+$res_id = isset($_GET['id']) ? (int)mysqli_real_escape_string($conn, $_GET['id']) : 0;
 
 if ($res_id === 0) {
-    header("Location: index.php");
+    header("Location: home.php");
     exit;
 }
 
 // Fetch restaurant details
-$stmt = $conn->prepare("SELECT * FROM restaurants WHERE id = :id");
-$stmt->bindParam(':id', $res_id);
-$stmt->execute();
-$restaurant = $stmt->fetch(PDO::FETCH_ASSOC);
+$query = "SELECT * FROM restaurants WHERE id = '$res_id'";
+$result = mysqli_query($conn, $query);
+$restaurant = mysqli_fetch_assoc($result);
 
 if (!$restaurant) {
     echo "Restaurant not found.";
@@ -20,16 +24,20 @@ if (!$restaurant) {
 }
 
 // Fetch menu items with category names for this restaurant
-$menu_stmt = $conn->prepare("
+$menu_query = "
     SELECT m.*, c.category_name 
     FROM menu_items m 
     JOIN menu_categories c ON m.category_id = c.id 
-    WHERE m.restaurant_id = :res_id 
+    WHERE m.restaurant_id = '$res_id' 
     ORDER BY c.id ASC
-");
-$menu_stmt->bindParam(':res_id', $res_id);
-$menu_stmt->execute();
-$menu_items = $menu_stmt->fetchAll(PDO::FETCH_ASSOC);
+";
+$menu_result = mysqli_query($conn, $menu_query);
+$menu_items = [];
+if ($menu_result) {
+    while ($row = mysqli_fetch_assoc($menu_result)) {
+        $menu_items[] = $row;
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -45,7 +53,7 @@ $menu_items = $menu_stmt->fetchAll(PDO::FETCH_ASSOC);
 
     <div class="app-container">
         <header class="app-header">
-            <a href="index.php" style="color: var(--text-main); text-decoration: none; font-weight: 700; white-space: nowrap;"><i class="fa-solid fa-arrow-left"></i> Home</a>
+            <a href="home.php" style="color: var(--text-main); text-decoration: none; font-weight: 700; white-space: nowrap;"><i class="fa-solid fa-arrow-left"></i> Home</a>
             
             <div class="search-bar" style="flex: 1; margin: 0 15px; position: relative; max-width: 400px;">
                 <input type="text" placeholder="Search in menu..." style="width: 100%; padding: 10px 18px 10px 40px; border-radius: 20px; border: 1px solid var(--border-light); background: var(--bg-light); color: var(--text-main);">
@@ -53,7 +61,7 @@ $menu_items = $menu_stmt->fetchAll(PDO::FETCH_ASSOC);
             </div>
             
             <div style="display: flex; gap: 15px;">
-                <a href="cart.html" class="account-btn" title="Cart"><i class="fa-solid fa-basket-shopping"></i></a>
+                <a href="checkout.php" class="account-btn" title="Cart"><i class="fa-solid fa-basket-shopping"></i></a>
                 <a href="profile.php" class="account-btn" title="Account"><i class="fa-regular fa-user"></i></a>
             </div>
         </header>
@@ -103,7 +111,7 @@ $menu_items = $menu_stmt->fetchAll(PDO::FETCH_ASSOC);
                             <?php else: ?>
                                 <i class="fa-solid fa-pizza-slice" style="font-size: 3rem; color: var(--text-muted); opacity: 0.1;"></i>
                             <?php endif; ?>
-                            <div class="card-badge" style="background: #fff; color: var(--text-main);">NEW</div>
+                            <div class="card-badge">NEW</div>
                         </div>
                         <div class="card-info">
                             <h4><?php echo htmlspecialchars($item['item_name']); ?></h4>
@@ -120,7 +128,7 @@ $menu_items = $menu_stmt->fetchAll(PDO::FETCH_ASSOC);
         </main>
 
         <nav class="bottom-nav">
-            <a href="index.php" class="nav-item">
+            <a href="home.php" class="nav-item">
                 <i class="fa-solid fa-house"></i>
                 <span>Home</span>
             </a>
@@ -128,7 +136,7 @@ $menu_items = $menu_stmt->fetchAll(PDO::FETCH_ASSOC);
                 <i class="fa-regular fa-compass"></i>
                 <span>Explore</span>
             </a>
-            <a href="cart.html" class="nav-item">
+            <a href="checkout.php" class="nav-item">
                 <i class="fa-solid fa-basket-shopping"></i>
                 <span>Cart</span>
             </a>

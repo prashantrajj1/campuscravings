@@ -2,9 +2,14 @@
 require_once 'php/db_connect.php';
 
 // Fetch all restaurants
-$stmt = $conn->prepare("SELECT * FROM restaurants");
-$stmt->execute();
-$restaurants = $res_stmt = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$query = "SELECT * FROM restaurants";
+$result = mysqli_query($conn, $query);
+$restaurants = [];
+if ($result) {
+    while ($row = mysqli_fetch_assoc($result)) {
+        $restaurants[] = $row;
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -27,9 +32,9 @@ $restaurants = $res_stmt = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <i class="fa-solid fa-utensils"></i> Campus<span>Cravings</span>
             </div>
             <nav class="desktop-nav">
-                <a href="index.php">Home</a>
+                <a href="home.php">Home</a>
                 <a href="explore.php" class="active">Explore</a>
-                <a href="cart.html">Cart</a>
+                <a href="checkout.php">Cart</a>
             </nav>
             <a href="profile.php" class="account-btn" title="Account">
                 <i class="fa-regular fa-user"></i>
@@ -61,7 +66,7 @@ $restaurants = $res_stmt = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </main>
 
         <nav class="bottom-nav">
-            <a href="index.php" class="nav-item">
+            <a href="home.php" class="nav-item">
                 <i class="fa-solid fa-house"></i>
                 <span>Home</span>
             </a>
@@ -69,7 +74,7 @@ $restaurants = $res_stmt = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <div class="nav-icon-bg"><i class="fa-regular fa-compass"></i></div>
                 <span>Explore</span>
             </a>
-            <a href="cart.html" class="nav-item">
+            <a href="checkout.php" class="nav-item">
                 <i class="fa-solid fa-basket-shopping"></i>
                 <span>Cart</span>
             </a>
