@@ -10,6 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $rollno = mysqli_real_escape_string($conn, $_POST['rollno']);
     $password = $_POST['password'];
 
+    // PHP side validation
     if (!preg_match('/^[a-zA-Z0-9._%+-]+@stu\.xim\.edu\.in$/', $email)) {
         $error = "Please use your @stu.xim.edu.in email";
     } elseif (empty($password)) {
@@ -25,6 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $insert_query = "INSERT INTO users (email, course, rollno, password) VALUES ('$email', '$course', '$rollno', '$hashed_password')";
             
             if (mysqli_query($conn, $insert_query)) {
+                // Auto login after success
                 $_SESSION['user_id'] = mysqli_insert_id($conn);
                 $_SESSION['email'] = $email;
                 header("Location: home.php");
@@ -40,7 +42,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html>
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register - CampusCravings</title>
+    <!-- Local CSS only -->
     <link rel="stylesheet" href="css/login.css">
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -90,37 +94,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
     <div class="logo">
-        Campus<span>Cravings</span>
+        <i class="fa-solid fa-utensils"></i> Campus<span>Cravings</span>
     </div>
 
     <div class="login-box">
-        <?php if (!empty($error)): ?>
-            <h2 id="errlogs" style="color:red; font-size:14px;"><?php echo $error; ?></h2>
-        <?php else: ?>
-            <h2 id="errlogs"></h2>
-        <?php endif; ?>
-        
-        <form action="register.php" method="POST">
-            <label for="email" class="form-label">Email: </label>
-            <input type="email" id="email" name="email" class="form-input" placeholder="your college mail" required>
+        <div class="form">
+            <?php if (!empty($error)): ?>
+                <h2 id="errlogs" style="color:red; font-size:14px;"><?php echo $error; ?></h2>
+            <?php else: ?>
+                <h2 id="errlogs"></h2>
+            <?php endif; ?>
             
-            <label for="course" class="form-label">Course: </label>
-            <input type="text" id="course" name="course" class="form-input" placeholder="course" required>
-            
-            <label for="rollno" class="form-label">University Roll No.: </label>
-            <input type="text" id="rollno" name="rollno" class="form-input" placeholder="rollno" required>
-            
-            <label for="password" class="form-label">Password: </label>
-            <input type="password" id="password" name="password" class="form-input" placeholder="password" required>
-            
-            <label for="confirm-password" class="form-label">Confirm Password: </label>
-            <input type="password" id="confirm-password" name="confirm-password" class="form-input" placeholder="password" required>
+            <form action="register.php" method="POST">
+                <label for="email">Email: </label>
+                <input type="email" id="email" name="email" placeholder="your college mail" required>
+                
+                <label for="course"> Course </label>
+                <input type="text" id="course" name="course" placeholder="course" required>
+                
+                <label for="rollno">University Roll No.</label>
+                <input type="text" id="rollno" name="rollno" placeholder="rollno" required>
+                
+                <label for="password">Password: </label>
+                <input type="password" id="password" name="password" placeholder="password" required>
+                
+                <label for="confirm-password">Confirm Password: </label>
+                <input type="password" id="confirm-password" name="confirm-password" placeholder="password" required>
 
-            <button type="submit" class="btn">Register</button>
-            <div class="register-link">
+                <button type="submit" class="btn">Register</button><br><br>
                 <p>Already have an account? <a href="login.php">Login</a></p>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
 </body>
 </html>

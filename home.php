@@ -6,6 +6,7 @@ if (!isset($_SESSION['user_id'])) {
 }
 require_once 'php/db_connect.php';
 
+// Fetch all restaurants
 $res_query = "SELECT * FROM restaurants LIMIT 6";
 $res_result = mysqli_query($conn, $res_query);
 $restaurants = [];
@@ -15,6 +16,7 @@ if ($res_result) {
     }
 }
 
+// Fetch categories for the radio button filter
 $cat_query = "SELECT * FROM menu_categories LIMIT 5";
 $cat_result = mysqli_query($conn, $cat_query);
 $categories = [];
@@ -24,8 +26,10 @@ if ($cat_result) {
     }
 }
 
+// Handle category filter
 $selected_category = isset($_GET['category']) ? $_GET['category'] : 'all';
 
+// Fetch menu items based on category filter
 if ($selected_category === 'all') {
     $menu_query = "
         SELECT m.*, r.name as restaurant_name, c.category_name 
@@ -35,7 +39,8 @@ if ($selected_category === 'all') {
         LIMIT 8
     ";
     $menu_result = mysqli_query($conn, $menu_query);
-} else {
+}
+else {
     $cat_id = mysqli_real_escape_string($conn, $selected_category);
     $menu_query = "
         SELECT m.*, r.name as restaurant_name, c.category_name 
@@ -57,129 +62,174 @@ if ($menu_result) {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>CampusCravings - Home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CampusCravings - Order Food on Campus</title>
+
+    <!-- External CSS -->
+
+
+    <!-- Local CSS only -->
+    <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/home.css">
 </head>
+
 <body>
 
-<table width="100%" cellpadding="20" class="header-table">
-    <tr>
-        <td width="30%">
-            <a href="home.php" class="logo-text">Campus<span>Cravings</span></a>
-        </td>
-        <td width="40%" align="center">
-            <a href="home.php" class="nav-link active">Home</a>
-            <a href="explore.php" class="nav-link">Explore</a>
-            <a href="checkout.php" class="nav-link">Cart</a>
-        </td>
-        <td width="30%" align="right">
-            <a href="profile.php" class="nav-link">Account</a>
-        </td>
-    </tr>
-</table>
+    <div class="app-container">
 
-<div class="layout-container">
+        <header class="app-header">
+            <div class="logo-desktop">
+                🍴 Campus<span>Cravings</span>
+            </div>
 
-    <div class="hero-box">
-        <div class="hero-overlay">
-            <h1 class="hero-title">Hungry? <span>Get It Fast.</span></h1>
-            <p class="hero-desc">Order from the best campus spots. Fresh, hot, and delivered to your hostel.</p>
-            <br>
-            <a href="explore.php" class="btn-primary">Order Now</a>
-        </div>
-    </div>
-
-    <!-- Category filter as a table -->
-    <div class="category-table">
-        <form action="home.php" method="GET">
-            <table width="100%" cellpadding="10" border="1">
-                <caption>Filter by Category</caption>
-                <tr>
-                    <td>
-                        <input type="radio" name="category" value="all" <?php echo $selected_category === 'all' ? 'checked' : ''; ?> onchange="this.form.submit()"> All Dishes
-                    </td>
-                    <?php foreach ($categories as $cat): ?>
-                    <td>
-                        <input type="radio" name="category" value="<?php echo $cat['id']; ?>" <?php echo (string)$selected_category === (string)$cat['id'] ? 'checked' : ''; ?> onchange="this.form.submit()">
-                        <?php echo htmlspecialchars($cat['category_name']); ?>
-                    </td>
-                    <?php endforeach; ?>
-                </tr>
-            </table>
-        </form>
-    </div>
-
-    <div>
-        <a href="explore.php" class="see-all">See all items</a>
-        <div class="section-title">Popular on Campus</div>
-    </div>
-
-    <table width="100%" cellpadding="15">
-        <tr>
-            <?php 
-            $count = 0;
-            foreach ($menu_items as $item): 
-                if ($count > 0 && $count % 4 == 0) echo "</tr><tr>";
-            ?>
-            <td width="25%" align="center" valign="top">
-                <div class="product-cell">
-                    <img src="<?php echo $item['image_url']; ?>" width="100%" height="150" class="product-img">
-                    <h4 class="product-title"><?php echo htmlspecialchars($item['item_name']); ?></h4>
-                    <span class="badge"><?php echo $item['category_name']; ?></span>
-                    <p class="product-desc">From <?php echo htmlspecialchars($item['restaurant_name']); ?></p>
-                    <div class="price">₹<?php echo number_format($item['price'], 0); ?></div>
-                    <button class="add-btn" onclick="addToCart('<?php echo addslashes($item['item_name']); ?>', <?php echo $item['price']; ?>)">+ Add to Cart</button>
+            <div class="location-selector">
+                <p class="label">Location</p>
+                <div class="current-location">
+                    <span>📍XIM University</span>
                 </div>
-            </td>
-            <?php 
-                $count++;
-            endforeach; 
-            // close table correctly
-            while ($count % 4 != 0) {
-                echo "<td width='25%'></td>";
-                $count++;
-            }
-            ?>
-        </tr>
-    </table>
+            </div>
 
-    <div>
-        <a href="explore.php" class="see-all">View all restaurants</a>
-        <div class="section-title">Featured Restaurants</div>
-    </div>
+            <nav class="desktop-nav">
+                <a href="home.php" class="active">Home</a>
+                <a href="explore.php">Explore</a>
+                <a href="checkout.php">Cart</a>
+            </nav>
 
-    <table width="100%" cellpadding="15">
-        <tr>
-            <?php 
-            $count = 0;
-            foreach ($restaurants as $res): 
-                if ($count > 0 && $count % 3 == 0) echo "</tr><tr>";
-            ?>
-            <td width="33%" align="center" valign="top">
-                <a href="restaurant_details.php?id=<?php echo $res['id']; ?>">
-                    <div class="product-cell">
-                        <img src="<?php echo $res['image_url']; ?>" width="100%" height="180" class="product-img">
-                        <h4 class="product-title"><?php echo htmlspecialchars($res['name']); ?></h4>
-                        <p class="product-desc"><?php echo $res['cuisine_type']; ?></p>
+            <a href="profile.php" class="account-btn" title="Account">
+                <i class="fa-regular fa-user"></i>
+            </a>
+        </header>
+
+        <main class="app-main">
+
+            <section class="hero-section"
+                style="background: var(--text-main); color: #fff; padding: 40px; border-radius: 20px; overflow: hidden; position: relative;">
+                <div
+                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=1920&auto=format&fit=crop'); background-size: cover; background-position: center;">
+                </div>
+                <div class="hero-content" style="position: relative; z-index: 2; text-align: left; max-width: 500px;">
+                    <h1 style="font-size: 3rem; margin-bottom: 20px;">Hungry? <span
+                            style="color: var(--swiggy-orange);">Get It Fast.</span></h1>
+                    <p style="font-size: 1.1rem; margin-bottom: 30px; opacity: 0.9;">Order from the best campus spots
+                        right now. Fresh, hot, and delivered to your Campus Maingate.</p>
+                    <div class="hero-buttons" style="justify-content: flex-start;">
+                        <a href="explore.php" class="btn-primary">Order Now</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Categories -->
+            <div class="categories-section">
+                <form action="home.php" method="GET" class="category-radio-group">
+                    <div class="category-pills">
+                        <label class="pill-label">
+                            <input type="radio" name="category" value="all" <?php echo $selected_category === 'all'
+    ? 'checked' : ''; ?> onchange="this.form.submit()">
+                            <span class="pill">All Dishes</span>
+                        </label>
+                        <?php foreach ($categories as $cat): ?>
+                        <label class="pill-label">
+                            <input type="radio" name="category" value="<?php echo $cat['id']; ?>" <?php echo
+        (string)$selected_category === (string)$cat['id'] ? 'checked' : ''; ?>
+                            onchange="this.form.submit()">
+                            <span class="pill">
+                                <?php echo htmlspecialchars($cat['category_name']); ?>
+                            </span>
+                        </label>
+                        <?php
+endforeach; ?>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Best Choice Section -->
+            <div class="section-header" id="popular">
+                <h3 style="font-size: 1.6rem; font-weight: 800;">Popular on Campus</h3>
+                <a href="explore.php" class="see-all">See all</a>
+            </div>
+
+            <div class="products-grid">
+                <?php foreach ($menu_items as $item): ?>
+                <div class="product-card">
+                    <div class="card-image-wrap">
+                        <img src="<?php echo $item['image_url']; ?>" alt="<?php echo $item['item_name']; ?>">
+                    </div>
+                    <div class="card-info">
+                        <h4>
+                            <?php echo htmlspecialchars($item['item_name']); ?>
+                        </h4>
+                        <div class="card-badge">
+                            <?php echo $item['category_name']; ?>
+                        </div>
+                        <p style="font-size: 0.8rem; color: #888; margin-top: 5px;">From
+                            <?php echo htmlspecialchars($item['restaurant_name']); ?>
+                        </p>
+                        <div class="price-row" style="margin-top: 15px;">
+                            <span class="price" style="font-size: 1.2rem;">₹
+                                <?php echo number_format($item['price'], 0); ?>
+                            </span>
+                        </div>
+                    </div>
+                    <button class="add-btn"
+                        onclick="addToCart('<?php echo addslashes($item['item_name']); ?>', <?php echo $item['price']; ?>)">+</button>
+                </div>
+                <?php
+endforeach; ?>
+            </div>
+
+            <!-- Restaurants Section -->
+            <div class="section-header" style="margin-top: 50px;">
+                <h3 style="font-size: 1.6rem; font-weight: 800;">Featured Restaurants</h3>
+                <a href="explore.php" class="see-all">View all restaurants</a>
+            </div>
+
+            <div class="products-grid">
+                <?php foreach ($restaurants as $res): ?>
+                <a href="restaurant_details.php?id=<?php echo $res['id']; ?>" class="product-card"
+                    style="text-decoration: none; color: inherit; display: flex;">
+                    <div class="card-image-wrap" style="height: 180px;">
+                        <img src="<?php echo $res['image_url']; ?>" alt="<?php echo $res['name']; ?>">
+                    </div>
+                    <div class="card-info">
+                        <h4 style="font-size: 1.3rem;">
+                            <?php echo htmlspecialchars($res['name']); ?>
+                        </h4>
+                        <p style="color: #686b78; font-size: 0.9rem; margin-bottom: 10px;">
+                            <?php echo $res['cuisine_type']; ?>
+                        </p>
                     </div>
                 </a>
-            </td>
-            <?php 
-                $count++;
-            endforeach; 
-            while ($count % 3 != 0) {
-                echo "<td width='33%'></td>";
-                $count++;
-            }
-            ?>
-        </tr>
-    </table>
+                <?php
+endforeach; ?>
+            </div>
 
-    <br><br>
-</div>
+        </main>
 
-<script src="js/script.js"></script>
+        <nav class="bottom-nav">
+            <a href="home.php" class="nav-item active">
+                <div class="nav-icon-bg"><i class="fa-solid fa-house"></i></div>
+                <span>Home</span>
+            </a>
+            <a href="explore.php" class="nav-item">
+                <i class="fa-regular fa-compass"></i>
+                <span>Explore</span>
+            </a>
+            <a href="cart.html" class="nav-item">
+                <i class="fa-solid fa-basket-shopping"></i>
+                <span>Cart</span>
+            </a>
+            <a href="profile.php" class="nav-item">
+                <i class="fa-regular fa-user"></i>
+                <span>Account</span>
+            </a>
+        </nav>
+
+    </div>
+
+    <script src="js/script.js"></script>
 </body>
+
 </html>
