@@ -343,6 +343,7 @@ body {
     transition: transform 0.3s, box-shadow 0.3s;
     display: flex;
     flex-direction: column;
+
 }
 
 .restaurant-card {
@@ -367,7 +368,7 @@ body {
 }
 
 .restaurant-card:hover {
-    border: 3px orange;
+    border: 3px solid orange;
     border-radius: 12px;
 }
 
