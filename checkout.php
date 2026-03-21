@@ -21,8 +21,8 @@ if (!isset($_SESSION['user_id'])) {
 
     <div class="app-container">
         <header class="app-header">
-            <a href="home.php" class="back-link">Back</a>
-            <div class="logo-desktop">Campus<span>Cravings</span></div>
+            <a href="home.php" class="back-link-res">Back</a>
+            <div class="logo-desktop">🍴 Campus<span>Cravings</span></div>
             <div class="checkout-spacer"></div>
         </header>
 
