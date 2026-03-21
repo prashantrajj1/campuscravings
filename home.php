@@ -6,15 +6,35 @@ $res_stmt = $conn->prepare("SELECT * FROM restaurants LIMIT 6");
 $res_stmt->execute();
 $restaurants = $res_stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// Fetch featured menu items
-$menu_stmt = $conn->prepare("
-    SELECT m.*, r.name as restaurant_name, c.category_name 
-    FROM menu_items m 
-    JOIN restaurants r ON m.restaurant_id = r.id 
-    JOIN menu_categories c ON m.category_id = c.id
-    LIMIT 8
-");
-$menu_stmt->execute();
+// Fetch categories for the radio button filter
+$cat_stmt = $conn->prepare("SELECT * FROM menu_categories LIMIT 5");
+$cat_stmt->execute();
+$categories = $cat_stmt->fetchAll(PDO::FETCH_ASSOC);
+
+// Handle category filter
+$selected_category = isset($_GET['category']) ? $_GET['category'] : 'all';
+
+// Fetch menu items based on category filter
+if ($selected_category === 'all') {
+    $menu_stmt = $conn->prepare("
+        SELECT m.*, r.name as restaurant_name, c.category_name 
+        FROM menu_items m 
+        JOIN restaurants r ON m.restaurant_id = r.id 
+        JOIN menu_categories c ON m.category_id = c.id
+        LIMIT 8
+    ");
+    $menu_stmt->execute();
+} else {
+    $menu_stmt = $conn->prepare("
+        SELECT m.*, r.name as restaurant_name, c.category_name 
+        FROM menu_items m 
+        JOIN restaurants r ON m.restaurant_id = r.id 
+        JOIN menu_categories c ON m.category_id = c.id
+        WHERE m.category_id = :cat_id
+        LIMIT 8
+    ");
+    $menu_stmt->execute(['cat_id' => $selected_category]);
+}
 $menu_items = $menu_stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
@@ -52,17 +72,18 @@ $menu_items = $menu_stmt->fetchAll(PDO::FETCH_ASSOC);
                 <a href="index.php" class="active">Home</a>
                 <a href="explore.php">Explore</a>
                 <a href="cart.html">Cart</a>
-                <a href="profile.php">Account</a>
             </nav>
 
-            <button class="notification-btn" title="Notifications"><i class="fa-regular fa-bell"></i><span
-                    class="dot"></span></button>
+            <a href="profile.php" class="account-btn" title="Account">
+                <i class="fa-regular fa-user"></i>
+                <span class="account-label">Account</span>
+            </a>
         </header>
 
         <main class="app-main">
 
             <section class="hero-section" style="background: var(--text-main); color: #fff; padding: 40px; border-radius: 20px; overflow: hidden; position: relative;">
-                <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.3; background-image: url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=1920&auto=format&fit=crop'); background-size: cover; background-position: center;"></div>
+                <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=1920&auto=format&fit=crop'); background-size: cover; background-position: center;"></div>
                 <div class="hero-content" style="position: relative; z-index: 2; text-align: left; max-width: 500px;">
                     <h1 style="font-size: 3rem; margin-bottom: 20px;">Hungry? <span style="color: var(--swiggy-orange);">Get It Fast.</span></h1>
                     <p style="font-size: 1.1rem; margin-bottom: 30px; opacity: 0.9;">Order from the best campus spots right now. Fresh, hot, and delivered to your hostel doorstep.</p>
@@ -75,13 +96,20 @@ $menu_items = $menu_stmt->fetchAll(PDO::FETCH_ASSOC);
 
             <!-- Categories -->
             <div class="categories-section">
-                <div class="category-pills">
-                    <button class="pill active">All Dishes</button>
-                    <button class="pill">Fast Food</button>
-                    <button class="pill">Main Course</button>
-                    <button class="pill">Beverages</button>
-                    <button class="pill">Cakes & Desserts</button>
-                </div>
+                <form action="index.php" method="GET" class="category-radio-group">
+                    <div class="category-pills">
+                        <label class="pill-label">
+                            <input type="radio" name="category" value="all" <?php echo $selected_category === 'all' ? 'checked' : ''; ?> onchange="this.form.submit()">
+                            <span class="pill">All Dishes</span>
+                        </label>
+                        <?php foreach ($categories as $cat): ?>
+                        <label class="pill-label">
+                            <input type="radio" name="category" value="<?php echo $cat['id']; ?>" <?php echo (string)$selected_category === (string)$cat['id'] ? 'checked' : ''; ?> onchange="this.form.submit()">
+                            <span class="pill"><?php echo htmlspecialchars($cat['category_name']); ?></span>
+                        </label>
+                        <?php endforeach; ?>
+                    </div>
+                </form>
             </div>
 
             <!-- Best Choice Section -->
@@ -99,7 +127,6 @@ $menu_items = $menu_stmt->fetchAll(PDO::FETCH_ASSOC);
                     </div>
                     <div class="card-info">
                         <h4><?php echo htmlspecialchars($item['item_name']); ?></h4>
-                        <div class="rating"><i class="fa-solid fa-star"></i> 4.5</div>
                         <p style="font-size: 0.8rem; color: #888; margin-top: 5px;">From <?php echo htmlspecialchars($item['restaurant_name']); ?></p>
                         <div class="price-row" style="margin-top: 15px;">
                             <span class="price" style="font-size: 1.2rem;">₹<?php echo number_format($item['price'], 0); ?></span>
@@ -118,7 +145,7 @@ $menu_items = $menu_stmt->fetchAll(PDO::FETCH_ASSOC);
 
             <div class="products-grid">
                 <?php foreach ($restaurants as $res): ?>
-                <div class="product-card">
+                <a href="restaurant_details.php?id=<?php echo $res['id']; ?>" class="product-card" style="text-decoration: none; color: inherit; display: flex;">
                     <div class="card-image-wrap" style="height: 180px;">
                         <img src="<?php echo $res['image_url']; ?>" alt="<?php echo $res['name']; ?>">
                         <div class="card-badge" style="background: var(--swiggy-green); color: #fff;">4.2 ★</div>
@@ -130,8 +157,7 @@ $menu_items = $menu_stmt->fetchAll(PDO::FETCH_ASSOC);
                             <span style="font-size: 0.85rem; color: #93959f;">Flat 20% OFF | Use APP20</span>
                         </div>
                     </div>
-                    <a href="restaurant_details.php?id=<?php echo $res['id']; ?>" class="add-btn" style="text-decoration: none; color: var(--swiggy-green);"><i class="fa-solid fa-chevron-right"></i></a>
-                </div>
+                </a>
                 <?php endforeach; ?>
             </div>
 

@@ -188,42 +188,43 @@ body {
     font-size: 1.4rem;
 }
 
-.app-header button.notification-btn,
-.app-header button.menu-btn {
+.app-header .account-btn {
     background: var(--bg-main);
     border: 1px solid var(--border-light);
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
+    padding: 8px 16px;
+    border-radius: 24px;
     color: var(--text-main);
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     cursor: pointer;
     display: flex;
     align-items: center;
-    justify-content: center;
-    position: relative;
+    gap: 8px;
+    text-decoration: none;
     transition: background 0.3s, transform 0.2s;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
-.app-header button:active {
+.account-btn i {
+    font-size: 1.2rem;
+}
+
+.account-label {
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.app-header button:active,
+.app-header .account-btn:active {
     transform: scale(0.95);
 }
 
-.app-header button:hover {
-    background: #f9f9f9;
+.app-header button:hover,
+.app-header .account-btn:hover {
+    background: var(--bg-light);
+    border-color: var(--swiggy-orange);
 }
 
-.notification-btn .dot {
-    position: absolute;
-    top: 14px;
-    right: 14px;
-    width: 8px;
-    height: 8px;
-    background: #ff3b3b;
-    border-radius: 50%;
-    border: 2px solid var(--card-dark);
-}
+/* Removed notification dot styles */
 
 .location-selector {
     text-align: center;
@@ -493,29 +494,39 @@ body {
     padding-bottom: 5px;
 }
 
+.pill-label {
+    cursor: pointer;
+    display: inline-block;
+}
+
+.pill-label input[type="radio"] {
+    display: none;
+}
+
 .pill {
-    background: var(--bg-main);
+    background: var(--bg-light);
     border: 1px solid var(--border-light);
     color: var(--text-muted);
     font-size: 0.9rem;
     font-weight: 500;
     padding: 10px 24px;
-    border-radius: 8px;
-    cursor: pointer;
+    border-radius: 25px;
     white-space: nowrap;
     transition: all 0.3s ease;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    display: inline-block;
 }
 
-.pill.active {
-    background: var(--text-main);
-    border-color: var(--text-main);
-    color: #fff;
-    font-weight: 600;
+.pill-label input[type="radio"]:checked + .pill {
+    background: var(--swiggy-orange);
+    border-color: var(--swiggy-orange);
+    color: var(--bg-main);
+    font-weight: 700;
+    box-shadow: 0 4px 12px rgba(124, 255, 28, 0.3);
 }
 
-.pill:hover:not(.active) {
-    background: #f9f9f9;
+.pill:hover {
+    background: #333;
+    border-color: #444;
 }
 
 

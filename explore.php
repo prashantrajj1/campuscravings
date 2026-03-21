@@ -39,7 +39,7 @@ $restaurants = $res_stmt = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
             <div class="products-grid">
                 <?php foreach ($restaurants as $res): ?>
-                <div class="product-card">
+                <a href="restaurant_details.php?id=<?php echo $res['id']; ?>" class="product-card" style="text-decoration: none; color: inherit; display: flex;">
                     <div class="card-image-wrap" style="height: 180px;">
                         <img src="<?php echo $res['image_url']; ?>" alt="<?php echo $res['name']; ?>">
                         <div class="card-badge" style="background: var(--swiggy-green); color: #fff; font-weight: 700;"><?php echo $res['rating']; ?> ★</div>
@@ -51,8 +51,7 @@ $restaurants = $res_stmt = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             <span style="font-size: 0.85rem; color: #93959f;">Flat 50% OFF | Use WELCOME50</span>
                         </div>
                     </div>
-                    <a href="restaurant_details.php?id=<?php echo $res['id']; ?>" class="add-btn" style="text-decoration: none; color: var(--swiggy-green);"><i class="fa-solid fa-chevron-right"></i></a>
-                </div>
+                </a>
                 <?php endforeach; ?>
             </div>
         </main>

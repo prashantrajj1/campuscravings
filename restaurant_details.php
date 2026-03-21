@@ -45,9 +45,17 @@ $menu_items = $menu_stmt->fetchAll(PDO::FETCH_ASSOC);
 
     <div class="app-container">
         <header class="app-header">
-            <a href="index.php" style="color: var(--text-main); text-decoration: none; font-weight: 700;"><i class="fa-solid fa-arrow-left"></i> Home</a>
-            <div class="logo-desktop">Campus<span>Cravings</span></div>
-            <button class="notification-btn"><i class="fa-solid fa-share-nodes"></i></button>
+            <a href="index.php" style="color: var(--text-main); text-decoration: none; font-weight: 700; white-space: nowrap;"><i class="fa-solid fa-arrow-left"></i> Home</a>
+            
+            <div class="search-bar" style="flex: 1; margin: 0 15px; position: relative; max-width: 400px;">
+                <input type="text" placeholder="Search in menu..." style="width: 100%; padding: 10px 18px 10px 40px; border-radius: 20px; border: 1px solid var(--border-light); background: var(--bg-light); color: var(--text-main);">
+                <i class="fa-solid fa-magnifying-glass" style="position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--text-muted);"></i>
+            </div>
+            
+            <div style="display: flex; gap: 15px;">
+                <a href="cart.html" title="Cart" style="text-decoration: none; display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 50%; background: var(--bg-light); border: 1px solid var(--border-light); color: var(--text-main); transition: 0.3s;"><i class="fa-solid fa-basket-shopping"></i></a>
+                <a href="profile.php" title="Account" style="text-decoration: none; display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 50%; background: var(--bg-light); border: 1px solid var(--border-light); color: var(--text-main); transition: 0.3s;"><i class="fa-regular fa-user"></i></a>
+            </div>
         </header>
 
         <main class="app-main">
@@ -99,7 +107,6 @@ $menu_items = $menu_stmt->fetchAll(PDO::FETCH_ASSOC);
                         </div>
                         <div class="card-info">
                             <h4><?php echo htmlspecialchars($item['item_name']); ?></h4>
-                            <div class="rating" style="background: var(--swiggy-green);"><i class="fa-solid fa-star"></i> 4.2</div>
                             <p class="card-desc" style="margin-top: 8px;"><?php echo htmlspecialchars($item['description'] ?? 'A favorite among students for its authentic taste.'); ?></p>
                             <div class="price-row" style="margin-top: 15px;">
                                 <span class="price">₹<?php echo number_format($item['price'], 0); ?></span>
