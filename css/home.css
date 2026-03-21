@@ -16,11 +16,11 @@
     --bg-light: #ffffff;
     --card-bg: #ffffff;
     --swiggy-orange: #fc8019;
-    /* Swiggy Orange */
+    /* Swiggy like Orange */
     --swiggy-green: #60b246;
-    /* Swiggy Green */
+    /* Swiggy like Green */
     --text-main: #282c3f;
-    /* Dark gray/black text */
+    /* Dark gray/ nd black text */
     --text-muted: #686b78;
     --border-light: #e9ecee;
     --card-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
@@ -48,7 +48,6 @@ body {
     min-height: 100vh;
     background: #f8f9fa;
     position: relative;
-    padding-bottom: 100px;
 }
 
 
@@ -430,10 +429,10 @@ body {
     right: 15px;
     width: 36px;
     height: 36px;
-    border-radius: 8px;
+    border-radius: 18px;
     background: #f8f9fa;
     color: #60b246;
-    border: 1px solid #e9ecee;
+    border: 3px solid orange;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -441,7 +440,6 @@ body {
     font-size: 1rem;
     transition: all 0.2s;
     font-weight: 800;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .add-btn:hover {
@@ -452,127 +450,9 @@ body {
 }
 
 
-.bottom-nav {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 75px;
-    background: #f8f9fa;
-    border-top: 1px solid #e9ecee;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    padding: 0 10px;
-    z-index: 1000;
-    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.5);
-}
-
-.nav-item {
-    text-decoration: none;
-    color: #686b78;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 4px;
-    font-size: 0.7rem;
-    font-weight: 700;
-    transition: 0.3s;
-    width: 65px;
-}
-
-.nav-item i {
-    font-size: 1.2rem;
-}
-
-.nav-item.active {
-    color: orange;
-}
-
-.nav-item.active .nav-icon-bg {
-    background: orange;
-    width: 42px;
-    height: 42px;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: -20px;
-    box-shadow: 0 4px 12px rgba(252, 128, 25, 0.3);
-}
-
-.nav-item.active .nav-icon-bg i {
-    color: #fff;
-}
-
-.nav-item:hover:not(.active) i {
-    color: #282c3f;
-    transform: translateY(-3px);
-}
 
 
-@media (min-width: 768px) {
-    .app-main {
-        padding: 0 40px;
-    }
-
-    .app-header {
-        padding: 30px 40px;
-    }
-
-
-    .mobile-only-btn {
-        display: none !important;
-    }
-
-    .logo-desktop {
-        display: flex;
-    }
-
-    .desktop-nav {
-        display: flex;
-    }
-
-    .bottom-nav {
-        display: none;
-    }
-
-    .app-container {
-        padding-bottom: 40px;
-
-    }
-
-    .hero-section {
-        min-height: 420px;
-        margin-top: 10px;
-    }
-
-    .hero-content h1 {
-        font-size: 4rem;
-    }
-
-    .hero-content p {
-        font-size: 1.3rem;
-    }
-
-
-    .products-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-        gap: 30px;
-        overflow-x: visible;
-        margin-inline: 0;
-        padding-inline: 0;
-    }
-
-    .product-card {
-        min-width: unset;
-
-    }
-
-}.categories-section {
+.categories-section {
     margin-bottom: 25px;
     overflow-x: auto;
     scrollbar-width: none;
@@ -600,18 +480,19 @@ body {
 
 .pill {
     background: #ffffff;
-    border: 1px solid #e9ecee;
+    border: 3px solid orange;
     color: #686b78;
     font-size: 0.9rem;
     font-weight: 500;
     padding: 10px 24px;
     border-radius: 25px;
+    margin-top: 12%;
     white-space: nowrap;
     transition: all 0.3s ease;
     display: inline-block;
 }
 
-.pill-label input[type="radio"]:checked + .pill {
+.pill-label input[type="radio"]:checked+.pill {
     background: #fc8019;
     border-color: #fc8019;
     color: #f8f9fa;
@@ -620,16 +501,7 @@ body {
 }
 
 .pill:hover {
-    background: #333;
+    background: orange;
+    color: white;
     border-color: #444;
-}
-
-@media (min-width: 768px) {
-    .categories-section {
-        overflow-x: visible;
-    }
-
-    .category-pills {
-        flex-wrap: wrap;
-    }
 }

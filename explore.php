@@ -38,7 +38,18 @@ if ($result) {
                 <a href="checkout.php">Cart</a>
             </nav>
             <a href="profile.php" class="account-btn" title="Account">
-                <i class="fa-regular fa-user"></i>
+                <?php
+$nav_pfp = 'default.jpeg';
+if(isset($_SESSION['user_id']) && isset($conn)) {
+    $uid_nav = $_SESSION['user_id'];
+    $u_q_nav = mysqli_query($conn, "SELECT profile_picture FROM users WHERE id = '$uid_nav'");
+    if($u_q_nav && mysqli_num_rows($u_q_nav) > 0) {
+        $u_d_nav = mysqli_fetch_assoc($u_q_nav);
+        if(!empty($u_d_nav['profile_picture'])) $nav_pfp = $u_d_nav['profile_picture'];
+    }
+}
+echo '<img src="assets/pfp/'.htmlspecialchars($nav_pfp).'" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%; display: block;">';
+?>
             </a>
         </header>
 
@@ -62,24 +73,7 @@ if ($result) {
             </div>
         </main>
 
-        <nav class="bottom-nav">
-            <a href="home.php" class="nav-item">
-                <i class="fa-solid fa-house"></i>
-                <span>Home</span>
-            </a>
-            <a href="explore.php" class="nav-item active">
-                <div class="nav-icon-bg"><i class="fa-regular fa-compass"></i></div>
-                <span>Explore</span>
-            </a>
-            <a href="checkout.php" class="nav-item">
-                <i class="fa-solid fa-basket-shopping"></i>
-                <span>Cart</span>
-            </a>
-            <a href="profile.php" class="nav-item">
-                <i class="fa-regular fa-user"></i>
-                <span>Account</span>
-            </a>
-        </nav>
+        
     </div>
 
 </body>

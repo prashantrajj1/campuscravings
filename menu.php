@@ -164,24 +164,7 @@ if ($menu_result) {
             <span>VIEW CART <i class="fa-solid fa-chevron-right"></i></span>
         </div>
 
-        <nav class="bottom-nav">
-            <a href="home.php" class="nav-item">
-                <i class="fa-solid fa-house"></i>
-                <span>Home</span>
-            </a>
-            <a href="explore.php" class="nav-item">
-                <i class="fa-regular fa-compass"></i>
-                <span>Explore</span>
-            </a>
-            <a href="checkout.php" class="nav-item">
-                <i class="fa-solid fa-basket-shopping"></i>
-                <span>Cart</span>
-            </a>
-            <a href="profile.php" class="nav-item">
-                <i class="fa-regular fa-user"></i>
-                <span>Account</span>
-            </a>
-        </nav>
+        
     </div>
 
     <script src="js/script.js"></script>
