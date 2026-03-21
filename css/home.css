@@ -345,9 +345,30 @@ body {
     flex-direction: column;
 }
 
+.restaurant-card {
+    min-width: 450px;
+    height: 250px;
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 15px;
+    position: relative;
+    text-decoration: none;
+    border: 1px solid #e9ecee;
+    transition: transform 0.3s, box-shadow 0.3s;
+    display: flex;
+    flex-direction: column;
+}
+
+
+
 .product-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    border: 3px orange;
+    border-radius: 12px;
+}
+
+.restaurant-card:hover {
+    border: 3px orange;
+    border-radius: 12px;
 }
 
 .card-image-wrap {

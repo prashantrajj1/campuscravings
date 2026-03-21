@@ -1,6 +1,46 @@
-.pt-20 { padding-top: 20px; }
-.explore-title { font-size: 1.6rem; font-weight: 800; }
-.explore-card-link { text-decoration: none; color: inherit; display: flex; }
-.explore-img-wrap { height: 180px; }
-.explore-card-h4 { font-size: 1.3rem; margin-bottom: 5px; }
-.explore-card-p { color: #686b78; font-size: 0.9rem; margin-bottom: 15px; }
+.pt-20 {
+    padding-top: 20px;
+}
+
+.explore-title {
+    font-size: 1.6rem;
+    font-weight: 800;
+}
+
+.explore-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+}
+
+.explore-img-wrap {
+    height: 180px;
+}
+
+.explore-card-h4 {
+    font-size: 1.3rem;
+    margin-bottom: 5px;
+}
+
+.explore-card-p {
+    color: #686b78;
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+}
+
+.back-link-res {
+    background: orange;
+    color: #fff !important;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 10px;
+    font-weight: 800;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: background 0.3s;
+    text-decoration: none;
+    display: inline-block;
+    box-sizing: border-box;
+    text-align: center;
+}

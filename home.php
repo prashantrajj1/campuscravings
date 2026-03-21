@@ -101,15 +101,16 @@ if ($menu_result) {
             <a href="profile.php" class="account-btn" title="Account">
                 <?php
 $nav_pfp = 'default.jpeg';
-if(isset($_SESSION['user_id']) && isset($conn)) {
+if (isset($_SESSION['user_id']) && isset($conn)) {
     $uid_nav = $_SESSION['user_id'];
     $u_q_nav = mysqli_query($conn, "SELECT profile_picture FROM users WHERE id = '$uid_nav'");
-    if($u_q_nav && mysqli_num_rows($u_q_nav) > 0) {
+    if ($u_q_nav && mysqli_num_rows($u_q_nav) > 0) {
         $u_d_nav = mysqli_fetch_assoc($u_q_nav);
-        if(!empty($u_d_nav['profile_picture'])) $nav_pfp = $u_d_nav['profile_picture'];
+        if (!empty($u_d_nav['profile_picture']))
+            $nav_pfp = $u_d_nav['profile_picture'];
     }
 }
-echo '<img src="assets/pfp/'.htmlspecialchars($nav_pfp).'" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%; display: block;">';
+echo '<img src="assets/pfp/' . htmlspecialchars($nav_pfp) . '" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%; display: block;">';
 ?>
             </a>
         </header>
@@ -134,14 +135,14 @@ echo '<img src="assets/pfp/'.htmlspecialchars($nav_pfp).'" style="width: 100%; h
                 <form action="home.php" method="GET" class="category-radio-group">
                     <div class="category-pills">
                         <label class="pill-label">
-                            <input type="radio" name="category" value="all" <?php echo $selected_category === 'all'
-    ? 'checked' : ''; ?> onchange="this.form.submit()">
+                            <input type="radio" name="category" value="all" <?php echo $selected_category==='all'
+                                ? 'checked' : '' ; ?> onchange="this.form.submit()">
                             <span class="pill">All Dishes</span>
                         </label>
                         <?php foreach ($categories as $cat): ?>
                         <label class="pill-label">
                             <input type="radio" name="category" value="<?php echo $cat['id']; ?>" <?php echo
-        (string)$selected_category === (string)$cat['id'] ? 'checked' : ''; ?>
+                                (string)$selected_category===(string)$cat['id'] ? 'checked' : '' ; ?>
                             onchange="this.form.submit()">
                             <span class="pill">
                                 <?php echo htmlspecialchars($cat['category_name']); ?>
@@ -196,7 +197,7 @@ endforeach; ?>
 
             <div class="products-grid">
                 <?php foreach ($restaurants as $res): ?>
-                <a href="restaurant_details.php?id=<?php echo $res['id']; ?>" class="product-card res-card-link">
+                <a href="restaurant_details.php?id=<?php echo $res['id']; ?>" class="restaurant-card res-card-link">
                     <div class="card-image-wrap res-card-img-wrap">
                         <img src="<?php echo $res['image_url']; ?>" alt="<?php echo $res['name']; ?>">
                     </div>
@@ -215,7 +216,7 @@ endforeach; ?>
 
         </main>
 
-        
+
 
     </div>
 

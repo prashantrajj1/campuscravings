@@ -1,26 +1,144 @@
-.back-link-res { color: #282c3f; text-decoration: none; font-weight: 700; white-space: nowrap; }
-.search-bar-res { flex: 1; margin: 0 15px; position: relative; max-width: 400px; }
-.search-input-res { width: 100%; padding: 10px 18px 10px 40px; border-radius: 20px; border: 1px solid #e9ecee; background: #ffffff; color: #282c3f; }
-.search-icon-res { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #686b78; }
-.account-actions-res { display: flex; gap: 15px; }
+.back-link-res {
+    background: orange;
+    color: #fff !important;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 10px;
+    font-weight: 800;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: background 0.3s;
+    text-decoration: none;
+    display: inline-block;
+    box-sizing: border-box;
+    text-align: center;
+}
 
-.hero-section-res { min-height: 250px; padding: 0; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); border: 1px solid #e9ecee; background: #fff; }
-.hero-overlay-res { background: linear-gradient(to top, rgba(255,255,255,0.9), transparent); }
-.hero-content-res { text-align: left; padding: 30px; width: 100%; color: #282c3f; }
-.hero-title-res { margin-bottom: 8px; font-size: 2.2rem; text-shadow: none; }
-.hero-subtitle-res { margin-bottom: 5px; color: #fc8019; font-weight: 800; font-size: 1.1rem; text-shadow: none; }
-.hero-desc-res { color: #686b78; text-shadow: none; }
+.back-link-res:hover {
+    background: darkorange;
+}
 
-.section-header-res { margin-top: 40px; border-bottom: 1px solid #e9ecee; padding-bottom: 15px; }
-.section-title-res { font-size: 1.6rem; font-weight: 800; }
+.search-bar-res {
+    flex: 1;
+    margin: 0 15px;
+    position: relative;
+    max-width: 400px;
+}
 
-.no-menu-msg { text-align: center; color: #686b78; grid-column: 1/-1; padding: 50px; }
-.category-wrapper-res { grid-column: 1 / -1; margin: 30px 0 15px; }
-.category-title-res { color: #282c3f; font-size: 1.4rem; font-weight: 800; position: relative; display: inline-block; }
-.category-underline-res { position: absolute; bottom: -5px; left: 0; width: 50%; height: 3px; background: #fc8019; }
+.search-input-res {
+    width: 100%;
+    padding: 10px 18px 10px 40px;
+    border-radius: 20px;
+    border: 1px solid #e9ecee;
+    background: #ffffff;
+    color: #282c3f;
+}
 
-.img-wrap-res { height: 160px; background: #ffffff; }
-.placeholder-res { font-size: 3rem; color: #686b78; opacity: 0.1; }
-.card-desc-res { margin-top: 8px; }
-.price-row-res { margin-top: 15px; }
-.add-btn-res { color: #60b246; }
+.search-icon-res {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #686b78;
+}
+
+.account-actions-res {
+    display: flex;
+    gap: 15px;
+}
+
+.hero-section-res {
+    min-height: 250px;
+    padding: 0;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e9ecee;
+    background: #fff;
+}
+
+.hero-overlay-res {
+    background: linear-gradient(to top, rgba(255, 255, 255, 0.9), transparent);
+}
+
+.hero-content-res {
+    text-align: left;
+    padding: 30px;
+    width: 100%;
+    color: #282c3f;
+}
+
+.hero-title-res {
+    margin-bottom: 8px;
+    font-size: 2.2rem;
+    text-shadow: none;
+}
+
+.hero-subtitle-res {
+    margin-bottom: 5px;
+    color: #fc8019;
+    font-weight: 800;
+    font-size: 1.1rem;
+    text-shadow: none;
+}
+
+.hero-desc-res {
+    color: #686b78;
+    text-shadow: none;
+}
+
+.section-header-res {
+    margin-top: 40px;
+    border-bottom: 1px solid #e9ecee;
+    padding-bottom: 15px;
+}
+
+.section-title-res {
+    font-size: 1.6rem;
+    font-weight: 800;
+}
+
+.no-menu-msg {
+    text-align: center;
+    color: #686b78;
+    grid-column: 1/-1;
+    padding: 50px;
+}
+
+.category-wrapper-res {
+    grid-column: 1 / -1;
+    margin: 30px 0 15px;
+}
+
+.category-title-res {
+    color: #282c3f;
+    font-size: 1.4rem;
+    font-weight: 800;
+    border: 3px solid orange;
+    border-radius: 10px;
+    position: relative;
+    background-color: orange;
+    display: inline-block;
+}
+
+.img-wrap-res {
+    height: 160px;
+    background: #ffffff;
+}
+
+.placeholder-res {
+    font-size: 3rem;
+    color: #686b78;
+    opacity: 0.1;
+}
+
+.card-desc-res {
+    margin-top: 8px;
+}
+
+.price-row-res {
+    margin-top: 15px;
+}
+
+.add-btn-res {
+    color: #60b246;
+}
