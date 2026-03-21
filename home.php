@@ -73,6 +73,7 @@ if ($menu_result) {
 
     <!-- Local CSS only -->
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/home.css">
 </head>
 
 <body>
