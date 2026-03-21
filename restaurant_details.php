@@ -53,8 +53,8 @@ $menu_items = $menu_stmt->fetchAll(PDO::FETCH_ASSOC);
             </div>
             
             <div style="display: flex; gap: 15px;">
-                <a href="cart.html" title="Cart" style="text-decoration: none; display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 50%; background: var(--bg-light); border: 1px solid var(--border-light); color: var(--text-main); transition: 0.3s;"><i class="fa-solid fa-basket-shopping"></i></a>
-                <a href="profile.php" title="Account" style="text-decoration: none; display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 50%; background: var(--bg-light); border: 1px solid var(--border-light); color: var(--text-main); transition: 0.3s;"><i class="fa-regular fa-user"></i></a>
+                <a href="cart.html" class="account-btn" title="Cart"><i class="fa-solid fa-basket-shopping"></i></a>
+                <a href="profile.php" class="account-btn" title="Account"><i class="fa-regular fa-user"></i></a>
             </div>
         </header>
 

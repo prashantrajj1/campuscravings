@@ -13,6 +13,9 @@ $restaurants = $res_stmt = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Explore Restaurants - CampusCravings</title>
+    <!-- External CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <!-- Local CSS only -->
     <link rel="stylesheet" href="css/style.css">
 </head>
@@ -26,10 +29,11 @@ $restaurants = $res_stmt = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <nav class="desktop-nav">
                 <a href="index.php">Home</a>
                 <a href="explore.php" class="active">Explore</a>
-                <a href="checkout.php">Cart</a>
-                <a href="profile.php">Account</a>
+                <a href="cart.html">Cart</a>
             </nav>
-            <button class="notification-btn"><i class="fa-regular fa-bell"></i></button>
+            <a href="profile.php" class="account-btn" title="Account">
+                <i class="fa-regular fa-user"></i>
+            </a>
         </header>
 
         <main class="app-main">

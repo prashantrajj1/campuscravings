@@ -189,39 +189,31 @@ body {
 }
 
 .app-header .account-btn {
-    background: var(--bg-main);
+    background: var(--bg-light);
     border: 1px solid var(--border-light);
-    padding: 8px 16px;
-    border-radius: 24px;
-    color: var(--text-main);
-    font-size: 1.1rem;
+    color: #ffffff; /* Explicitly white text/icon */
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    font-size: 1.2rem;
     cursor: pointer;
     display: flex;
     align-items: center;
-    gap: 8px;
+    justify-content: center;
     text-decoration: none;
-    transition: background 0.3s, transform 0.2s;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-.account-btn i {
-    font-size: 1.2rem;
-}
-
-.account-label {
-    font-size: 0.9rem;
-    font-weight: 600;
-}
-
-.app-header button:active,
 .app-header .account-btn:active {
     transform: scale(0.95);
 }
 
-.app-header button:hover,
 .app-header .account-btn:hover {
-    background: var(--bg-light);
+    background: var(--bg-main);
     border-color: var(--swiggy-orange);
+    color: var(--swiggy-orange); /* Turns green on hover */
+    box-shadow: 0 0 12px rgba(124, 255, 28, 0.25);
 }
 
 /* Removed notification dot styles */

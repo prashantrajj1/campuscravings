@@ -46,6 +46,9 @@ $menu_items = $menu_stmt->fetchAll(PDO::FETCH_ASSOC);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CampusCravings - Order Food on Campus</title>
 
+    <!-- External CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <!-- Local CSS only -->
     <link rel="stylesheet" href="css/style.css">
 </head>
@@ -76,7 +79,6 @@ $menu_items = $menu_stmt->fetchAll(PDO::FETCH_ASSOC);
 
             <a href="profile.php" class="account-btn" title="Account">
                 <i class="fa-regular fa-user"></i>
-                <span class="account-label">Account</span>
             </a>
         </header>
 
