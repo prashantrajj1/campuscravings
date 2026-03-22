@@ -123,6 +123,7 @@ echo '<img src="assets/pfp/' . htmlspecialchars($nav_pfp) . '" style="width: 100
             <section class="hero-section hero-section-home">
                 <div class="hero-img-bg">
                 </div>
+                <div class="hero-overlay"></div>
                 <div class="hero-content hero-content-home">
                     <h1 class="hero-h1-home">Hungry? <span class="hero-highlight">Get It Fast.</span></h1>
                     <p class="hero-p-home">Order from the best campus spots
@@ -219,7 +220,24 @@ endforeach; ?>
 
         </main>
 
-
+        <nav class="bottom-nav">
+            <a href="home.php" class="nav-item active">
+                <div class="nav-icon-bg"><i class="fa-solid fa-house"></i></div>
+                <span>Home</span>
+            </a>
+            <a href="explore.php" class="nav-item">
+                <i class="fa-regular fa-compass"></i>
+                <span>Explore</span>
+            </a>
+            <a href="cart.html" class="nav-item">
+                <i class="fa-solid fa-basket-shopping"></i>
+                <span>Cart</span>
+            </a>
+            <a href="profile.php" class="nav-item">
+                <i class="fa-regular fa-user"></i>
+                <span>Account</span>
+            </a>
+        </nav>
 
     </div>
 

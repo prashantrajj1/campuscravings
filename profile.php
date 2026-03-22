@@ -84,14 +84,9 @@ $pfp = !empty($user['profile_picture']) ? htmlspecialchars($user['profile_pictur
 endif; ?>
                 </div>
                 <div class="user-meta">
-                    <h1>Active Student</h1>
-                    <p>
-                        <?php echo htmlspecialchars($user['email']); ?>
-                    </p>
-                    <p class="profile-student-info">
-                        <?php echo htmlspecialchars($user['rollno']); ?> |
-                        <?php echo htmlspecialchars($user['course']); ?>
-                    </p>
+                    <h1><?php echo htmlspecialchars($user['name'] ?? 'User'); ?></h1>
+                    <p><?php echo htmlspecialchars($user['email']); ?></p>
+                    <p class="profile-student-info"><?php echo htmlspecialchars($user['phone'] ?? ''); ?></p>
                 </div>
             </div>
 
