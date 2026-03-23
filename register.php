@@ -5,25 +5,23 @@ require_once 'php/db_connect.php';
 $error = "";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $name = mysqli_real_escape_string($conn, $_POST['name']);
     $email = mysqli_real_escape_string($conn, $_POST['email']);
-    $course = mysqli_real_escape_string($conn, $_POST['course']);
-    $rollno = mysqli_real_escape_string($conn, $_POST['rollno']);
+    $phone = mysqli_real_escape_string($conn, $_POST['phone']);
     $password = $_POST['password'];
 
     // PHP side validation
-    if (!preg_match('/^[a-zA-Z0-9._%+-]+@stu\.xim\.edu\.in$/', $email)) {
-        $error = "Please use your @stu.xim.edu.in email";
-    } elseif (empty($password)) {
-        $error = "Password is required";
+    if (empty($name) || empty($email) || empty($phone) || empty($password)) {
+        $error = "All fields are required";
     } else {
         $check_query = "SELECT id FROM users WHERE email = '$email'";
         $check_result = mysqli_query($conn, $check_query);
         
-        if (mysqli_num_rows($check_result) > 0) {
+        if ($check_result && mysqli_num_rows($check_result) > 0) {
             $error = "Email already registered";
         } else {
             $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-            $insert_query = "INSERT INTO users (email, course, rollno, password) VALUES ('$email', '$course', '$rollno', '$hashed_password')";
+            $insert_query = "INSERT INTO users (name, email, phone, password) VALUES ('$name', '$email', '$phone', '$hashed_password')";
             
             if (mysqli_query($conn, $insert_query)) {
                 // Auto login after success
@@ -32,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 header("Location: home.php");
                 exit;
             } else {
-                $error = "Registration failed";
+                $error = "Registration failed: " . mysqli_error($conn);
             }
         }
     }
@@ -46,26 +44,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Register - CampusCravings</title>
     <!-- Local CSS only -->
     <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const emailRegex = /^[a-zA-Z0-9._%+-]+@stu\.xim\.edu\.in$/;
             const form = document.querySelector('form');
             const errLogs = document.getElementById('errlogs');
-            const emailInput = document.getElementById('email');
             const passwordInput = document.getElementById('password');
             const confirmInput = document.getElementById('confirm-password');
 
             const validate = () => {
-                const email = emailInput.value;
                 const password = passwordInput.value;
                 const confirmPassword = confirmInput.value;
 
-                if (email !== "" && !emailRegex.test(email)) {
-                    errLogs.textContent = "Please use your @stu.xim.edu.in email";
-                    errLogs.style.color = "red";
-                    errLogs.style.fontSize = "14px";
-                    return false;
-                } else if (confirmPassword !== "" && password !== confirmPassword) {
+                if (confirmPassword !== "" && password !== confirmPassword) {
                     errLogs.textContent = "Passwords do not match";
                     errLogs.style.color = "red";
                     errLogs.style.fontSize = "14px";
@@ -76,29 +67,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
             };
 
-            emailInput.addEventListener('input', validate);
             passwordInput.addEventListener('input', validate);
             confirmInput.addEventListener('input', validate);
 
             form.addEventListener('submit', (e) => {
-                if (!validate() || !emailRegex.test(emailInput.value)) {
+                if (!validate()) {
                     e.preventDefault();
-                    if (!emailRegex.test(emailInput.value)) {
-                        errLogs.textContent = "Please use your @stu.xim.edu.in email";
-                        errLogs.style.color = "red";
-                    }
                 }
             });
         });
     </script>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍴</text></svg>">
 </head>
 <body>
     <div class="logo">
         <i class="fa-solid fa-utensils"></i> Campus<span>Cravings</span>
     </div>
 
-    <div class="login-box">
+    <div class="login-box" style="margin-top: 50px; margin-bottom: 50px;">
         <div class="form">
             <?php if (!empty($error)): ?>
                 <h2 id="errlogs" style="color:red; font-size:14px;"><?php echo $error; ?></h2>
@@ -107,20 +92,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <?php endif; ?>
             
             <form action="register.php" method="POST">
+                <label for="name">Full Name: </label>
+                <input type="text" id="name" name="name" placeholder="Enter your name" required>
+
                 <label for="email">Email: </label>
-                <input type="email" id="email" name="email" placeholder="your college mail" required>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
                 
-                <label for="course"> Course </label>
-                <input type="text" id="course" name="course" placeholder="course" required>
-                
-                <label for="rollno">University Roll No.</label>
-                <input type="text" id="rollno" name="rollno" placeholder="rollno" required>
+                <label for="phone">Phone Number: </label>
+                <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
                 
                 <label for="password">Password: </label>
-                <input type="password" id="password" name="password" placeholder="password" required>
+                <input type="password" id="password" name="password" placeholder="Enter password" required>
                 
                 <label for="confirm-password">Confirm Password: </label>
-                <input type="password" id="confirm-password" name="confirm-password" placeholder="password" required>
+                <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm password" required>
 
                 <button type="submit" class="btn">Register</button><br><br>
                 <p>Already have an account? <a href="login.php">Login</a></p>
