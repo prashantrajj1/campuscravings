@@ -1,19 +1,7 @@
--- This file was exported from phpmyadmin
---this doesnt have create database query, adding it
-
-CREATE DATABASE campuscravings;
+CREATE DATABASE IF NOT EXISTS campuscravings;
 USE campuscravings;
 
-
--- phpMyAdmin SQL Dump
--- version 5.2.1
--- https://www.phpmyadmin.net/
---
--- Host: localhost
--- Generation Time: Mar 21, 2026 at 12:39 PM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.0.30
-
+SET FOREIGN_KEY_CHECKS = 0;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
@@ -657,3 +645,4 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+SET FOREIGN_KEY_CHECKS = 1;

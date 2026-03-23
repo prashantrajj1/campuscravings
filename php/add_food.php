@@ -1,16 +1,17 @@
 <?php
-include 'connect.php';
+include 'db_connect.php';
 
 $message = "";
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $name = $_POST["food_name"];
-    $desc = $_POST["food_desc"];
+    $name = mysqli_real_escape_string($conn, $_POST["food_name"]);
+    $desc = mysqli_real_escape_string($conn, $_POST["food_desc"]);
     $price = $_POST["food_price"];
     
-    
-    $sql = "INSERT INTO food_items (name, description, price) VALUES ('$name', '$desc', '$price')";
+    // Default to restaurant 1 and category 1 for simplicity in this admin panel
+    $sql = "INSERT INTO menu_items (restaurant_id, category_id, item_name, description, price, availability, image_url) 
+            VALUES (1, 1, '$name', '$desc', '$price', 1, 'assets/food/sandwich.jpg')";
     
     if (mysqli_query($conn, $sql)) {
         $message = "Food item successfully added to the database!";
@@ -25,10 +26,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <title>Admin - Add Food</title>
     <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: bold; }
+        .form-group input { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; }
+    </style>
 </head>
 <body>
     <div class="header-top">
-        <a href="../index.html" class="logo">
+        <a href="../home.php" class="logo">
             <span class="campus">Campus</span><span class="cravings">Cravings</span>
         </a>
     </div>
@@ -47,16 +53,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             
             <div class="form-group">
                 <label>Description</label>
-                <textarea name="food_desc" rows="4" required style="width: 100%; border-radius: 10px; padding: 12px; border: 2px solid #ddd; box-sizing: border-box;"></textarea>
+                <textarea name="food_desc" rows="4" required style="width: 100%; border-radius: 10px; padding: 12px; border: 1px solid #ddd; box-sizing: border-box;"></textarea>
             </div>
             
             <div class="form-group">
                 <label>Price (₹)</label>
-                
                 <input type="number" step="0.01" name="food_price" required placeholder="e.g. 150.00">
             </div>
             
-            <button type="submit" class="btn-primary" style="width: 100%; margin-top: 10px;">Add Item to Database</button>
+            <button type="submit" class="btn-primary" style="width: 100%; margin-top: 10px; border:none; cursor:pointer;">Add Item to Database</button>
         </form>
         
         <hr style="border:0; height:1px; background-color:#ddd; margin: 25px 0;">

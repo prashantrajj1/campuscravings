@@ -1,0 +1,84 @@
+
+body {
+    font-family: 'Outfit', sans-serif;
+    background-color: #f4f7f6;
+    margin: 0;
+    padding: 0;
+}
+
+.header-top {
+    background-color: #006073;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    text-decoration: none;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.campus { color: #ffffff; }
+.cravings { color: #FF7300; }
+
+.container {
+    padding: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    background-color: #ffffff;
+}
+
+.styled-table th {
+    background-color: #006073;
+    color: #ffffff;
+    text-align: left;
+    padding: 12px 15px;
+}
+
+.styled-table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #dddddd;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.styled-table tbody tr:last-of-type {
+    border-bottom: 2px solid #006073;
+}
+
+.btn-primary, .btn-secondary {
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.btn-primary {
+    background-color: #FF7300;
+    color: white;
+}
+
+.btn-secondary {
+    background-color: #006073;
+    color: white;
+}
+
+.footer {
+    text-align: center;
+    padding: 20px;
+    color: #888;
+    margin-top: 50px;
+}

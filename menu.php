@@ -46,6 +46,7 @@ if ($menu_result) {
     </title>
     <!-- Local Font Setup (Outfit) -->
     <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/menu.css">
     <style>
         .search-container {
             margin: 20px 0;
