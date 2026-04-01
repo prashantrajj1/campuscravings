@@ -1,46 +1,52 @@
+/* explore page extra styles
+   rest of the styles come from home.css */
+
 .pt-20 {
-    padding-top: 20px;
+    padding-top: 15px;
+    /* should have named this better but whatever */
 }
 
 .explore-title {
-    font-size: 1.6rem;
-    font-weight: 800;
+font-size: 1.3rem;
+    font-weight: bold;
+    color: #222;
 }
 
+/* make the entire restaurant card a link */
 .explore-card-link {
-    text-decoration: none;
+text-decoration: none;
     color: inherit;
-    display: flex;
 }
 
+/* taller image on explore page than home */
 .explore-img-wrap {
-    height: 180px;
+    height: 160px;
 }
 
 .explore-card-h4 {
-    font-size: 1.3rem;
-    margin-bottom: 5px;
+font-size: 1.1rem;
+    margin-bottom: 3px;
 }
 
 .explore-card-p {
-    color: #686b78;
-    font-size: 0.9rem;
-    margin-bottom: 15px;
+    color: #888;
+font-size: 0.82rem;
 }
 
-.back-link-res {
-    background: orange;
-    color: #fff !important;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 10px;
-    font-weight: 800;
+/* back/home button - orange flat button */
+.backbtn {
+    background: #d4740e;
+    color: #fff !important; /* need important because of link color inheritance */
+border: none;
+    padding: 7px 14px;
+    font-weight: bold;
+font-size: 0.85rem;
     cursor: pointer;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    transition: background 0.3s;
     text-decoration: none;
-    display: inline-block;
-    box-sizing: border-box;
-    text-align: center;
+display: inline-block;
+    border-radius: 0;
+}
+
+.backbtn:hover {
+    background: #b8620a;
 }

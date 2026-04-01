@@ -1,144 +1,154 @@
-.back-link-res {
-    background: orange;
-    color: #fff !important;
+/* restaurant details page - extra styles on top of home.css
+   this page has its own banner, search bar, and menu layout
+   - prashant */
+
+/* home/back button */
+.backbtn {
+    background: #d4740e;
+color: #fff !important;
     border: none;
-    padding: 10px 15px;
-    border-radius: 10px;
-    font-weight: 800;
+    padding: 7px 14px;
+font-weight: bold;
+    font-size: 0.85rem;
     cursor: pointer;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    transition: background 0.3s;
-    text-decoration: none;
+text-decoration: none;
     display: inline-block;
-    box-sizing: border-box;
-    text-align: center;
+    border-radius: 0;
 }
 
-.back-link-res:hover {
-    background: darkorange;
+.backbtn:hover {
+background: #b8620a;
 }
 
-.search-bar-res {
+/* search bar container - used to search menu items */
+.searchbox {
     flex: 1;
-    margin: 0 15px;
+margin: 0 15px;
     position: relative;
     max-width: 400px;
 }
 
-.search-input-res {
-    width: 100%;
-    padding: 10px 18px 10px 40px;
-    border-radius: 20px;
-    border: 1px solid #e9ecee;
-    background: #ffffff;
-    color: #282c3f;
+/* the actual search input */
+.searchinput {
+width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #bbb;
+font-size: 0.9rem;
+    /* no border-radius on purpose - flat design */
 }
 
-.search-icon-res {
+.searchinput:focus {
+    outline: 2px solid #d4740e;
+}
+
+.searchicon {
     position: absolute;
-    left: 15px;
+left: 10px;
     top: 50%;
     transform: translateY(-50%);
-    color: #686b78;
+color: #aaa;
 }
 
-.account-actions-res {
+/* right side buttons (cart + profile in topbar) */
+.right-btns {
     display: flex;
-    gap: 15px;
+    gap: 10px;
+align-items: center;
 }
 
-.hero-section-res {
-    min-height: 250px;
-    padding: 0;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-    border: 1px solid #e9ecee;
+/* restaurant hero banner - different from home page banner */
+/* shorter height and white bg instead of dark */
+.rest-banner {
+    min-height: 180px;
+padding: 0;
+    border: 1px solid #ddd;
     background: #fff;
 }
 
-.hero-overlay-res {
-    background: linear-gradient(to top, rgba(255, 255, 255, 0.9), transparent);
+/* lighter overlay so restaurant image shows through more */
+.rest-darken {
+background: linear-gradient(to top, rgba(255,255,255,0.85), transparent);
 }
 
-.hero-content-res {
+/* restaurant info text overlay */
+.rest-info {
     text-align: left;
-    padding: 30px;
+padding: 20px;
     width: 100%;
-    color: #282c3f;
+    color: #222;
 }
 
-.hero-title-res {
-    margin-bottom: 8px;
-    font-size: 2.2rem;
-    text-shadow: none;
+.rest-name {
+margin-bottom: 4px;
+    font-size: 1.7rem;
 }
 
-.hero-subtitle-res {
-    margin-bottom: 5px;
-    color: #fc8019;
-    font-weight: 800;
-    font-size: 1.1rem;
-    text-shadow: none;
+/* cuisine type like "Indian & Chinese" */
+.rest-type {
+    margin-bottom: 3px;
+color: #d4740e;
+    font-weight: bold;
+    font-size: 0.95rem;
 }
 
-.hero-desc-res {
-    color: #686b78;
-    text-shadow: none;
+.rest-desc {
+    color: #888;
+font-size: 0.85rem;
 }
 
-.section-header-res {
-    margin-top: 40px;
-    border-bottom: 1px solid #e9ecee;
-    padding-bottom: 15px;
+/* "Recommended Dishes" section header - orange bottom border */
+.menu-heading {
+    margin-top: 25px;
+    border-bottom: 2px solid #d4740e;
+padding-bottom: 8px;
 }
 
-.section-title-res {
-    font-size: 1.6rem;
-    font-weight: 800;
+.menu-title {
+    font-size: 1.2rem;
+font-weight: bold;
 }
 
-.no-menu-msg {
+/* shown when restaurant has no menu items (shouldnt happen) */
+.no-items {
     text-align: center;
-    color: #686b78;
-    grid-column: 1/-1;
-    padding: 50px;
+    color: #aaa;
+grid-column: 1/-1;
+    padding: 40px;
 }
 
-.category-wrapper-res {
-    grid-column: 1 / -1;
-    margin: 30px 0 15px;
+/* category section header in the menu grid */
+/* like "Indian Thali", "Rice", etc */
+.cat-label {
+    grid-column: 1 / -1; /* spans full width of grid */
+margin: 18px 0 8px;
 }
 
-.category-title-res {
-    color: #282c3f;
-    font-size: 1.4rem;
-    font-weight: 800;
-    border: 3px solid orange;
-    border-radius: 10px;
-    position: relative;
-    background-color: orange;
+/* category name tag - orange bg */
+.cat-name {
+    color: #fff;
+    font-size: 1rem;
+font-weight: bold;
+    background-color: #d4740e;
     display: inline-block;
+padding: 4px 12px;
+    /* no radius - flat tag style */
 }
 
-.img-wrap-res {
-    height: 160px;
-    background: #ffffff;
+/* menu item card image area */
+.food-img {
+    height: 140px;
+    background: #fafafa; /* light gray if image fails to load */
 }
 
-.placeholder-res {
-    font-size: 3rem;
-    color: #686b78;
-    opacity: 0.1;
+.food-desc {
+margin-top: 5px;
 }
 
-.card-desc-res {
+.food-price {
     margin-top: 8px;
 }
 
-.price-row-res {
-    margin-top: 15px;
-}
-
-.add-btn-res {
-    color: #60b246;
+/* ensures + button text is white (inherits from .plusbtn in home.css) */
+.food-addbtn {
+color: #fff;
 }

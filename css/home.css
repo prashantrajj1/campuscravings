@@ -1,666 +1,521 @@
-/* Fonts should be added locally as per Turn 10 */
-@font-face {
-    font-family: 'Outfit';
-    src: url('../fonts/Outfit-Regular.ttf') format('truetype');
-    font-weight: 400;
-}
+/*
+    campuscravings - main stylesheet
+    made by prashant and ayush for DBMS lab project
+    XIM University, Bhubaneswar
+    started: march 2026
 
-@font-face {
-    font-family: 'Outfit';
-    src: url('../fonts/Outfit-Bold.ttf') format('truetype');
-    font-weight: 700;
-}
-
-:root {
-    --bg-main: #f8f9fa;
-    --bg-light: #ffffff;
-    --card-bg: #ffffff;
-    --swiggy-orange: #fc8019;
-    /* Swiggy Orange */
-    --swiggy-green: #60b246;
-    /* Swiggy Green */
-    --text-main: #282c3f;
-    /* Dark gray/black text */
-    --text-muted: #686b78;
-    --border-light: #e9ecee;
-    --card-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-    --bottom-nav-bg: #ffffff;
-}
+    color palette:
+    orange: #d4740e (main accent)
+    dark: #222
+    light bg: #f5f5f5
+    border gray: #ddd
+*/
 
 * {
-    margin: 0;
+margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Outfit', sans-serif;
-    -webkit-tap-highlight-color: transparent;
+font-family: Arial, Helvetica, sans-serif;
 }
 
 body {
-    background-color: #f8f9fa;
-    color: #282c3f;
-    overflow-x: hidden;
+    background-color: #f5f5f5;
+color: #333;
 }
 
+a {
+    color: inherit;
+    /* removes that ugly blue link color */
+}
 
-.app-container {
-    width: 100%;
-    margin: 0 auto;
+/* ======== page wrapper ======= */
+.wrapper {
+width: 100%;
     min-height: 100vh;
-    background: #f8f9fa;
-    position: relative;
-    padding-bottom: 100px;
+    padding-bottom: 40px;
 }
 
-
-.app-header {
-    display: flex;
+/* ======== topbar / navbar ======== */
+/* this stays at the top of every page */
+.topbar {
+display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px;
-    position: relative;
-    z-index: 100;
+padding: 14px 20px;
+    background: #fff;
+    border-bottom: 2px solid #ddd;
+    /* no sticky because it was causing issues on checkout page */
 }
 
-.logo-desktop {
-    display: flex;
-    font-size: 1.9rem;
-    font-weight: 700;
-    align-items: center;
-    gap: 8px;
-    color: #282c3f;
+.sitename {
+    font-size: 1.5rem;
+font-weight: bold;
+    color: #222;
 }
 
-.logo-desktop span {
-    background: orange;
-    color: #fff;
-    padding: 2px 8px;
-    border-radius: 6px;
-    font-size: 1.9rem;
+.sitename span {
+color: #d4740e;
 }
 
-.app-header .account-btn {
-    background: #ffffff;
-    border: 1px solid #e9ecee;
-    color: #282c3f;
-    width: 44px;
-    height: 44px;
+/* round profile pic in navbar */
+.profilepic {
+    width: 35px;
+height: 35px;
     border-radius: 50%;
-    font-size: 1.2rem;
-    cursor: pointer;
+    overflow: hidden;
+border: 2px solid #d4740e;
     display: flex;
     align-items: center;
     justify-content: center;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+text-decoration: none;
+    color: #333;
 }
 
-.app-header .account-btn:active {
-    transform: scale(0.95);
+.profilepic img {
+    width: 100%;
+    height: 100%;
+object-fit: cover;
+    display: block;
 }
 
-.app-header .account-btn:hover {
-    background: #f8f9fa;
-    border-color: orange;
-    color: orange;
-    /* Turns green on hover */
-    box-shadow: 0 0 12px rgba(124, 255, 28, 0.25);
+/* XIM university location thing under logo */
+.location {
+text-align: center;
 }
 
-/* Removed notification dot styles */
-
-.location-selector {
-    text-align: center;
-    cursor: pointer;
-    padding: 5px 15px;
-    border-radius: 20px;
-    transition: background 0.3s;
+.location .label {
+    font-size: 0.7rem;
+    color: #aaa;
+margin-bottom: 2px;
 }
 
-.location-selector:hover {
-    background: var(--card-dark);
+.loc-name {
+    font-weight: bold;
+font-size: 0.9rem;
+    color: #333;
 }
 
-.location-selector .label {
-    font-size: 0.8rem;
-    color: #686b78;
-    margin-bottom: 2px;
-}
-
-.current-location {
+/* nav links - only shows on desktop */
+.links {
     display: flex;
-    align-items: center;
-    gap: 8px;
-    font-weight: 600;
-    font-size: 1.05rem;
+align-items: center;
+    gap: 20px;
 }
 
-.current-location i:first-child {
-    color: #282c3f;
-}
-
-.current-location .down-icon {
-    font-size: 0.8rem;
-    color: #686b78;
-}
-
-
-.desktop-nav {
-    display: flex;
-    align-items: center;
-    gap: 30px;
-}
-
-.desktop-nav a {
-    color: #282c3f;
+.links a {
+color: #555;
     text-decoration: none;
-    font-weight: 600;
-    font-size: 0.95rem;
-    text-transform: uppercase;
-    transition: color 0.3s;
-    position: relative;
-    letter-spacing: 0.5px;
+    font-size: 0.9rem;
+font-weight: bold;
 }
 
-.desktop-nav a:hover {
-    color: orange;
+.links a:hover {
+    color: #d4740e;
 }
 
-.desktop-nav a.active {
-    color: orange;
+/* active page highlight in nav */
+.links a.active {
+color: #d4740e;
+    border-bottom: 2px solid #d4740e;
+    padding-bottom: 2px;
 }
 
-
-.app-main {
+/* ======== main content area ======== */
+.main {
     padding: 0 20px;
 }
 
-
-.hero-section {
-    position: relative;
-    border-radius: 30px;
+/* ======== hero banner on home page ======== */
+/* the big image with text overlay - took forever to get right lol */
+.banner {
+position: relative;
     overflow: hidden;
-    margin-bottom: 30px;
-    display: flex;
+    margin-bottom: 20px;
+display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 60px 20px;
-    min-height: 250px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+        padding: 45px 20px;
+    min-height: 200px;
 }
 
-.hero-image-container {
+.banner-bg {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+top: 0; left: 0;
+    width: 100%; height: 100%;
     z-index: 1;
-    overflow: hidden;
 }
 
-.hero-bg,
-.hero-img-bg {
-    width: 100%;
+/* background image - using unsplash food pic */
+.bgimage {
+width: 100%;
     height: 100%;
     background-image: url('../assets/food/hero_bg.png');
-    background-size: cover;
+background-size: cover;
     background-position: center;
     position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1;
+    top: 0; left: 0;
 }
 
-.hero-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, rgba(13, 13, 13, 0.7) 0%, rgba(13, 13, 13, 0.5) 50%, rgba(13, 13, 13, 0.7) 100%);
+/* dark overlay so text is readable on the banner */
+.darken {
+position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+background: rgba(0, 0, 0, 0.5); /* 50% dark */
     z-index: 2;
 }
 
-.hero-content {
+.banner-text {
     position: relative;
-    z-index: 3;
+z-index: 3;
     max-width: 600px;
 }
 
-
-
-
-.hero-content h1 {
-    font-size: 2.8rem;
-    font-weight: 700;
-    margin-bottom: 15px;
-    line-height: 1.2;
-    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
-    color: #ffffff;
+.banner-text h1 {
+font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+color: #fff;
 }
 
-.hero-content h1 .hero-highlight {
-    color: orange;
+.banner-text h1 .orange {
+    color: #ffb347; /* lighter orange for dark bg */
 }
 
-.hero-content p {
-    font-size: 1.1rem;
-    color: rgba(255, 255, 255, 0.9);
-    margin-bottom: 25px;
-    line-height: 1.6;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+.banner-text p {
+font-size: 0.95rem;
+    color: rgba(255,255,255,0.85);
+    margin-bottom: 18px;
 }
 
-.hero-buttons {
-    display: flex;
-    gap: 15px;
+.banner-btns {
+display: flex;
+    gap: 10px;
     justify-content: center;
-    flex-wrap: wrap;
 }
 
-.btn-primary {
-    background: orange;
+/* ======== buttons ======== */
+/* main orange button used everywhere */
+.orange-btn {
+background: #d4740e;
     color: #fff;
     text-decoration: none;
-    padding: 12px 28px;
-    border-radius: 8px;
-    font-weight: 700;
-    font-size: 1rem;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    transition: transform 0.3s, background 0.3s;
-    box-shadow: 0 4px 14px rgba(252, 128, 25, 0.3);
+padding: 10px 24px;
+    border-radius: 2px;
+    font-weight: bold;
+font-size: 0.9rem;
     border: none;
-    text-transform: uppercase;
-}
-
-.btn-primary:hover {
-    transform: translateY(-2px);
-    background: #e67012;
-}
-
-.btn-secondary {
-    background: white;
-    color: #282c3f;
-    text-decoration: none;
-    padding: 12px 28px;
-    border-radius: 8px;
-    font-weight: 700;
-    font-size: 1rem;
-    border: 1px solid #e9ecee;
-    transition: transform 0.3s, background 0.3s;
-    text-transform: uppercase;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
-}
-
-.btn-secondary:hover {
-    background: #f9f9f9;
-    transform: translateY(-2px);
-}
-
-
-.section-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    margin-bottom: 20px;
-}
-
-.section-header h3 {
-    font-size: 1.4rem;
-    font-weight: 600;
-}
-
-.see-all {
-    color: orange;
-    text-decoration: none;
-    font-size: 0.95rem;
-    font-weight: 700;
-    transition: color 0.3s;
-}
-
-.see-all:hover {
-    color: #e67012;
-}
-
-
-
-.products-grid {
-    display: flex;
-    gap: 15px;
-    overflow-x: auto;
-    scrollbar-width: none;
-    padding-bottom: 20px;
-    margin-inline: -20px;
-    padding-inline: 20px;
-}
-
-.products-grid::-webkit-scrollbar {
-    display: none;
-}
-
-.product-card {
-    min-width: 250px;
-    background: #ffffff;
-    border-radius: 12px;
-    padding: 15px;
-    position: relative;
-    border: 1px solid #e9ecee;
-    transition: transform 0.3s, box-shadow 0.3s;
-    display: flex;
-    flex-direction: column;
-
-}
-
-.restaurant-card {
-    min-width: 450px;
-    height: 250px;
-    background: #ffffff;
-    border-radius: 12px;
-    padding: 15px;
-    position: relative;
-    text-decoration: none;
-    border: 1px solid #e9ecee;
-    transition: transform 0.3s, box-shadow 0.3s;
-    display: flex;
-    flex-direction: column;
-}
-
-
-
-.product-card:hover {
-    border: 3px orange;
-    border-radius: 12px;
-}
-
-.restaurant-card:hover {
-    border: 3px solid orange;
-    border-radius: 12px;
-}
-
-.card-image-wrap {
-    width: 100%;
-    height: 160px;
-    border-radius: 15px;
-    overflow: hidden;
-    margin-bottom: 15px;
-    position: relative;
-}
-
-.card-image-wrap img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.5s;
-}
-
-.product-card:hover .card-image-wrap img {
-    transform: scale(1.08);
-}
-
-.card-badge {
+    cursor: pointer;
     display: inline-block;
-    background: #e9ecee;
-    color: #686b78;
-    font-size: 0.7rem;
-    font-weight: 700;
-    padding: 4px 10px;
-    border-radius: 4px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 8px;
-    /* Give some space below it */
 }
 
-.card-info {
-    flex-grow: 1;
+.orange-btn:hover {
+background: #b8620a;
+}
+
+/* white outlined button - used on hero only rn */
+.white-btn {
+    background: #fff;
+color: #333;
+    text-decoration: none;
+    padding: 10px 24px;
+font-weight: bold;
+    font-size: 0.9rem;
+    border: 2px solid #ccc;
+}
+
+.white-btn:hover {
+    background: #eee;
+}
+
+/* ======= section titles ======= */
+/* like "Popular on Campus", "Featured Restaurants" */
+.heading-row {
+display: flex;
+    justify-content: space-between;
+    align-items: center;
+margin: 22px 0 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.heading-row h3 {
+font-size: 1.15rem;
+    font-weight: bold;
+    color: #222;
+}
+
+.viewall {
+    color: #d4740e;
+text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: bold;
+}
+
+.viewall:hover {
+text-decoration: underline;
+}
+
+/* ======== food items grid ======== */
+/* auto-fill grid so it wraps nicely on any screen */
+.grid {
+    display: grid;
+grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+/* individual food item card */
+.card {
+background: #fff;
+    border: 1px solid #ddd;
+    padding: 10px;
+position: relative; /* for the + button positioning */
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
 }
 
-.card-info h4 {
-    font-size: 1.15rem;
-    font-weight: 600;
-    margin-bottom: 6px;
-    color: #282c3f;
-    line-height: 1.3;
+.card:hover {
+border-color: #d4740e;
 }
 
-.card-desc {
-    font-size: 0.85rem;
-    color: #686b78;
-    margin-bottom: 12px;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    line-height: 1.4;
-}
-
-.price-row {
-    margin-top: auto;
+/* restaurant card - on home page bottom + explore page */
+/* idk why i made this separate from .card but it works */
+.rest-card {
+    background: #fff;
+border: 1px solid #ddd;
+    padding: 10px;
+    text-decoration: none;
+color: inherit;
     display: flex;
+    flex-direction: column;
+    border-radius: 12px; /* round corners only on restaurant cards */
+}
+
+.rest-card:hover {
+    border-color: #d4740e;
+}
+
+/* card image container */
+.imgbox {
+width: 100%;
+    height: 140px;
+    overflow: hidden;
+margin-bottom: 8px;
+    border-radius: 0;
+}
+
+.imgbox img {
+    width: 100%;
+height: 100%;
+    object-fit: cover;
+}
+
+/* category tag like "INDIAN THALI", "RICE" etc */
+.tag {
+display: inline-block;
+    background: #eee;
+    color: #666;
+font-size: 0.65rem;
+    font-weight: bold;
+    padding: 2px 7px;
+text-transform: uppercase;
+    margin-bottom: 4px;
+    border-radius: 8px;
+}
+
+.info h4 {
+font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 3px;
+color: #222;
+}
+
+/* description text - clamped to 2 lines */
+.desc {
+    font-size: 0.8rem;
+color: #888;
+    margin-bottom: 6px;
+    line-height: 1.3;
+display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+overflow: hidden;
+    /* found this clamp trick on stackoverflow */
+}
+
+.price-area {
+    margin-top: auto;
+display: flex;
     justify-content: space-between;
-    align-items: flex-end;
+    align-items: center;
 }
 
 .price {
-    font-size: 1.4rem;
-    font-weight: 700;
+font-size: 1.1rem;
+    font-weight: bold;
+    color: #222;
 }
 
-.add-btn {
+/* add to cart + button - sits in bottom right of card */
+.plusbtn {
     position: absolute;
-    bottom: 15px;
-    right: 15px;
-    width: 36px;
-    height: 36px;
-    border-radius: 8px;
-    background: #f8f9fa;
-    color: #60b246;
-    border: 1px solid #e9ecee;
-    display: flex;
+bottom: 10px;
+    right: 10px;
+    width: 28px;
+height: 28px;
+    background: #d4740e;
+    color: #fff;
+    border: none;
+display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
+cursor: pointer;
     font-size: 1rem;
-    transition: all 0.2s;
-    font-weight: 800;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    font-weight: bold;
+    border-radius: 0; /* square on purpose */
 }
 
-.add-btn:hover {
-    background: #60b246;
-    color: #fff;
-    border-color: #60b246;
-    transform: scale(1.05);
+.plusbtn:hover {
+background: #b8620a;
 }
 
-
-.bottom-nav {
+/* ======== mobile bottom navigation ======== */
+/* only shows on phones - hidden on desktop with media query */
+.mobilenav {
     position: fixed;
-    bottom: 0;
-    left: 0;
+bottom: 0; left: 0;
     width: 100%;
-    height: 75px;
-    background: #f8f9fa;
-    border-top: 1px solid #e9ecee;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
+    height: 55px;
+background: #fff;
+    border-top: 2px solid #ddd;
     display: flex;
-    justify-content: space-around;
+justify-content: space-around;
     align-items: center;
-    padding: 0 10px;
     z-index: 1000;
-    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.5);
 }
 
-.nav-item {
-    text-decoration: none;
-    color: #686b78;
+.navlink {
+text-decoration: none;
+    color: #999;
     display: flex;
-    flex-direction: column;
+flex-direction: column;
     align-items: center;
-    gap: 4px;
-    font-size: 0.7rem;
-    font-weight: 700;
-    transition: 0.3s;
-    width: 65px;
+    gap: 2px;
+    font-size: 0.65rem;
+font-weight: bold;
 }
 
-.nav-item i {
-    font-size: 1.2rem;
+.navlink i {
+    font-size: 1rem;
 }
 
-.nav-item.active {
-    color: orange;
+/* active tab color */
+.navlink.active {
+color: #d4740e;
 }
 
-.nav-item.active .nav-icon-bg {
-    background: orange;
-    width: 42px;
-    height: 42px;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: -20px;
-    box-shadow: 0 4px 12px rgba(252, 128, 25, 0.3);
+.navlink.active .icon-bg i {
+    color: #d4740e;
 }
 
-.nav-item.active .nav-icon-bg i {
-    color: #fff;
-}
-
-.nav-item:hover:not(.active) i {
-    color: #282c3f;
-    transform: translateY(-3px);
-}
-
-
+/* ======== responsive breakpoints ======== */
+/* desktop */
 @media (min-width: 768px) {
-    .app-main {
-        padding: 0 40px;
+.main {
+        padding: 0 25px;
     }
 
-    .app-header {
-        padding: 30px 40px;
+    .topbar {
+    padding: 16px 25px;
     }
 
-
-    .mobile-only-btn {
-        display: none !important;
-    }
-
-    .logo-desktop {
-        display: flex;
-    }
-
-    .desktop-nav {
-        display: flex;
-    }
-
-    .bottom-nav {
+    /* hide mobile nav on big screens */
+    .mobilenav {
         display: none;
-    }
-
-    .app-container {
-        padding-bottom: 40px;
-
-    }
-
-    .hero-section {
-        min-height: 420px;
-        margin-top: 10px;
-    }
-
-    .hero-content h1 {
-        font-size: 4rem;
-    }
-
-    .hero-content p {
-        font-size: 1.3rem;
-    }
-
-
-    .products-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-        gap: 30px;
-        overflow-x: visible;
-        margin-inline: 0;
-        padding-inline: 0;
-    }
-
-    .product-card {
-        min-width: unset;
-
-    }
-
-}.categories-section {
-    margin-bottom: 25px;
-    overflow-x: auto;
-    scrollbar-width: none;
-    padding-right: 20px;
 }
 
-.categories-section::-webkit-scrollbar {
-    display: none;
+    .banner {
+        min-height: 280px;
+    }
+
+    .banner-text h1 {
+    font-size: 2.6rem;
+    }
 }
 
-.category-pills {
+/* mobile */
+@media (max-width: 767px) {
+    /* hide desktop nav links on phone */
+    .links {
+display: none;
+    }
+
+    .wrapper {
+        padding-bottom: 70px; /* space for bottom nav */
+}
+
+    .grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 10px;
+    }
+}
+
+/* ======== category filter buttons ======== */
+/* horizontal scrolling pills on home page - "All Dishes", "Indian Thali" etc */
+.filters {
+    margin-bottom: 15px;
+overflow-x: auto;
+    scrollbar-width: none; /* firefox */
+}
+
+/* hide scrollbar but keep scroll working */
+.filters::-webkit-scrollbar {
+display: none;
+}
+
+.filter-list {
     display: flex;
-    gap: 12px;
+gap: 8px;
     padding-bottom: 5px;
 }
 
-.pill-label {
+.filteroption {
     cursor: pointer;
-    display: inline-block;
 }
 
-.pill-label input[type="radio"] {
-    display: none;
+/* hide the actual radio input */
+.filteroption input[type="radio"] {
+display: none;
 }
 
-.pill {
-    background: #ffffff;
-    border: 1px solid #e9ecee;
-    color: #686b78;
-    font-size: 0.9rem;
-    font-weight: 500;
-    padding: 10px 24px;
-    border-radius: 25px;
+.filterbtn {
+    background: #fff;
+border: 1px solid #ccc;
+    color: #555;
+    font-size: 0.82rem;
+padding: 6px 16px;
     white-space: nowrap;
-    transition: all 0.3s ease;
     display: inline-block;
+    border-radius: 0;
 }
 
-.pill-label input[type="radio"]:checked + .pill {
-    background: #fc8019;
-    border-color: #fc8019;
-    color: #f8f9fa;
-    font-weight: 700;
-    box-shadow: 0 4px 12px rgba(124, 255, 28, 0.3);
+/* selected filter - orange bg */
+.filteroption input[type="radio"]:checked + .filterbtn {
+background: #d4740e;
+    border-color: #d4740e;
+    color: #fff;
+font-weight: bold;
 }
 
-.pill:hover {
-    background: #333;
-    border-color: #444;
+.filterbtn:hover {
+    border-color: #d4740e;
 }
 
+/* on desktop wrap the filters instead of scroll */
 @media (min-width: 768px) {
-    .categories-section {
-        overflow-x: visible;
-    }
-
-    .category-pills {
+.filter-list {
         flex-wrap: wrap;
     }
 }

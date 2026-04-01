@@ -1,103 +1,83 @@
-:root {
-    --swiggy-orange: #fc8019;
-    --text-main: #282c3f;
-    --bg-light: #ffffff;
-}
-
+/* campuscravings landing page - prashant & ayush */
+/* last updated: march 2026 */
 * {
-    margin: 0;
+margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Outfit', sans-serif;
+font-family: Arial, Helvetica, sans-serif;
 }
 
 body {
-    background: #f8f9fa;
+    background: #fff;
     overflow: hidden;
+    /* overflow hidden so that the page doesnt scroll on mobile - ayush */
 }
 
-.splash-screen {
-    position: fixed;
-    top: 0;
-    left: 0;
+/* this is the fullscreen div that covers everything */
+.landing {
     width: 100%;
-    height: 100%;
-    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.85)), url('../assets/food/hero_bg.png');
-    background-size: cover;
-    background-position: center;
+height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    padding: 40px 20px;
-    z-index: 9999;
-    animation: fadeIn 0.8s ease-out;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-.splash-top {
+justify-content: center;
+    align-items: center;
     text-align: center;
+        padding: 30px;
+    background-color: #fffaf0; /* cream color from xim website lol */
 }
 
-.splash-logo {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: #fff;
+/* top section with logo */
+.top {
+margin-bottom: 25px;
 }
 
-.splash-logo span {
-    color: var(--swiggy-orange);
+.logo {
+    font-size: 2.2rem;
+font-weight: bold;
+    color: #333;
+    /* tried google fonts but arial looks fine - prashant */
 }
 
-.splash-bottom {
-    text-align: center;
-    padding-bottom: 60px;
-    animation: slideUp 1s ease-out;
+.logo span {
+    color: #d4740e; /* our brand orange */
 }
 
-@keyframes slideUp {
-    from { transform: translateY(50px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
+.bottom {
+    max-width: 500px;
+    /* maybe make this responsive later idk */
 }
 
-.splash-title {
-    font-size: 3rem;
-    color: #fff;
-    margin-bottom: 10px;
-    line-height: 1.1;
+.heading {
+font-size: 2.4rem;
+    color: #222;
+    margin-bottom: 8px;
+line-height: 1.2;
 }
 
-.splash-title .hero-highlight {
-    color: var(--swiggy-orange);
+/* orange highlight text */
+.heading .orange {
+color: #d4740e;
 }
 
-.splash-subtitle {
-    font-size: 1.2rem;
-    color: rgba(255, 255, 255, 0.9);
-    margin-bottom: 40px;
+.tagline {
+    font-size: 1rem;
+color: #777;
+    margin-bottom: 25px;
 }
 
-.splash-btn {
+/* login button on splash */
+.start-btn {
     display: inline-block;
-    background: var(--swiggy-orange);
+background: #d4740e;
     color: #fff;
     text-decoration: none;
-    padding: 16px 48px;
-    border-radius: 12px;
-    font-size: 1.2rem;
-    font-weight: 700;
-    transition: transform 0.3s, background 0.3s;
-    box-shadow: 0 8px 20px rgba(252, 128, 25, 0.4);
+padding: 12px 50px; /* 50px sides looks good on phone */
+    border-radius: 3px;
+    font-size: 1.1rem;
+font-weight: bold;
 }
 
-.splash-btn:hover {
-    background: #e67012;
-    transform: translateY(-3px);
-}
-
-.splash-btn:active {
-    transform: scale(0.95);
+.start-btn:hover {
+    background: #b8620a;
+    /* TODO: maybe add some transition? */
 }

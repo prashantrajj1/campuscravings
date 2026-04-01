@@ -1,52 +1,62 @@
+/* menu page - extra styles for the restaurant menu view
+   most styles come from home.css and restaurant_details.css
+   this is just for the few things that are different */
+
+/* back link in topbar */
 .back-link {
-    color: #282c3f;
+    color: #333;
     text-decoration: none;
-    font-weight: 700;
+font-weight: bold;
 }
 
+/* cart icon link */
 .cart-link {
-    color: #282c3f;
-    font-size: 1.5rem;
+    color: #333;
+    font-size: 1.2rem;
 }
 
+/* menu item image - same height as regular cards */
 .menu-image-wrap {
-    height: 160px;
-    background: #ffffff;
+    height: 140px;
+background: #fafafa;
 }
 
+/* placeholder emoji when no food image exists */
 .menu-image-placeholder {
-    font-size: 3rem;
-    color: #686b78;
-    opacity: 0.2;
+    font-size: 2rem;
+color: #ddd;
 }
 
 .menu-item-desc {
-    font-size: 0.8rem;
+    font-size: 0.78rem;
     color: #888;
-    margin-top: 5px;
+margin-top: 4px;
 }
 
 .menu-price-row {
-    margin-top: 15px;
+    margin-top: 8px;
 }
 
+/* no results message when search finds nothing */
 .no-results {
     text-align: center;
-    color: #686b78;
-    padding: 80px 20px;
+color: #aaa;
+    padding: 50px 20px;
 }
 
+/* faded icon above "no results" text */
 .no-results-icon {
-    font-size: 4rem;
-    margin-bottom: 20px;
-    opacity: 0.2;
+    font-size: 3rem;
+margin-bottom: 12px;
+    opacity: 0.12;
 }
 
 .no-results-text {
-    color: #282c3f;
-    margin-bottom: 10px;
+    color: #333;
+margin-bottom: 6px;
 }
 
+/* spacer for layout balancing */
 .spacer-50 {
     width: 50px;
 }

@@ -1,93 +1,104 @@
-.payment-box {
-    max-width: 500px;
-    margin: 50px auto;
-    background: #ffffff;
-    padding: 40px;
-    text-align: center;
-    border-radius: 20px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+/* payment page - QR code and order confirmation
+   TODO: integrate actual UPI payment gateway sometime
+   for now its just a static QR image */
+
+.pay-box {
+    max-width: 100%;
+margin: 30px 20px;
+    background: #fff;
+    padding: 28px;
+text-align: center;
+    border: 2px solid #ddd;
 }
 
-.back-link-res {
-    background: orange;
-    color: #fff !important;
+.backbtn {
+    background: #d4740e;
+color: #fff !important;
     border: none;
-    padding: 10px 15px;
-    border-radius: 10px;
-    font-weight: 800;
+    padding: 7px 14px;
+font-weight: bold;
+    font-size: 0.85rem;
     cursor: pointer;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    transition: background 0.3s;
-    text-decoration: none;
+text-decoration: none;
     display: inline-block;
-    box-sizing: border-box;
-    text-align: center;
+    border-radius: 0;
 }
 
-.qr-placeholder {
-    width: 250px;
-    height: 250px;
-    margin: 20px auto;
-    background: #f1f2f6;
+.backbtn:hover {
+    background: #b8620a;
+}
+
+/* QR code placeholder - dashed border since its not real yet */
+.qr-box {
+width: 220px;
+    height: 220px;
+    margin: 15px auto;
+background: #f9f9f9;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 15px;
-    border: 2px dashed #ccc;
+border: 2px dashed #bbb;
 }
 
-.total-pay {
-    font-size: 2rem;
-    font-weight: 800;
-    color: #282c3f;
-    margin: 15px 0;
+/* total amount - big and bold so its obvious */
+.total-amount {
+    font-size: 1.5rem;
+    font-weight: bold;
+color: #222;
+    margin: 8px 0;
 }
 
-.btn-confirm {
-    background: #60b246;
-    color: white;
+/* green confirm button - different from orange to make it stand out */
+.confirm-btn {
+    background: #28a745;
+color: #fff;
     border: none;
-    padding: 15px 30px;
-    border-radius: 10px;
-    font-size: 1.1rem;
+    padding: 11px 20px;
+font-size: 1rem;
     font-weight: bold;
     cursor: pointer;
-    margin-top: 20px;
+margin-top: 12px;
     width: 100%;
-    text-transform: uppercase;
+    border-radius: 0;
 }
 
+.confirm-btn:hover {
+    background: #1e7e34;
+}
+
+/* success screen elements */
 .success-icon {
-    font-size: 5rem;
-    color: #60b246;
-    margin-bottom: 20px;
+font-size: 3.5rem;
+    color: #28a745;
+    margin-bottom: 12px;
 }
 
-.success-title {
-    color: #60b246;
+.success-heading {
+    color: #28a745;
 }
 
-.success-message {
+.success-msg {
     color: #666;
-    margin: 20px 0;
-    font-size: 1.1rem;
+margin: 12px 0;
+    font-size: 0.95rem;
 }
 
-.mt-30-block {
+.block-link {
     display: block;
-    margin-top: 30px;
+margin-top: 20px;
 }
 
-.qr-title {
-    color: #282c3f;
+.qr-heading {
+    color: #222;
+    font-size: 1.1rem;
 }
 
 .qr-icon {
-    font-size: 8rem;
-    color: #cbd5e1;
+    font-size: 5rem;
+color: #ddd;
 }
 
-.error-message {
+.error-msg {
     color: red;
+    font-size: 0.85rem;
 }

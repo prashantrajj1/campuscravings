@@ -1,59 +1,77 @@
-let cart = [];
+// campuscravings cart + utility functions
+// by ayush - handles adding items and loading cart
+// using localStorage since we dont have backend cart (yet)
 
+var cart = [];
+
+console.log("script.js loaded!!");
+console.log("page: " + window.location.pathname);
+
+// adds a food item to cart (called when + button is clicked)
 function addToCart(name, price) {
+console.log("adding to cart: " + name);
     cart = JSON.parse(localStorage.getItem("cart")) || [];
-    cart.push({ name, price });
+        cart.push({ name, price });
     localStorage.setItem("cart", JSON.stringify(cart));
-    
-    // Create a temporary toast notification
-    const toast = document.createElement('div');
-    toast.innerText = `🛒 ${name} added!`;
-    toast.style.cssText = `
-        position: fixed; top: 20px; right: 20px; background: #7cff1c; color: black;
-        padding: 10px 20px; border-radius: 10px; font-weight: bold; z-index: 10000;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.3); animation: slideIn 0.3s ease-out;
-    `;
-    document.body.appendChild(toast);
-    setTimeout(() => {
-        toast.style.opacity = '0';
-        toast.style.transition = 'opacity 0.5s';
-        setTimeout(() => toast.remove(), 500);
-    }, 2000);
+    console.log("cart now has " + cart.length + " items");
+    console.log(cart); // check cart contents
+    alert(name + " added to cart!");
 }
 
+// loads cart items on the checkout page
 function loadCart() {
-    cart = JSON.parse(localStorage.getItem("cart")) || [];
-    let list = document.getElementById("cart-items");
-    let total = 0;
+    console.log("loading cart from localStorage...");
+cart = JSON.parse(localStorage.getItem("cart")) || [];
+    var list = document.getElementById("cart-items");
+var total = 0;
 
-    cart.forEach(item => {
-        let li = document.createElement("li");
-        li.innerText = item.name + " - ₹" + item.price;
+    console.log("found " + cart.length + " items in cart");
+
+    cart.forEach(function(item) {
+        var li = document.createElement("li");
+    li.innerText = item.name + " - ₹" + item.price;
         list.appendChild(li);
-        total += item.price;
+total += item.price;
+        console.log("  loaded: " + item.name + " ₹" + item.price);
     });
 
     document.getElementById("total").innerText = "Total: ₹" + total;
+    console.log("total bill = ₹" + total);
 }
 
+// run loadCart if we're on the checkout page
 if (document.getElementById("cart-items")) {
+console.log("on checkout page - loading cart");
     loadCart();
 }
 
-// Authentication check for protected routes
+// cookie helper - used for checking auth on static pages
+// prashant found this on stackoverflow
 function getCookie(name) {
-    let match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+    var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
     if (match) {
+    console.log("found cookie: " + name + " = " + match[2]);
         return match[2];
     }
+console.log("cookie '" + name + "' not found");
     return null;
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-    const isProtectedPage = window.location.pathname.includes('home.html') || window.location.pathname.includes('cart.html');
-    const authCookie = getCookie('user_auth');
+// page load - check if auth is needed
+document.addEventListener("DOMContentLoaded", function() {
+    console.log("DOM ready");
+    console.log("url: " + window.location.href);
+    console.log("time: " + new Date().toLocaleString());
 
-    if (isProtectedPage && !authCookie) {
+// these pages need login
+var needsAuth = window.location.pathname.includes('home.html') || window.location.pathname.includes('cart.html');
+    var authCookie = getCookie('user_auth');
+
+    console.log("needs auth: " + needsAuth);
+    console.log("has auth: " + (authCookie !== null));
+
+    if (needsAuth && !authCookie) {
+        console.log("not logged in! redirecting to login...");
         window.location.href = 'index.html';
     }
 });

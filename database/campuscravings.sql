@@ -1,58 +1,70 @@
-CREATE DATABASE IF NOT EXISTS campuscravings;
-USE campuscravings;
+-- campuscravings database
+-- clean sql file for importing into phpmyadmin
 
-SET FOREIGN_KEY_CHECKS = 0;
+-- create database and use it
+CREATE DATABASE IF NOT EXISTS `campuscravings`;
+USE `campuscravings`;
+
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
+SET FOREIGN_KEY_CHECKS = 0;
 
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Database: `campuscravings`
---
-
--- --------------------------------------------------------
-
---
--- Table structure for table `complaints`
---
-
-CREATE TABLE `complaints` (
-  `id` int(11) NOT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  `order_id` int(11) DEFAULT NULL,
-  `subject` varchar(255) DEFAULT NULL,
-  `message` text DEFAULT NULL,
-  `status` enum('Open','Resolved') DEFAULT 'Open',
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+-- -----------------------------------------------
+-- users table
+-- -----------------------------------------------
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `course` varchar(100) DEFAULT NULL,
+  `rollno` varchar(50) DEFAULT NULL,
+  `password` varchar(255) NOT NULL,
+  `role` enum('student','restaurant','admin') DEFAULT 'student',
+  `phone` varchar(20) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `profile_picture` varchar(255) DEFAULT 'default.jpeg',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `complaints`
---
+INSERT INTO `users` (`id`, `name`, `email`, `course`, `rollno`, `password`, `role`, `phone`, `created_at`, `profile_picture`) VALUES
+(1, 'Admin', 'admin@campuscravings.com', NULL, NULL, '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin', NULL, '2026-03-20 15:02:03', 'default.jpeg'),
+(2, 'Green Salad Owner', 'owner@greensalad.com', NULL, NULL, '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'restaurant', NULL, '2026-03-20 15:02:03', 'default.jpeg'),
+(3, 'Ayush Jha', 'ucse24017@stu.xim.edu.in', NULL, NULL, '$2y$10$zm8NVD8b7opkNDz0GoGxd.wdbJDE5OYId.nQDWVWpTXuLGJKf2p1i', 'student', '77987997878', '2026-03-20 15:06:12', 'default.jpeg'),
+(4, 'Shawarma Xpress-3 Owner', 'shawarma@campuscravings.com', NULL, NULL, '$2y$10$Q6Kr6DU.FItCDhLXbP4yAuXzz9Ay5oCAjvXUe3YFYELYJqiTFm65C', 'restaurant', NULL, '2026-03-20 15:07:47', 'default.jpeg'),
+(5, 'Adventures Cafe Owner', 'adventures@campuscravings.com', NULL, NULL, '$2y$10$Q6Kr6DU.FItCDhLXbP4yAuXzz9Ay5oCAjvXUe3YFYELYJqiTFm65C', 'restaurant', NULL, '2026-03-20 15:07:47', 'default.jpeg');
 
-INSERT INTO `complaints` (`id`, `user_id`, `order_id`, `subject`, `message`, `status`, `created_at`) VALUES
-(1, 3, 5, 'my order is not delivered yet ??', 'what the hell !???', 'Open', '2026-03-21 11:36:51');
+-- -----------------------------------------------
+-- restaurants table
+-- -----------------------------------------------
+DROP TABLE IF EXISTS `restaurants`;
+CREATE TABLE `restaurants` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `owner_id` int(11) DEFAULT NULL,
+  `name` varchar(100) NOT NULL,
+  `description` text DEFAULT NULL,
+  `cuisine_type` varchar(50) DEFAULT NULL,
+  `rating` decimal(2,1) DEFAULT NULL,
+  `image_url` varchar(255) DEFAULT NULL,
+  `is_open` tinyint(1) DEFAULT 1,
+  `location` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- --------------------------------------------------------
+INSERT INTO `restaurants` (`id`, `owner_id`, `name`, `description`, `cuisine_type`, `rating`, `image_url`, `is_open`, `location`) VALUES
+(1, 2, 'Green Salad', 'Fresh, healthy, and a massive variety of campus favorites.', 'Indian & Chinese', 4.7, 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=400', 1, 'Near Hostel Gate 1'),
+(2, 4, 'Shawarma Xpress-3', 'Amazing Shawarma and fast food', 'Fast Food', 4.5, 'https://images.unsplash.com/photo-1529042410759-befb1204b468?q=80&w=400', 1, 'Near Gate 3'),
+(3, 5, 'Adventures Cafe', 'Best place to hang out and eat', 'Cafe', 4.6, 'https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=400', 1, 'Student Center');
 
---
--- Table structure for table `menu_categories`
---
-
+-- -----------------------------------------------
+-- menu_categories table
+-- -----------------------------------------------
+DROP TABLE IF EXISTS `menu_categories`;
 CREATE TABLE `menu_categories` (
-  `id` int(11) NOT NULL,
-  `category_name` varchar(100) NOT NULL
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `category_name` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `menu_categories`
---
 
 INSERT INTO `menu_categories` (`id`, `category_name`) VALUES
 (1, 'Indian Thali'),
@@ -86,27 +98,27 @@ INSERT INTO `menu_categories` (`id`, `category_name`) VALUES
 (29, 'Cold Coffee'),
 (30, 'Hot Coffee');
 
--- --------------------------------------------------------
-
---
--- Table structure for table `menu_items`
---
-
+-- -----------------------------------------------
+-- menu_items table
+-- -----------------------------------------------
+DROP TABLE IF EXISTS `menu_items`;
 CREATE TABLE `menu_items` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `restaurant_id` int(11) DEFAULT NULL,
   `category_id` int(11) DEFAULT NULL,
   `item_name` varchar(100) NOT NULL,
   `price` decimal(10,2) NOT NULL,
   `availability` tinyint(1) DEFAULT 1,
   `description` text DEFAULT NULL,
-  `image_url` varchar(255) DEFAULT NULL
+  `image_url` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `restaurant_id` (`restaurant_id`),
+  KEY `category_id` (`category_id`),
+  CONSTRAINT `menu_items_fk_restaurant` FOREIGN KEY (`restaurant_id`) REFERENCES `restaurants` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `menu_items_fk_category` FOREIGN KEY (`category_id`) REFERENCES `menu_categories` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `menu_items`
---
-
+-- Green Salad menu items (restaurant_id = 1)
 INSERT INTO `menu_items` (`id`, `restaurant_id`, `category_id`, `item_name`, `price`, `availability`, `description`, `image_url`) VALUES
 (1, 1, 1, 'Veg Normal Thali', 70.00, 1, NULL, 'assets/food/sandwich.jpg'),
 (2, 1, 1, 'Fish Thali', 70.00, 1, NULL, 'assets/food/sandwich.jpg'),
@@ -188,7 +200,10 @@ INSERT INTO `menu_items` (`id`, `restaurant_id`, `category_id`, `item_name`, `pr
 (78, 1, 20, 'Fish Finger (6 pc)', 100.00, 1, NULL, 'assets/food/sandwich.jpg'),
 (79, 1, 20, 'Chicken Cutlet (1 pc)', 100.00, 1, NULL, 'assets/food/sandwich.jpg'),
 (80, 1, 21, 'Steam Momos', 50.00, 1, NULL, 'assets/food/sandwich.jpg'),
-(81, 1, 21, 'Fry Momos', 70.00, 1, NULL, 'assets/food/sandwich.jpg'),
+(81, 1, 21, 'Fry Momos', 70.00, 1, NULL, 'assets/food/sandwich.jpg');
+
+-- Shawarma Xpress-3 menu items (restaurant_id = 2)
+INSERT INTO `menu_items` (`id`, `restaurant_id`, `category_id`, `item_name`, `price`, `availability`, `description`, `image_url`) VALUES
 (82, 2, 12, 'Hot & Sour Soup (Veg)', 245.00, 1, '', 'assets/food/sandwich.jpg'),
 (83, 2, 12, 'Manchow Soup (Veg)', 56.00, 1, '', 'assets/food/sandwich.jpg'),
 (84, 2, 12, 'Lemon Coriander Soup', 79.00, 1, '', 'assets/food/sandwich.jpg'),
@@ -306,7 +321,10 @@ INSERT INTO `menu_items` (`id`, `restaurant_id`, `category_id`, `item_name`, `pr
 (196, 2, 5, 'Laccha Paratha', 185.00, 1, '', 'assets/food/sandwich.jpg'),
 (197, 2, 5, 'Chapati', 246.00, 1, '', 'assets/food/sandwich.jpg'),
 (198, 2, 23, 'Water Bottle', 201.00, 1, '', 'assets/food/sandwich.jpg'),
-(199, 2, 23, 'Masala Cold Drink', 208.00, 1, '', 'assets/food/sandwich.jpg'),
+(199, 2, 23, 'Masala Cold Drink', 208.00, 1, '', 'assets/food/sandwich.jpg');
+
+-- Adventures Cafe menu items (restaurant_id = 3)
+INSERT INTO `menu_items` (`id`, `restaurant_id`, `category_id`, `item_name`, `price`, `availability`, `description`, `image_url`) VALUES
 (200, 3, 20, 'French Fries', 68.00, 1, '', 'assets/food/sandwich.jpg'),
 (201, 3, 20, 'Peri Peri French Fries', 122.00, 1, '', 'assets/food/sandwich.jpg'),
 (202, 3, 20, 'Crispy American Corn', 240.00, 1, '', 'assets/food/sandwich.jpg'),
@@ -413,24 +431,23 @@ INSERT INTO `menu_items` (`id`, `restaurant_id`, `category_id`, `item_name`, `pr
 (303, 3, 23, 'Lemonade Fizz', 190.00, 1, '', 'assets/food/sandwich.jpg'),
 (304, 3, 23, 'Masala Cold Drink', 95.00, 1, '', 'assets/food/sandwich.jpg');
 
--- --------------------------------------------------------
-
---
--- Table structure for table `orders`
---
-
+-- -----------------------------------------------
+-- orders table
+-- -----------------------------------------------
+DROP TABLE IF EXISTS `orders`;
 CREATE TABLE `orders` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) DEFAULT NULL,
   `restaurant_id` int(11) DEFAULT NULL,
   `total_amount` decimal(10,2) NOT NULL,
   `status` enum('Pending','Preparing','Out for Delivery','Delivered','Cancelled') DEFAULT 'Pending',
-  `order_date` timestamp NOT NULL DEFAULT current_timestamp()
+  `order_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`),
+  KEY `restaurant_id` (`restaurant_id`),
+  CONSTRAINT `orders_fk_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `orders_fk_restaurant` FOREIGN KEY (`restaurant_id`) REFERENCES `restaurants` (`id`) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `orders`
---
 
 INSERT INTO `orders` (`id`, `user_id`, `restaurant_id`, `total_amount`, `status`, `order_date`) VALUES
 (1, 3, 1, 140.00, 'Pending', '2026-03-20 15:07:04'),
@@ -439,210 +456,42 @@ INSERT INTO `orders` (`id`, `user_id`, `restaurant_id`, `total_amount`, `status`
 (4, 3, NULL, 220.00, 'Pending', '2026-03-21 08:50:37'),
 (5, 3, NULL, 670.00, 'Pending', '2026-03-21 11:36:07');
 
--- --------------------------------------------------------
-
---
--- Table structure for table `order_items`
---
-
+-- -----------------------------------------------
+-- order_items table
+-- -----------------------------------------------
+DROP TABLE IF EXISTS `order_items`;
 CREATE TABLE `order_items` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `order_id` int(11) DEFAULT NULL,
   `item_name` varchar(100) DEFAULT NULL,
   `price` decimal(10,2) DEFAULT NULL,
-  `quantity` int(11) DEFAULT 1
+  `quantity` int(11) DEFAULT 1,
+  PRIMARY KEY (`id`),
+  KEY `order_id` (`order_id`),
+  CONSTRAINT `order_items_fk_order` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- --------------------------------------------------------
-
---
--- Table structure for table `restaurants`
---
-
-CREATE TABLE `restaurants` (
-  `id` int(11) NOT NULL,
-  `owner_id` int(11) DEFAULT NULL,
-  `name` varchar(100) NOT NULL,
-  `description` text DEFAULT NULL,
-  `cuisine_type` varchar(50) DEFAULT NULL,
-  `rating` decimal(2,1) DEFAULT NULL,
-  `image_url` varchar(255) DEFAULT NULL,
-  `is_open` tinyint(1) DEFAULT 1,
-  `location` varchar(100) DEFAULT NULL
+-- -----------------------------------------------
+-- complaints table
+-- -----------------------------------------------
+DROP TABLE IF EXISTS `complaints`;
+CREATE TABLE `complaints` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) DEFAULT NULL,
+  `order_id` int(11) DEFAULT NULL,
+  `subject` varchar(255) DEFAULT NULL,
+  `message` text DEFAULT NULL,
+  `status` enum('Open','Resolved') DEFAULT 'Open',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`),
+  KEY `order_id` (`order_id`),
+  CONSTRAINT `complaints_fk_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `complaints_fk_order` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `restaurants`
---
+INSERT INTO `complaints` (`id`, `user_id`, `order_id`, `subject`, `message`, `status`, `created_at`) VALUES
+(1, 3, 5, 'my order is not delivered yet ??', 'what the hell !???', 'Open', '2026-03-21 11:36:51');
 
-INSERT INTO `restaurants` (`id`, `owner_id`, `name`, `description`, `cuisine_type`, `rating`, `image_url`, `is_open`, `location`) VALUES
-(1, 2, 'Green Salad', 'Fresh, healthy, and a massive variety of campus favorites.', 'Indian & Chinese', 4.7, 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=400', 1, 'Near Hostel Gate 1'),
-(2, 4, 'Shawarma Xpress-3', 'Amazing Shawarma and fast food', 'Fast Food', 4.5, 'https://images.unsplash.com/photo-1529042410759-befb1204b468?q=80&w=400', 1, 'Near Gate 3'),
-(3, 5, 'Adventures Cafe', 'Best place to hang out and eat', 'Cafe', 4.6, 'https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=400', 1, 'Student Center');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `users`
---
-
-CREATE TABLE `users` (
-  `id` int(11) NOT NULL,
-  `name` varchar(100) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `course` varchar(100) DEFAULT NULL,
-  `rollno` varchar(50) DEFAULT NULL,
-  `password` varchar(255) NOT NULL,
-  `role` enum('student','restaurant','admin') DEFAULT 'student',
-  `phone` varchar(20) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `profile_picture` varchar(255) DEFAULT 'default.jpeg'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `users`
---
-
-INSERT INTO `users` (`id`, `name`, `email`, `course`, `rollno`, `password`, `role`, `phone`, `created_at`, `profile_picture`) VALUES
-(1, 'Admin', 'admin@campuscravings.com', NULL, NULL, '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin', NULL, '2026-03-20 15:02:03', 'default.jpeg'),
-(2, 'Green Salad Owner', 'owner@greensalad.com', NULL, NULL, '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'restaurant', NULL, '2026-03-20 15:02:03', 'default.jpeg'),
-(3, 'Ayush Jha', 'ucse24017@stu.xim.edu.in', NULL, NULL, '$2y$10$zm8NVD8b7opkNDz0GoGxd.wdbJDE5OYId.nQDWVWpTXuLGJKf2p1i', 'student', '77987997878', '2026-03-20 15:06:12', 'user_3_1774086474.jpeg'),
-(4, 'Shawarma Xpress-3 Owner', 'shawarma@campuscravings.com', NULL, NULL, '$2y$10$Q6Kr6DU.FItCDhLXbP4yAuXzz9Ay5oCAjvXUe3YFYELYJqiTFm65C', 'restaurant', NULL, '2026-03-20 15:07:47', 'default.jpeg'),
-(5, 'Adventures Cafe Owner', 'adventures@campuscravings.com', NULL, NULL, '$2y$10$Q6Kr6DU.FItCDhLXbP4yAuXzz9Ay5oCAjvXUe3YFYELYJqiTFm65C', 'restaurant', NULL, '2026-03-20 15:07:47', 'default.jpeg');
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `complaints`
---
-ALTER TABLE `complaints`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `user_id` (`user_id`),
-  ADD KEY `order_id` (`order_id`);
-
---
--- Indexes for table `menu_categories`
---
-ALTER TABLE `menu_categories`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `menu_items`
---
-ALTER TABLE `menu_items`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `restaurant_id` (`restaurant_id`),
-  ADD KEY `category_id` (`category_id`);
-
---
--- Indexes for table `orders`
---
-ALTER TABLE `orders`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `user_id` (`user_id`),
-  ADD KEY `restaurant_id` (`restaurant_id`);
-
---
--- Indexes for table `order_items`
---
-ALTER TABLE `order_items`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `order_id` (`order_id`);
-
---
--- Indexes for table `restaurants`
---
-ALTER TABLE `restaurants`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `email` (`email`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `complaints`
---
-ALTER TABLE `complaints`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `menu_categories`
---
-ALTER TABLE `menu_categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
-
---
--- AUTO_INCREMENT for table `menu_items`
---
-ALTER TABLE `menu_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=305;
-
---
--- AUTO_INCREMENT for table `orders`
---
-ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT for table `order_items`
---
-ALTER TABLE `order_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `restaurants`
---
-ALTER TABLE `restaurants`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `users`
---
-ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `complaints`
---
-ALTER TABLE `complaints`
-  ADD CONSTRAINT `complaints_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
-  ADD CONSTRAINT `complaints_ibfk_2` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`);
-
---
--- Constraints for table `menu_items`
---
-ALTER TABLE `menu_items`
-  ADD CONSTRAINT `menu_items_ibfk_1` FOREIGN KEY (`restaurant_id`) REFERENCES `restaurants` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `menu_items_ibfk_2` FOREIGN KEY (`category_id`) REFERENCES `menu_categories` (`id`) ON DELETE CASCADE;
-
---
--- Constraints for table `orders`
---
-ALTER TABLE `orders`
-  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`restaurant_id`) REFERENCES `restaurants` (`id`) ON DELETE CASCADE;
-
---
--- Constraints for table `order_items`
---
-ALTER TABLE `order_items`
-  ADD CONSTRAINT `order_items_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE;
-COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+-- re-enable foreign key checks
 SET FOREIGN_KEY_CHECKS = 1;
