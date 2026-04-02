@@ -1,10 +1,9 @@
 <?php
 // restaurant details page - shows menu for a specific restaurant
-// campuscravings - ayush & prashant
 session_start();
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
-exit;
+    exit;
 }
 require_once 'php/db_connect.php';
 
@@ -22,11 +21,11 @@ $restData = mysqli_query($conn, "SELECT * FROM restaurants WHERE id = '$rid'");
 $rest = mysqli_fetch_assoc($restData);
 
 if (!$rest) {
-echo "Restaurant not found."; // this shouldnt happen normally
+    echo "Restaurant not found."; // this shouldnt happen n
     exit;
 }
 
-// fetch all menu items for this restaurant, sorted by category
+// fetch all menu items for this restau, sorted by cate
 $menuSql = "SELECT m.*, c.category_name 
 FROM menu_items m 
     JOIN menu_categories c ON m.category_id = c.id 
@@ -36,11 +35,11 @@ $menuData = mysqli_query($conn, $menuSql);
 
 $menuList = [];
 if ($menuData) {
-while ($row = mysqli_fetch_assoc($menuData)) {
+    while ($row = mysqli_fetch_assoc($menuData)) {
         $menuList[] = $row;
     }
 }
-// echo "total items: " . count($menuList); // debug line
+// echo "total itms: " . count($menuList); // debug line
 ?>
 
 <!DOCTYPE html>
@@ -67,14 +66,14 @@ while ($row = mysqli_fetch_assoc($menuData)) {
                 <a href="checkout.php" class="backbtn" title="Cart">Cart</a>
                 <a href="profile.php" class="profilepic" title="Account">
                     <?php
-// navbar pfp - copied from home.php (i know this is bad practice)
+// navbar pfp - copied from home.php
 $navPfp = 'default.jpeg';
 if (isset($_SESSION['user_id'])) {
-$uid = $_SESSION['user_id'];
+    $uid = $_SESSION['user_id'];
     $pq = mysqli_query($conn, "SELECT profile_picture FROM users WHERE id = '$uid'");
     if ($pq && mysqli_num_rows($pq) > 0) {
         $pd = mysqli_fetch_assoc($pq);
-    if (!empty($pd['profile_picture']))
+        if (!empty($pd['profile_picture']))
             $navPfp = $pd['profile_picture'];
     }
 }
@@ -119,26 +118,29 @@ echo '<img src="assets/pfp/' . htmlspecialchars($navPfp) . '" style="width: 100%
             <div class="no-items">
                     <p>No menu items found for this restaurant.</p>
                 </div>
-                <?php else: ?>
+                <?php
+else: ?>
             <?php
     // group items by category with headers
     $currentCat = "";
     foreach ($menuList as $item):
         // show category header when category changes
         if ($currentCat != $item['category_name']):
-        $currentCat = $item['category_name'];
+            $currentCat = $item['category_name'];
 ?>
                 <div class="cat-label">
                     <h2 class="cat-name"><?php echo $currentCat; ?></h2>
                 </div>
-                <?php endif; ?>
+                <?php
+        endif; ?>
 
                 <div class="card">
                 <div class="imgbox food-img">
                         <?php if ($item['image_url']): ?>
                         <img src="<?php echo $item['image_url']; ?>"
                             alt="<?php echo $item['item_name']; ?>">
-                        <?php endif; ?>
+                        <?php
+        endif; ?>
                     </div>
                     <div class="info">
                         <h4><?php echo htmlspecialchars($item['item_name']); ?></h4>
@@ -153,8 +155,10 @@ echo '<img src="assets/pfp/' . htmlspecialchars($navPfp) . '" style="width: 100%
                 <button class="plusbtn food-addbtn"
                         onclick="addToCart('<?php echo addslashes($item['item_name']); ?>', <?php echo $item['price']; ?>)">+</button>
                 </div>
-                <?php endforeach; ?>
-            <?php endif; ?>
+                <?php
+    endforeach; ?>
+            <?php
+endif; ?>
             </div>
         </main>
 
