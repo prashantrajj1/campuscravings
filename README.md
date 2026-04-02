@@ -154,7 +154,6 @@ The app uses **6 tables**:
 - 💳 **Checkout & Payment** — Order summary with QR code payment
 - 👤 **User Profile** — View order history, upload profile picture
 - 📝 **Complaint System** — Submit and track complaints against orders
-- 📱 **Responsive Design** — Works on both desktop and mobile
 
 ---
 
