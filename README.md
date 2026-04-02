@@ -131,11 +131,11 @@ The app uses **6 tables**:
 | Table | Purpose |
 |-------|---------|
 | `users` | customers (admin, resturant owners will be added in future) |
-| `restaurants` | Restaurant info (name, cuisine, location, image) |
+| `restaurants` | Restaurant info |
 | `menu_categories` | Food categories (Indian Thali, Rice, Biryani, etc.) |
 | `menu_items` | Individual food items with prices |
 | `orders` | Order records with status tracking |
-| `complaints` | Student complaints linked to orders |
+| `complaints` | complaints linked to orders |
 
 **ER Relationships:**
 - `users` → `orders` (one to many)
@@ -161,7 +161,7 @@ The app uses **6 tables**:
 ## 📸 Screenshots
 
 ### Landing Page
-The splash page with the CampusCravings branding and login button.
+The page with the CampusCravings branding and login button.
 
 ### Home Page  
 Dashboard showing popular food items, category filters, and featured restaurants.
