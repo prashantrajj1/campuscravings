@@ -130,7 +130,7 @@ The app uses **6 tables**:
 
 | Table | Purpose |
 |-------|---------|
-| `users` | Student/restaurant owner/admin accounts |
+| `users` | customers (admin, resturant owners will be added in future) |
 | `restaurants` | Restaurant info (name, cuisine, location, image) |
 | `menu_categories` | Food categories (Indian Thali, Rice, Biryani, etc.) |
 | `menu_items` | Individual food items with prices |
