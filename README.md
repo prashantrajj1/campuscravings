@@ -120,7 +120,6 @@ campuscravings/
    | Role | Email | Password |
    |------|-------|----------|
    | Student | `ucse24017@stu.xim.edu.in` | *(registered password)* |
-   | Admin | `admin@campuscravings.com` | `password` |
 
 ---
 
