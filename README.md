@@ -10,6 +10,8 @@ Students can browse restaurants near campus, view menus, add items to cart, and 
 
 - **Prashant Raj** 
 - **Ayush Jha**
+- **Aditya Mohanty** 
+- **Pushkar Singh**
 
 ---
 
@@ -18,7 +20,7 @@ Students can browse restaurants near campus, view menus, add items to cart, and 
 | Layer | Technology |
 |-------|-----------|
 | Frontend | HTML, CSS, JavaScript |
-| Backend | PHP (Procedural) |
+| Backend | PHP |
 | Database | MySQL (via mysqli) |
 | Server | XAMPP / Apache |
 
@@ -30,7 +32,7 @@ No frameworks used — everything is hand-coded from scratch.
 
 ```
 campuscravings/
-├── index.html              # Landing / splash page
+├── index.html              # Landing page
 ├── login.php               # Login page
 ├── register.php            # Registration page
 ├── logout.php              # Logout (clears session)
@@ -43,12 +45,12 @@ campuscravings/
 ├── profile.php             # User profile, order history & complaints
 │
 ├── css/
-│   ├── splash.css          # Landing page styles
+│   ├── splash.css          # Landing page style
 │   ├── login.css           # Login & register page styles
 │   ├── home.css            # Main stylesheet (shared across pages)
-│   ├── explore.css         # Explore page extras
-│   ├── restaurant_details.css  # Restaurant page extras
-│   ├── menu.css            # Menu page extras
+│   ├── explore.css         # Explore page style
+│   ├── restaurant_details.css  # Restaurant page
+│   ├── menu.css            # Menu page style
 │   ├── profile.css         # Profile page styles
 │   ├── checkout.css        # Checkout page styles
 │   └── payment.css         # Payment page styles
@@ -60,8 +62,6 @@ campuscravings/
 │   ├── db_connect.php      # Database connection
 │   ├── submit_complaint.php    # Complaint form handler
 │   ├── update_pfp.php      # Profile picture upload
-│   ├── add_food.php        # Add menu items (admin)
-│   └── view_orders.php     # View orders (admin)
 │
 ├── database/
 │   └── campuscravings.sql  # Full database dump (importable)
@@ -165,11 +165,7 @@ User profile with order history table and complaint submission form.
 
 - Cart data is stored in the browser's `localStorage` (no backend cart table)
 - Profile pictures are uploaded to `assets/pfp/` folder
-- The QR code on the payment page is a placeholder — no real UPI integration yet
+- The QR code on the payment page is a placeholder — **no** real UPI integration yet
 - All passwords are hashed using PHP's `password_hash()` with `PASSWORD_DEFAULT`
 
 ---
-
-## 📄 License
-
-This project was built as an academic project for XIM University. Feel free to use it as a reference.
