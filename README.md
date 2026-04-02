@@ -4,22 +4,29 @@ A campus food ordering web application built for **XIM University, Bhubaneswar**
 
 Students can browse restaurants near campus, view menus, add items to cart, and place orders — all from one place.
 
+<p align="center">
 <a href="./report.pdf" target="_blank" style="
   display:inline-block;
-  padding:12px 22px;
+  padding:14px 28px;
   font-size:16px;
-  font-weight:500;
+  font-weight:600;
+  letter-spacing:0.5px;
   color:#ffffff;
   text-decoration:none;
-  border-radius:10px;
-  background:rgba(255,255,255,0.08);
-  backdrop-filter: blur(8px);
-  border:1px solid rgba(255,255,255,0.2);
-  transition: all 0.3s ease;
-">
-  📖 View Report
-</a>
+  border-radius:12px;
 
+  background:linear-gradient(135deg, rgba(0, 140, 255, 0.25), rgba(0, 255, 200, 0.15));
+  border:1px solid rgba(255,255,255,0.15);
+
+  box-shadow:
+    0 4px 20px rgba(0,0,0,0.4),
+    inset 0 0 10px rgba(255,255,255,0.08);
+
+  backdrop-filter: blur(6px);
+">
+  📖 View Report →
+</a>
+</p>
 ---
 
 ## 👥 Team
