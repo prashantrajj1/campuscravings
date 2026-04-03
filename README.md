@@ -16,6 +16,18 @@ Students can browse restaurants near campus, view menus, add items to cart, and 
   📖 View Report
 </a>
 
+<a href="http://campuscravings.gt.tc/" target="_blank" style="
+  display:inline-block;
+  padding:12px 22px;
+  font-size:16px;
+  font-weight:500;
+  color:#ffffff;
+  text-decoration:none;
+  border-radius:10px;
+  background:rgba(255,255,255,0.08);">
+   Preview
+</a>
+
 
 ---
 
